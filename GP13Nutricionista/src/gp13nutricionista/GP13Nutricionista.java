@@ -4,6 +4,9 @@
  */
 package gp13nutricionista;
 
+import java.sql.Connection;
+import nutricionista.accesoDatos.Conexion;
+
 /**
  *
  * @author Hernan
@@ -15,6 +18,8 @@ public class GP13Nutricionista {
      */
     public static void main(String[] args) {
         // TODO code application logic here
+        
+        Connection con=Conexion.getConexion();
     }
     
 }
