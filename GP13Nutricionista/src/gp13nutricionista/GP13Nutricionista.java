@@ -6,20 +6,64 @@ package gp13nutricionista;
 
 import java.sql.Connection;
 import nutricionista.accesoDatos.Conexion;
+import nutricionista.accesoDatos.PacienteData;
+import nutricionista.entidades.Paciente;
 
 /**
  *
- * @author Hernan
+ * @author Hernán Amieva Lopez, Julian Agustin Gouffier, Julian Copete Diez, Valeria Agustina Chica, Cristián Cravero 
+ * 
+ * GRUPO 13
+ * 
  */
 public class GP13Nutricionista {
 
-    /**
-     * @param args the command line arguments
-     */
     public static void main(String[] args) {
-        // TODO code application logic here
+        
         
         Connection con=Conexion.getConexion();
+        
+        Paciente paciente1 = new Paciente(1 ,"Cristian Cravero", 23, 1.7, 70.2, 75.0);
+        
+        PacienteData pacienteData = new PacienteData();
+        
+        //pacienteData.cargarPaciente(paciente1);
+        //pacienteData.modificarPaciente(paciente1);
+        
+        
+        //Se listan todos los pacientes existentes
+        System.out.println("Listar pacientes");
+        
+        for(Paciente pc : pacienteData.listarPacientes()){
+            System.out.println("-----");
+            System.out.println("Id: "+pc.getIdPaciente());
+            System.out.println("Nombre: "+pc.getNombreCompleto());
+            System.out.println("Edad: "+pc.getEdad());
+            System.out.println("Altura: "+pc.getAltura());
+            System.out.println("Peso Actual: "+pc.getPesoActual());
+            System.out.println("Peso Buscado: "+pc.getPesoBuscado());
+        }
+        
+        //Modificar peso actual
+        pacienteData.actualizarPesoAct(75.0, 1);
+        
+        //Modificar peso buscado
+        pacienteData.cambiarPesoDeseado(75.0, 1);
+        
+        
+        //Se muestra la modificacion
+        System.out.println("Listar pacientes");
+        
+        for(Paciente pc : pacienteData.listarPacientes()){
+            System.out.println("-----");
+            System.out.println("Id: "+pc.getIdPaciente());
+            System.out.println("Nombre: "+pc.getNombreCompleto());
+            System.out.println("Edad: "+pc.getEdad());
+            System.out.println("Altura: "+pc.getAltura());
+            System.out.println("Peso Actual: "+pc.getPesoActual());
+            System.out.println("Peso Buscado: "+pc.getPesoBuscado());
+        }
+        
     }
     
 }
