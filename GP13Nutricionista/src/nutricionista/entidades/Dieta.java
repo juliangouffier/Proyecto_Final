@@ -21,8 +21,6 @@ public class Dieta {
 
     public Dieta() {
     }
-    
-    
 
     public Dieta(int idDieta, String nombre, Date fechaInicio, Date fechaFin, Paciente paciente, Double pesoInicial, Double pesoFinal, Double totalCalorias, List<Menu> menues) {
         this.idDieta = idDieta;
