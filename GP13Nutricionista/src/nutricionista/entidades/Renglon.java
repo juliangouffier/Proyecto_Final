@@ -23,6 +23,43 @@ public class Renglon {
         this.cantGrm = cantGrm;
         this.subTotalCalorias = subTotalCalorias;
     }
+
+    public int getNumRenglon() {
+        return numRenglon;
+    }
+
+    public void setNumRenglon(int numRenglon) {
+        this.numRenglon = numRenglon;
+    }
+
+    public Comida getComida() {
+        return comida;
+    }
+
+    public void setComida(Comida comida) {
+        this.comida = comida;
+    }
+
+    public double getCantGrm() {
+        return cantGrm;
+    }
+
+    public void setCantGrm(double cantGrm) {
+        this.cantGrm = cantGrm;
+    }
+
+    public int getSubTotalCalorias() {
+        return subTotalCalorias;
+    }
+
+    public void setSubTotalCalorias(int subTotalCalorias) {
+        this.subTotalCalorias = subTotalCalorias;
+    }
+
+    @Override
+    public String toString() {
+        return "Renglon{" + "numRenglon=" + numRenglon + ", comida=" + comida + ", cantGrm=" + cantGrm + ", subTotalCalorias=" + subTotalCalorias + '}';
+    }
     
     
 }

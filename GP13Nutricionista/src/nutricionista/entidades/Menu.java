@@ -11,22 +11,22 @@ package nutricionista.entidades;
 public class Menu {
     private int idMenu;
     private int dia;
-    private Renglon reg;
+    private Renglon renglones;
     private boolean estado;
 
     public Menu() {
     }
 
-    public Menu(int dia, Renglon reg, boolean estado) {
+    public Menu(int dia, Renglon renglones, boolean estado) {
         this.dia = dia;
-        this.reg = reg;
+        this.renglones = renglones;
         this.estado = estado;
     }
 
-    public Menu(int idMenu, int dia, Renglon reg, boolean estado) {
+    public Menu(int idMenu, int dia, Renglon renglones, boolean estado) {
         this.idMenu = idMenu;
         this.dia = dia;
-        this.reg = reg;
+        this.renglones = renglones;
         this.estado = estado;
     }
 
@@ -46,12 +46,12 @@ public class Menu {
         this.dia = dia;
     }
 
-    public Renglon getReg() {
-        return reg;
+    public Renglon getRenglones() {
+        return renglones;
     }
 
-    public void setReg(Renglon reg) {
-        this.reg = reg;
+    public void setRenglones(Renglon renglones) {
+        this.renglones = renglones;
     }
 
     public boolean isEstado() {
@@ -64,7 +64,7 @@ public class Menu {
 
     @Override
     public String toString() {
-        return "Menu{" + "idMenu=" + idMenu + ", dia=" + dia + ", reg=" + reg + ", estado=" + estado + '}';
+        return "Menu{" + "idMenu=" + idMenu + ", dia=" + dia + ", renglones=" + renglones + ", estado=" + estado + '}';
     }
     
 }
