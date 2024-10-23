@@ -4,6 +4,8 @@
  */
 package nutricionista.entidades;
 
+import java.util.List;
+
 /**
  *
  * @author Hernan
@@ -11,15 +13,15 @@ package nutricionista.entidades;
 public class Comida {
     private int idComida;
     private String nomComida;
-    private int caloriasPor100Grm;
+    private Double caloriasPor100Grm;
     private String tipo;
     private String detalle;
-    private Ingrediente ingredientes;
+    private List<Ingrediente> ingredientes;
 
     public Comida() {
     }
 
-    public Comida(String nomComida, int caloriasPor100Grm, String tipo, String detalle, Ingrediente ingredientes) {
+    public Comida(String nomComida, Double caloriasPor100Grm, String tipo, String detalle, List<Ingrediente> ingredientes) {
         this.nomComida = nomComida;
         this.caloriasPor100Grm = caloriasPor100Grm;
         this.tipo = tipo;
@@ -27,7 +29,7 @@ public class Comida {
         this.ingredientes = ingredientes;
     }
 
-    public Comida(int idComida, String nomComida, int caloriasPor100Grm, String tipo, String detalle, Ingrediente ingredientes) {
+    public Comida(int idComida, String nomComida, Double caloriasPor100Grm, String tipo, String detalle, List<Ingrediente> ingredientes) {
         this.idComida = idComida;
         this.nomComida = nomComida;
         this.caloriasPor100Grm = caloriasPor100Grm;
@@ -52,11 +54,11 @@ public class Comida {
         this.nomComida = nomComida;
     }
 
-    public int getCaloriasPor100Grm() {
+    public Double getCaloriasPor100Grm() {
         return caloriasPor100Grm;
     }
 
-    public void setCaloriasPor100Grm(int caloriasPor100Grm) {
+    public void setCaloriasPor100Grm(Double caloriasPor100Grm) {
         this.caloriasPor100Grm = caloriasPor100Grm;
     }
 
@@ -76,11 +78,11 @@ public class Comida {
         this.detalle = detalle;
     }
 
-    public Ingrediente getIngredientes() {
+    public List<Ingrediente> getIngredientes() {
         return ingredientes;
     }
 
-    public void setIngredientes(Ingrediente ingredientes) {
+    public void setIngredientes(List<Ingrediente> ingredientes) {
         this.ingredientes = ingredientes;
     }
 
