@@ -4,6 +4,8 @@
  */
 package nutricionista.entidades;
 
+import java.util.List;
+
 /**
  *
  * @author Hernan
@@ -11,19 +13,19 @@ package nutricionista.entidades;
 public class Menu {
     private int idMenu;
     private int dia;
-    private Renglon renglones;
+    private List<Renglon> renglones;
     private boolean estado;
 
     public Menu() {
     }
 
-    public Menu(int dia, Renglon renglones, boolean estado) {
+    public Menu(int dia, List<Renglon> renglones, boolean estado) {
         this.dia = dia;
         this.renglones = renglones;
         this.estado = estado;
     }
 
-    public Menu(int idMenu, int dia, Renglon renglones, boolean estado) {
+    public Menu(int idMenu, int dia, List<Renglon> renglones, boolean estado) {
         this.idMenu = idMenu;
         this.dia = dia;
         this.renglones = renglones;
@@ -46,11 +48,11 @@ public class Menu {
         this.dia = dia;
     }
 
-    public Renglon getRenglones() {
+    public List<Renglon> getRenglones() {
         return renglones;
     }
 
-    public void setRenglones(Renglon renglones) {
+    public void setRenglones(List<Renglon> renglones) {
         this.renglones = renglones;
     }
 

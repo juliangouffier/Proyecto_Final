@@ -61,5 +61,4 @@ public class Renglon {
         return "Renglon{" + "numRenglon=" + numRenglon + ", comida=" + comida + ", cantGrm=" + cantGrm + ", subTotalCalorias=" + subTotalCalorias + '}';
     }
     
-    
 }
