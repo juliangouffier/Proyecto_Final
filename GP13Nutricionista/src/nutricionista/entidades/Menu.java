@@ -14,22 +14,26 @@ public class Menu {
     private int idMenu;
     private int dia;
     private List<Renglon> renglones;
-    private boolean estado;
+    private double caloriasDelMenu;
 
     public Menu() {
     }
 
-    public Menu(int dia, List<Renglon> renglones, boolean estado) {
-        this.dia = dia;
-        this.renglones = renglones;
-        this.estado = estado;
+    public Menu(int idMenu) {
+        this.idMenu = idMenu;
     }
 
-    public Menu(int idMenu, int dia, List<Renglon> renglones, boolean estado) {
+    public Menu(int dia, List<Renglon> renglones, double caloriasDelMenu) {
+        this.dia = dia;
+        this.renglones = renglones;
+        this.caloriasDelMenu = caloriasDelMenu;
+    }
+
+    public Menu(int idMenu, int dia, List<Renglon> renglones, double caloriasDelMenu) {
         this.idMenu = idMenu;
         this.dia = dia;
         this.renglones = renglones;
-        this.estado = estado;
+        this.caloriasDelMenu = caloriasDelMenu;
     }
 
     public int getIdMenu() {
@@ -56,17 +60,16 @@ public class Menu {
         this.renglones = renglones;
     }
 
-    public boolean isEstado() {
-        return estado;
+    public double getCaloriasDelMenu() {
+        return caloriasDelMenu;
     }
 
-    public void setEstado(boolean estado) {
-        this.estado = estado;
+    public void setCaloriasDelMenu(double caloriasDelMenu) {
+        this.caloriasDelMenu = caloriasDelMenu;
     }
 
     @Override
     public String toString() {
-        return "Menu{" + "idMenu=" + idMenu + ", dia=" + dia + ", renglones=" + renglones + ", estado=" + estado + '}';
-    }
-    
+        return "Menu{" + "idMenu=" + idMenu + ", dia=" + dia + ", renglones=" + renglones + ", caloriasDelMenu=" + caloriasDelMenu + '}';
+    }    
 }

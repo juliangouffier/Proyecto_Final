@@ -4,10 +4,61 @@
  */
 package nutricionista.accesoDatos;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.JOptionPane;
+import nutricionista.entidades.Menu;
+import nutricionista.entidades.Renglon;
+
 /**
  *
  * @author Hernan
  */
 public class MenuData {
+
+    private Connection conection = null;
+
+    public MenuData() {
+        conection = Conexion.getConexion();
+    }
+
+    public void cargarMenu(Menu menu) {
+
+        String cargar = "INSERT INTO `menu`(`dia`, `calorias_menu`) VALUES (?,?)";
+
+        try {
+            PreparedStatement ps = conection.prepareStatement(cargar, Statement.RETURN_GENERATED_KEYS);
+            ps.setInt(1, menu.getDia());
+            ps.setDouble(2, menu.getCaloriasDelMenu());
+            ps.executeUpdate();
+            ResultSet res = ps.getGeneratedKeys();
+            if (res.next()) {
+                menu.setIdMenu(res.getInt(1));
+                JOptionPane.showMessageDialog(null, "Menu cargado con éxito");
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a tabla Menu (cargarMenu)");
+        }
+    }
     
+    public double calcularCaloriasDelDia(Menu menu){
+        double caloriasDelMenu = 0;
+        Renglon renglon = new Renglon();
+        for (Renglon renglones : menu.getRenglones()) {
+            caloriasDelMenu = caloriasDelMenu + renglon.getSubTotalCalorias();
+        }
+        return caloriasDelMenu;
+    }
+    
+    public void imprimirMenuDelDia(Menu menu){
+        Renglon renglon = new Renglon();
+        for (Renglon renglones : menu.getRenglones()) {
+            renglon.toString();
+        }
+    }
 }
