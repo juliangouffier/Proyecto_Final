@@ -46,6 +46,24 @@ public class MenuData {
         }
     }
     
+    public void agregarRenglon(Menu menu, Renglon renglon){
+        menu.getRenglones().add(renglon);
+        String cargar = "INSERT INTO `menu_tiene_renglon`(`id_menu`,`id_renglon`,`estado`) VALUES (?,?,?)";
+        try {
+            PreparedStatement ps = conection.prepareStatement(cargar, Statement.RETURN_GENERATED_KEYS);
+            ps.setInt(1,menu.getIdMenu());
+            ps.setInt(2, renglon.getNumRenglon());
+            ps.setBoolean(3, true);
+            ps.executeUpdate();
+            ResultSet res = ps.getGeneratedKeys();
+            if (res.next()) {
+                menu.setIdMenu(res.getInt(1));
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a tabla `menu_tiene_renglon`");
+        }
+    }
+    
     public double calcularCaloriasDelDia(Menu menu){
         double caloriasDelMenu = 0;
         Renglon renglon = new Renglon();
