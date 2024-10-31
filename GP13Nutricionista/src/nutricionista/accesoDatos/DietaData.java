@@ -50,4 +50,23 @@ public class DietaData {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla dieta");
         }
     }
+     public void cargarDieta(Dieta dieta){
+        String sql="INSERT INTO dieta (nombre,fecha_inicio, fecha_fin, id_paciente,peso_inicial,peso_final,total_calorias)"
+                + " VALUES(?,?,?,?,?,?,?,?)";
+        try {
+            PreparedStatement ps= conection.prepareStatement(sql);
+            ps.setString(1, dieta.getNombre());
+            ps.setDate(2, (Date) dieta.getFechaInicio());
+            ps.setDate(3, (Date)dieta.getFechaFin());
+            ps.setInt(4, dieta.getPaciente().getIdPaciente());
+            ps.setDouble(5, dieta.getPesoInicial());
+            ps.setDouble(6, dieta.getPesoFinal());
+            ps.setInt(7, dieta.getTotalCalorias());
+            ps.executeUpdate();
+            ps.close();
+        } catch (SQLException ex) {
+            JOptionPane.showInternalMessageDialog(null, "error al acceder a la tabla dieta");
+        }
+        
+    }
 }
