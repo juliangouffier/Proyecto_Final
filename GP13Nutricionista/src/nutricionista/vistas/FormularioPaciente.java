@@ -25,6 +25,28 @@ public class FormularioPaciente extends javax.swing.JInternalFrame {
     public FormularioPaciente() {
         initComponents();
         pacienteData = new PacienteData();
+        List<Paciente> pacientesList = pacienteData.listarPacientes();
+        
+        String[] columnas = {"Número de Paciente", "Nombre Completo", "Edad", "Altura", "Peso Actual", "Peso Buscado"};
+    
+        // Crear el modelo de la tabla con los nombres de las columnas
+        DefaultTableModel modelo = new DefaultTableModel(columnas, 0);
+
+        // Recorrer la lista de pacientes y agregar cada uno al modelo de la tabla
+        for (Paciente paciente : pacientesList) {
+            Object[] fila = {
+                paciente.getIdPaciente(),
+                paciente.getNombreCompleto(),
+                paciente.getEdad(),
+                paciente.getAltura(),
+                paciente.getPesoActual(),
+                paciente.getPesoBuscado()
+            };
+            modelo.addRow(fila);
+        }
+
+        // Asignar el modelo a la tabla
+        tablaPacientes.setModel(modelo);
     }
 
     /**
@@ -39,7 +61,7 @@ public class FormularioPaciente extends javax.swing.JInternalFrame {
         titulo = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
         jLabel1 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        nombreText = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -102,7 +124,7 @@ public class FormularioPaciente extends javax.swing.JInternalFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel1)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(nombreText, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
                                 .addComponent(jButton1))
                             .addGroup(layout.createSequentialGroup()
@@ -127,7 +149,7 @@ public class FormularioPaciente extends javax.swing.JInternalFrame {
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField1)
+                    .addComponent(nombreText)
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
@@ -145,8 +167,7 @@ public class FormularioPaciente extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-        List<Paciente> pacientesList = pacienteData.listarPacientes();
+       List<Paciente> pacientesList = pacienteData.buscarPacientesPorNombre("%"+nombreText.getText()+"%");
         
         String[] columnas = {"Número de Paciente", "Nombre Completo", "Edad", "Altura", "Peso Actual", "Peso Buscado"};
     
@@ -173,7 +194,7 @@ public class FormularioPaciente extends javax.swing.JInternalFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         
-        CrearPaciente jframe = new CrearPaciente();
+        CrearPaciente jframe = new CrearPaciente(this);
         jframe.setSize(500, 350);
         jframe.setLocationRelativeTo(null);
         jframe.setVisible(true);
@@ -185,6 +206,20 @@ public class FormularioPaciente extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton3ActionPerformed
 
+    public void agregarPacienteATabla(Paciente paciente){
+        DefaultTableModel modelo = (DefaultTableModel) tablaPacientes.getModel();
+        
+        Object[] fila = {
+                paciente.getIdPaciente(),
+                paciente.getNombreCompleto(),
+                paciente.getEdad(),
+                paciente.getAltura(),
+                paciente.getPesoActual(),
+                paciente.getPesoBuscado()
+            };
+        modelo.addRow(fila);
+    }
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
@@ -194,7 +229,7 @@ public class FormularioPaciente extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextField nombreText;
     private javax.swing.JTable tablaPacientes;
     private javax.swing.JLabel titulo;
     // End of variables declaration//GEN-END:variables

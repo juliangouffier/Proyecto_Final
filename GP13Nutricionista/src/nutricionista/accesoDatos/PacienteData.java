@@ -188,5 +188,37 @@ public class PacienteData {
     }
     
     
+    public List<Paciente> buscarPacientesPorNombre(String nombre){
+        ArrayList<Paciente> pacientes = new ArrayList();
+        String mostrarTodo = "SELECT * FROM `paciente` WHERE `nombre_completo` LIKE ? ";
+        
+        try {
+            PreparedStatement ps = conection.prepareStatement(mostrarTodo);
+            ps.setString(1, nombre);
+            ResultSet res = ps.executeQuery();
+            
+            while(res.next()){
+                
+                Paciente paciente = new Paciente();
+                paciente.setIdPaciente(res.getInt("id_paciente"));
+                paciente.setNombreCompleto(res.getString("nombre_completo"));
+                paciente.setEdad(res.getInt("edad"));
+                paciente.setAltura(res.getDouble("altura"));
+                paciente.setPesoActual(res.getDouble("peso_actual"));
+                paciente.setPesoBuscado(res.getDouble("peso_buscado"));
+                
+                pacientes.add(paciente);
+                
+            }
+            ps.close();
+            
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a tabla Paciente (buscarPacientesPorNombre)");
+        }
+    
+        return pacientes;
+    }
+    
+    
     
 }
