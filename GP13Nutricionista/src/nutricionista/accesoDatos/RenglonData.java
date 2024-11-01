@@ -6,9 +6,12 @@ package nutricionista.accesoDatos;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import nutricionista.entidades.Renglon;
+import org.mariadb.jdbc.Statement;
 
 /**
  *
@@ -40,5 +43,19 @@ public class RenglonData {
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al acceder a tabla renglon (crearRenglon)");
         }
+     }
+     
+     public void rellenarComboBox (String tabla, String valor, JComboBox combo){
+         String sql = "SELECT * FROM "+tabla;
+         Statement st;
+         try {
+             st = (Statement) conection.createStatement();
+             ResultSet rs = st.executeQuery(sql);
+             while (rs.next()) {                 
+                 combo.addItem(rs.getString (valor));
+             }
+         } catch (SQLException e) {
+             JOptionPane.showMessageDialog(null, "Error al cargar CoimboBox"+e.getMessage());
+         }
      }
 }
