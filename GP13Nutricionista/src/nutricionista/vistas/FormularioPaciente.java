@@ -7,6 +7,8 @@ package nutricionista.vistas;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableModel;
 import nutricionista.accesoDatos.PacienteData;
 import nutricionista.entidades.Paciente;
@@ -19,6 +21,7 @@ public class FormularioPaciente extends javax.swing.JInternalFrame {
     
     List<Paciente> pacientes = new ArrayList();
     PacienteData pacienteData;
+    String[] columnas = {"Número de Paciente", "Nombre Completo", "Edad", "Altura", "Peso Actual", "Peso Buscado"};
     /**
      * Creates new form NewJInternalFrame
      */
@@ -26,7 +29,8 @@ public class FormularioPaciente extends javax.swing.JInternalFrame {
         initComponents();
         pacienteData = new PacienteData();
         List<Paciente> pacientesList = pacienteData.listarPacientes();
-        
+        pacientes = pacientesList;
+        tablaPacientes.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         String[] columnas = {"Número de Paciente", "Nombre Completo", "Edad", "Altura", "Peso Actual", "Peso Buscado"};
     
         // Crear el modelo de la tabla con los nombres de las columnas
@@ -120,24 +124,24 @@ public class FormularioPaciente extends javax.swing.JInternalFrame {
                     .addComponent(titulo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jSeparator1)
                     .addGroup(layout.createSequentialGroup()
+                        .addGap(9, 9, 9)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel1)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(nombreText, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(jButton1))
+                                .addComponent(nombreText)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(9, 9, 9)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jButton5)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                        .addGroup(layout.createSequentialGroup()
-                                            .addComponent(jButton2)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                            .addComponent(jButton3))
-                                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                        .addGap(0, 10, Short.MAX_VALUE)))
+                                .addGap(29, 29, 29)
+                                .addComponent(jButton2)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jButton5)
+                                .addGap(92, 92, 92)
+                                .addComponent(jButton3)
+                                .addGap(20, 20, 20))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 546, Short.MAX_VALUE))
+                        .addGap(10, 10, 10)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -149,18 +153,17 @@ public class FormularioPaciente extends javax.swing.JInternalFrame {
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(nombreText)
+                    .addComponent(nombreText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 276, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(96, 96, 96)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(73, 73, 73)
-                .addComponent(jButton5)
-                .addGap(18, 18, 18))
+                    .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton5))
+                .addContainerGap(26, Short.MAX_VALUE))
         );
 
         pack();
@@ -169,7 +172,6 @@ public class FormularioPaciente extends javax.swing.JInternalFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
        List<Paciente> pacientesList = pacienteData.buscarPacientesPorNombre("%"+nombreText.getText()+"%");
         
-        String[] columnas = {"Número de Paciente", "Nombre Completo", "Edad", "Altura", "Peso Actual", "Peso Buscado"};
     
         // Crear el modelo de la tabla con los nombres de las columnas
         DefaultTableModel modelo = new DefaultTableModel(columnas, 0);
@@ -195,7 +197,7 @@ public class FormularioPaciente extends javax.swing.JInternalFrame {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         
         CrearPaciente jframe = new CrearPaciente(this);
-        jframe.setSize(500, 350);
+        jframe.setSize(523, 463);
         jframe.setLocationRelativeTo(null);
         jframe.setVisible(true);
         jframe.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -203,10 +205,28 @@ public class FormularioPaciente extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        // TODO add your handling code here:
+        int filaSeleccionada = tablaPacientes.getSelectedRow();
+        if (filaSeleccionada != -1) {
+            Paciente paciente = new Paciente(
+            (int) tablaPacientes.getValueAt(filaSeleccionada, 0),    
+            (String) tablaPacientes.getValueAt(filaSeleccionada, 1),
+            (int) tablaPacientes.getValueAt(filaSeleccionada, 2),
+            (double) tablaPacientes.getValueAt(filaSeleccionada, 3),
+            (double) tablaPacientes.getValueAt(filaSeleccionada, 4),
+            (double) tablaPacientes.getValueAt(filaSeleccionada, 5));
+            
+            ModificarPaciente jframe = new ModificarPaciente(paciente,this);
+            jframe.setSize(500, 550);
+            jframe.setLocationRelativeTo(null);
+            jframe.setVisible(true);
+            jframe.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        } else {
+            JOptionPane.showMessageDialog(null, "No hay ninguna fila seleccionada, seleccione un paciente para modificar.", "Advertencia", JOptionPane.WARNING_MESSAGE);
+        }
     }//GEN-LAST:event_jButton3ActionPerformed
 
     public void agregarPacienteATabla(Paciente paciente){
+        pacientes.add(paciente);
         DefaultTableModel modelo = (DefaultTableModel) tablaPacientes.getModel();
         
         Object[] fila = {
@@ -218,6 +238,26 @@ public class FormularioPaciente extends javax.swing.JInternalFrame {
                 paciente.getPesoBuscado()
             };
         modelo.addRow(fila);
+    }
+    
+    public void actualizarListado(Paciente paciente){
+        List<Paciente> pacientesList = pacienteData.listarPacientes();
+        pacientes = pacientesList;
+        DefaultTableModel model = (DefaultTableModel) tablaPacientes.getModel();
+        model.setRowCount(0);  
+        
+        for (Paciente paciente1 : pacientes) {
+            Object[] fila = {
+                paciente1.getIdPaciente(),
+                paciente1.getNombreCompleto(),
+                paciente1.getEdad(),
+                paciente1.getAltura(),
+                paciente1.getPesoActual(),
+                paciente1.getPesoBuscado()
+            };
+            model.addRow(fila);
+        }
+        tablaPacientes.setModel(model);
     }
     
 

@@ -138,7 +138,7 @@ public class PacienteData {
     }
     
     
-    public void modificarPaciente(Paciente paciente){
+    public void modificarPaciente(Paciente paciente) throws Exception{
         
         String modificar = "UPDATE `paciente` SET `nombre_completo`= ?,`edad`= ?,`altura`= ?,`peso_actual`= ?,`peso_buscado`= ? WHERE `id_paciente`= ?";
         
@@ -153,12 +153,9 @@ public class PacienteData {
             ps.setInt(6, paciente.getIdPaciente());
             int filas_actualizadas = ps.executeUpdate();
             
-            if(filas_actualizadas == 1){
-                JOptionPane.showMessageDialog(null, "Paciente modificado con éxito");
-            }
             
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error al acceder a tabla Paciente (modificarPaciente)");
+            throw new Exception("Ocurrio un error al modificar el paciente");
         }
     }
     

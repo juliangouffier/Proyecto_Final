@@ -39,6 +39,8 @@ public class menuPrincipal extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("GP13-NUTRICIONISTA");
 
+        jDesktopPane1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+
         javax.swing.GroupLayout jDesktopPane1Layout = new javax.swing.GroupLayout(jDesktopPane1);
         jDesktopPane1.setLayout(jDesktopPane1Layout);
         jDesktopPane1Layout.setHorizontalGroup(
@@ -120,11 +122,20 @@ public class menuPrincipal extends javax.swing.JFrame {
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
         // TODO add your handling code here:
         jDesktopPane1.removeAll();
-        jDesktopPane1.repaint();
-        FormularioPaciente vistaPac = new FormularioPaciente();
-        vistaPac.setVisible(true);
-        jDesktopPane1.add(vistaPac);
-        jDesktopPane1.moveToFront(vistaPac);
+jDesktopPane1.repaint();
+
+FormularioPaciente vistaPac = new FormularioPaciente();
+
+// Ajusta el ancho y centra el formulario
+int ancho = jDesktopPane1.getWidth();
+int alto = vistaPac.getHeight();  // Mantén la altura del formulario o ajusta según necesites
+
+vistaPac.setSize(ancho, alto);
+
+vistaPac.setVisible(true);
+jDesktopPane1.add(vistaPac);
+jDesktopPane1.moveToFront(vistaPac);
+
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
@@ -166,7 +177,10 @@ public class menuPrincipal extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new menuPrincipal().setVisible(true);
+                menuPrincipal menu = new menuPrincipal();
+                menu.setSize(900, 750);
+                menu.setLocationRelativeTo(null);
+                menu.setVisible(true); 
             }
         });
     }
