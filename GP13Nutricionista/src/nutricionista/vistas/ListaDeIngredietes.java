@@ -16,7 +16,7 @@ import nutricionista.entidades.Ingrediente;
  *
  * @author Hernan
  */
-public class ListaDeIngredientes extends javax.swing.JInternalFrame {
+public class ListaDeIngredietes extends javax.swing.JInternalFrame {
 
     private List<Ingrediente> listaIngredientes;
     private IngredienteData ingredienteData;
@@ -26,7 +26,7 @@ public class ListaDeIngredientes extends javax.swing.JInternalFrame {
     /**
      * Creates new form NewJInternalFrame
      */
-    public ListaDeIngredientes() {
+    public ListaDeIngredietes() {
         initComponents();
         modelo = new DefaultTableModel();
         ingredienteData = new IngredienteData();
@@ -110,16 +110,14 @@ public class ListaDeIngredientes extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jbAgregar)
-                                .addGap(106, 106, 106)
-                                .addComponent(jbModificar)
-                                .addGap(239, 239, 239))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(jbEliminar)
-                                .addGap(51, 51, 51)))
-                        .addComponent(jbSalir)))
+                        .addGap(88, 88, 88)
+                        .addComponent(jbAgregar)
+                        .addGap(18, 18, 18)
+                        .addComponent(jbModificar)
+                        .addGap(18, 18, 18)
+                        .addComponent(jbEliminar)))
+                .addGap(51, 51, 51)
+                .addComponent(jbSalir)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -127,7 +125,7 @@ public class ListaDeIngredientes extends javax.swing.JInternalFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(ListaDeIngredientes)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 66, Short.MAX_VALUE)
+                .addGap(18, 18, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

@@ -4,6 +4,8 @@
  */
 package nutricionista.entidades;
 
+import java.util.Objects;
+
 /**
  *
  * @author Hernan
@@ -46,7 +48,33 @@ public class Ingrediente {
 
     @Override
     public String toString() {
-        return "Ingrediente{" + "idIngrediente=" + idIngrediente + ", nomIngrediente=" + nomIngrediente + '}';
+        return nomIngrediente;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 89 * hash + this.idIngrediente;
+        hash = 89 * hash + Objects.hashCode(this.nomIngrediente);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Ingrediente other = (Ingrediente) obj;
+        if (this.idIngrediente != other.idIngrediente) {
+            return false;
+        }
+        return Objects.equals(this.nomIngrediente, other.nomIngrediente);
     }
     
     

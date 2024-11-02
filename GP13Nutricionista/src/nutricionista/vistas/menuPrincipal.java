@@ -35,6 +35,8 @@ public class menuPrincipal extends javax.swing.JFrame {
         jMenu2 = new javax.swing.JMenu();
         jMenu5 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
+        jMenu6 = new javax.swing.JMenu();
+        jMenuItem3 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("GP13-NUTRICIONISTA");
@@ -95,6 +97,18 @@ public class menuPrincipal extends javax.swing.JFrame {
 
         jMenuBar2.add(jMenu5);
 
+        jMenu6.setText("Comida");
+
+        jMenuItem3.setText("Lista de comidas");
+        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem3ActionPerformed(evt);
+            }
+        });
+        jMenu6.add(jMenuItem3);
+
+        jMenuBar2.add(jMenu6);
+
         setJMenuBar(jMenuBar2);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -141,11 +155,20 @@ jDesktopPane1.moveToFront(vistaPac);
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
         jDesktopPane1.removeAll();
         jDesktopPane1.repaint();
-        ListaDeIngredientes listaDeIngredientes = new ListaDeIngredientes();
+        ListaDeIngredietes listaDeIngredientes = new ListaDeIngredietes();
         listaDeIngredientes.setVisible(true);
         jDesktopPane1.add(listaDeIngredientes);
         jDesktopPane1.moveToFront(listaDeIngredientes);
     }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+        jDesktopPane1.removeAll();
+        jDesktopPane1.repaint();
+        ListaDeComidas listaDeComidas = new ListaDeComidas();
+        listaDeComidas.setVisible(true);
+        jDesktopPane1.add(listaDeComidas);
+        jDesktopPane1.moveToFront(listaDeComidas);
+    }//GEN-LAST:event_jMenuItem3ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -192,8 +215,10 @@ jDesktopPane1.moveToFront(vistaPac);
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenu jMenu5;
+    private javax.swing.JMenu jMenu6;
     private javax.swing.JMenuBar jMenuBar2;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenuItem jMenuItem3;
     // End of variables declaration//GEN-END:variables
 }

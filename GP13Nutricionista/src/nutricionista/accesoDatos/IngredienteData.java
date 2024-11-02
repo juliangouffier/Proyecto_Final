@@ -130,4 +130,28 @@ public class IngredienteData {
         }
         return ingredientes;
     }
+    
+    public List<Ingrediente> ingredientesDeUnaComida(int idComida) {
+        List<Ingrediente> ingredientes = new ArrayList<>();
+        if (idComida > 0) {
+            String ingredientesQuery
+                    = "SELECT * FROM `comida_tiene_ingredientes` cti "
+                    + "JOIN ingredientes i on i.id_ingrediente = cti.id_ingrediente "
+                    + "WHERE cti.id_comida = ?";
+            try {
+                PreparedStatement psAux = conection.prepareStatement(ingredientesQuery);
+                psAux.setInt(1, idComida);
+                ResultSet resAux = psAux.executeQuery();
+                while (resAux.next()) {
+                    Ingrediente ingrediente = new Ingrediente();
+                    ingrediente.setIdIngrediente(resAux.getInt("id_ingrediente"));
+                    ingrediente.setNomIngrediente(resAux.getString("nombre_ingrediente"));
+                    ingredientes.add(ingrediente);
+                }
+            } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(null, "Error al acceder a la tabla ingredientes");
+            }
+        }
+        return ingredientes;
+    }
 }
