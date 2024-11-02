@@ -5,12 +5,17 @@
 package nutricionista.vistas;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import nutricionista.accesoDatos.Conexion;
+import nutricionista.entidades.Comida;
+import nutricionista.entidades.Ingrediente;
+import nutricionista.entidades.Paciente;
 import nutricionista.entidades.Renglon;
 
 /**
@@ -26,30 +31,39 @@ public class FormularioRenglon extends javax.swing.JInternalFrame {
      */
     public FormularioRenglon() {
         initComponents();
-        llenarCombobox("comida", "nombre_comida", jComboBox1);
     }
     
-    public void llenarCombobox (String tabla, String valor, JComboBox combo){
-        String sql = "SELECT * FROM "+tabla;
-        Statement st;
-        conexion = Conexion.getConexion();
+    public void llenarCombobox (){
+        ArrayList <Comida> comidas = new ArrayList();
+        String mostrarComida = "SELECT * FROM `comida`";
         try {
-            st = conexion.createStatement();
-            ResultSet rs = st.executeQuery(sql);
-            while (rs.next()) {                
-                combo.addItem(rs.getString(valor));
+            PreparedStatement ps = conexion.prepareStatement(mostrarComida);
+            
+            ResultSet res = ps.executeQuery();
+            
+            while(res.next()){
+                
+                Comida comida = new Comida();
+                comida.setCaloriasPor100Grm(res.getDouble("calorias_por_porcion"));
+                comida.setDetalle(res.getString("detalle"));
+                comida.setIdComida(res.getInt("cod_comida"));
+                comida.setNomComida(res.getString("nombre_comida"));
+                comida.setTipo(res.getString("tipo_comida"));
+                
+                ArrayList <Ingrediente> ingredientes = new ArrayList();
+                               
+                comidas.add(comida);
+                
             }
+            ps.close();
+            
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error al conectar a bd "+ex.getMessage());
+            JOptionPane.showMessageDialog(null, "Error al acceder a tabla Paciente (listarPacientes)");
         }
     }
     
     public void crearrenglon(){
-        Renglon renglon = new Renglon();
-        int id;
-        String comidaSeleccionada = (String) jComboBox1.getSelectedItem();
-        double cantg = Double.parseDouble(jTextField2.getText());
-        double stCalorias;
+        
     }
 
     /**
