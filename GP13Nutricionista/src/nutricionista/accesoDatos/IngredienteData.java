@@ -46,9 +46,7 @@ public class IngredienteData {
     }
 
     public void cargarIngrediente(Ingrediente ingrediente) {
-
         String cargar = "INSERT INTO `ingredientes`(`nombre_ingrediente`) VALUES (?)";
-
         try {
             PreparedStatement ps = conection.prepareStatement(cargar, Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, ingrediente.getNomIngrediente());

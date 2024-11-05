@@ -3,10 +3,12 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/julia/OneDrive/Escritorio/Tecnico%20en%20Programación%20ULP/Laboratorio%20de%20Programación%201/Repositorios/Proyecto_Final/GP13Nutricionista/src/nutricionista/accesoDatos/ComidaData.java</file>
-            <file>file:/C:/Users/julia/OneDrive/Escritorio/Tecnico%20en%20Programación%20ULP/Laboratorio%20de%20Programación%201/Repositorios/Proyecto_Final/GP13Nutricionista/src/nutricionista/vistas/FormularioRenglon.java</file>
-            <file>file:/C:/Users/julia/OneDrive/Escritorio/Tecnico%20en%20Programación%20ULP/Laboratorio%20de%20Programación%201/Repositorios/Proyecto_Final/GP13Nutricionista/src/nutricionista/accesoDatos/RenglonData.java</file>
-            <file>file:/C:/Users/julia/OneDrive/Escritorio/Tecnico%20en%20Programación%20ULP/Laboratorio%20de%20Programación%201/Repositorios/Proyecto_Final/GP13Nutricionista/src/nutricionista/accesoDatos/PacienteData.java</file>
+            <file>file:/C:/Users/Hernan/OneDrive/Documentos/GitHub/Proyecto_Final/GP13Nutricionista/src/nutricionista/vistas/ListaDeComidas.java</file>
+            <file>file:/C:/Users/Hernan/OneDrive/Documentos/GitHub/Proyecto_Final/GP13Nutricionista/src/nutricionista/entidades/Comida.java</file>
+            <file>file:/C:/Users/Hernan/OneDrive/Documentos/GitHub/Proyecto_Final/GP13Nutricionista/src/nutricionista/accesoDatos/PacienteData.java</file>
+            <file>file:/C:/Users/Hernan/OneDrive/Documentos/GitHub/Proyecto_Final/GP13Nutricionista/src/nutricionista/accesoDatos/ComidaData.java</file>
+            <file>file:/C:/Users/Hernan/OneDrive/Documentos/GitHub/Proyecto_Final/GP13Nutricionista/src/nutricionista/vistas/FormularioComida.java</file>
+            <file>file:/C:/Users/Hernan/OneDrive/Documentos/GitHub/Proyecto_Final/GP13Nutricionista/src/nutricionista/accesoDatos/IngredienteData.java</file>
         </group>
     </open-files>
 </project-private>
