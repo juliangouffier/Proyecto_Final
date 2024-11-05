@@ -21,6 +21,21 @@ public class Comida {
     public Comida() {
     }
 
+    public Comida(String nomComida, Double caloriasPor100Grm, String tipo, String detalle) {
+        this.nomComida = nomComida;
+        this.caloriasPor100Grm = caloriasPor100Grm;
+        this.tipo = tipo;
+        this.detalle = detalle;
+    }
+
+    public Comida(int idComida, String nomComida, Double caloriasPor100Grm, String tipo, String detalle) {
+        this.idComida = idComida;
+        this.nomComida = nomComida;
+        this.caloriasPor100Grm = caloriasPor100Grm;
+        this.tipo = tipo;
+        this.detalle = detalle;
+    }
+
     public Comida(String nomComida, Double caloriasPor100Grm, String tipo, String detalle, List<Ingrediente> ingredientes) {
         this.nomComida = nomComida;
         this.caloriasPor100Grm = caloriasPor100Grm;

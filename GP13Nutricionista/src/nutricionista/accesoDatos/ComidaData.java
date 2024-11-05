@@ -8,9 +8,12 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import nutricionista.entidades.Comida;
 import nutricionista.entidades.Ingrediente;
@@ -63,6 +66,43 @@ public class ComidaData {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla ingredientes");
         }
         return comidas;
+    }
+
+    public void cargarComida(Comida comida) {
+        String cargar = "INSERT INTO `comida`(`nombre_comida`, `calorias_por_porcion`, `tipo_comida`, `detalle`) VALUES (?,?,?,?)";
+        try {
+            PreparedStatement ps = conection.prepareStatement(cargar, Statement.RETURN_GENERATED_KEYS);
+            ps.setString(1, comida.getNomComida());
+            ps.setDouble(2, comida.getCaloriasPor100Grm());
+            ps.setString(3, comida.getTipo());
+            ps.setString(4, comida.getDetalle());
+            ps.executeUpdate();
+            ResultSet rs = ps.getGeneratedKeys();
+            if (rs.next()) {
+                comida.setIdComida(rs.getInt(1));
+                JOptionPane.showMessageDialog(null, "Comida cargada con exito");
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a tabla Comida (cargarComida)");
+        }
+    }
+
+    public void modificarComida(int idComida, String nombreComida, String tipoComida, Double cantidadCalorias, String detalle) {
+        String query = "UPDATE `comida` SET `nombre_comida` = ?, `calorias_por_porcion` = ?, `tipo_comida` = ?, `detalle` = ? WHERE `cod_comida` = ?";
+        try {
+            PreparedStatement ps = conection.prepareStatement(query);
+            ps.setString(1, nombreComida);
+            ps.setDouble(2, cantidadCalorias);
+            ps.setString(3, tipoComida);
+            ps.setString(4, detalle);
+            ps.setInt(5, idComida);
+            int update = ps.executeUpdate();
+            if (update == 1) {
+                JOptionPane.showMessageDialog(null, "Comida modificada con exito");
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a tabla Comida (modificarComida)");
+        }
     }
 
     public List<Comida> buscarPorNombre(String nombre) {
@@ -259,65 +299,6 @@ public class ComidaData {
         return comidas;
     }
 
-    public Comida modificarComida(int idComida, String nombreComida, String tipoComida, Double cantidadCalorias, String detalle) {
-        String query = "UPDATE `comida` SET `nombre_comida` = ?, `calorias_por_porcion` = ?, `tipo_comida` = ?, `detalle` = ? WHERE `cod_comida` = ?";
-        Comida comida = null;
-
-        try {
-            PreparedStatement ps = conection.prepareStatement(query);
-            ps.setString(1, nombreComida);
-            ps.setDouble(2, cantidadCalorias);
-            ps.setString(3, tipoComida);
-            ps.setString(4, detalle);
-            ps.setInt(5, idComida);
-
-            int rowsAffected = ps.executeUpdate();
-            ps.close();
-
-            if (rowsAffected > 0) {
-                comida = new Comida();
-                String selectQuery = "SELECT * FROM `comida` WHERE `cod_comida` = ?";
-                PreparedStatement selectPs = conection.prepareStatement(selectQuery);
-                selectPs.setInt(1, idComida);
-                ResultSet res = selectPs.executeQuery();
-
-                if (res.next()) {
-                    comida.setIdComida(res.getInt("cod_comida"));
-                    comida.setNomComida(res.getString("nombre_comida"));
-                    comida.setCaloriasPor100Grm(res.getDouble("calorias_por_porcion"));
-                    comida.setDetalle(res.getString("detalle"));
-                    comida.setTipo(res.getString("tipo_comida"));
-
-                    String ingredientesQuery
-                            = "SELECT * FROM `comida_tiene_ingredientes` cti "
-                            + "JOIN ingredientes i ON i.id_ingrediente = cti.id_ingrediente "
-                            + "WHERE `cti.cod_comida` = ?";
-                    PreparedStatement psAux = conection.prepareStatement(ingredientesQuery);
-                    psAux.setInt(1, idComida);
-                    ResultSet resAux = psAux.executeQuery();
-
-                    List<Ingrediente> ingredientesList = new ArrayList<>();
-                    while (resAux.next()) {
-                        Ingrediente ingrediente = new Ingrediente();
-                        ingrediente.setIdIngrediente(resAux.getInt("id_ingrediente"));
-                        ingrediente.setNomIngrediente(resAux.getString("nombre_ingrediente"));
-                        ingredientesList.add(ingrediente);
-                    }
-                    comida.setIngredientes(ingredientesList);
-
-                    resAux.close();
-                    psAux.close();
-                }
-                res.close();
-                selectPs.close();
-            }
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error al acceder a tabla Comida (modificarComida): " + ex.getMessage());
-        }
-
-        return comida;
-    }
-
     public void eliminarIngredienteDeComida(int comidaId, int ingredienteId) {
         String query = "DELETE FROM `comida_tiene_ingredientes` WHERE `id_comida` = ? AND `id_ingrediente` = ?";
         try {
@@ -332,7 +313,7 @@ public class ComidaData {
     }
 
     public void agregarIngredienteAComida(int comidaId, int ingredienteId) {
-        String query = "INSERT INTO `comida_tiene_ingredientes` VALUES (`id_comida` = ? AND `id_ingrediente` = ?)";
+        String query = "INSERT INTO `comida_tiene_ingredientes` VALUES (?,?)";
         try {
             PreparedStatement ps = conection.prepareStatement(query);
             ps.setInt(1, comidaId);

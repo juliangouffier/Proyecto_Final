@@ -5,7 +5,9 @@
 package nutricionista.vistas;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import nutricionista.accesoDatos.ComidaData;
 import nutricionista.accesoDatos.IngredienteData;
@@ -62,7 +64,6 @@ public class FormularioComida extends javax.swing.JInternalFrame {
         jtfNombreComida = new javax.swing.JTextField();
         jtfTipoComida = new javax.swing.JTextField();
         jbGuardar = new javax.swing.JButton();
-        jbSalir = new javax.swing.JButton();
         jtfCaloriasX100grm = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jtfId = new javax.swing.JTextField();
@@ -119,11 +120,9 @@ public class FormularioComida extends javax.swing.JInternalFrame {
         jScrollPane1.setViewportView(jtIngredientes);
 
         jbGuardar.setText("Guardar");
-
-        jbSalir.setText("Salir");
-        jbSalir.addActionListener(new java.awt.event.ActionListener() {
+        jbGuardar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbSalirActionPerformed(evt);
+                jbGuardarActionPerformed(evt);
             }
         });
 
@@ -138,6 +137,7 @@ public class FormularioComida extends javax.swing.JInternalFrame {
         jScrollPane2.setViewportView(jtaDetalle);
 
         jbAgregar.setText("Agregar");
+        jbAgregar.setEnabled(false);
         jbAgregar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbAgregarActionPerformed(evt);
@@ -145,6 +145,7 @@ public class FormularioComida extends javax.swing.JInternalFrame {
         });
 
         jbQuitar.setText("Quitar");
+        jbQuitar.setEnabled(false);
         jbQuitar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbQuitarActionPerformed(evt);
@@ -161,8 +162,7 @@ public class FormularioComida extends javax.swing.JInternalFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(jbGuardar)
-                        .addGap(137, 137, 137)
-                        .addComponent(jbSalir))
+                        .addGap(193, 193, 193))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(layout.createSequentialGroup()
@@ -244,9 +244,7 @@ public class FormularioComida extends javax.swing.JInternalFrame {
                     .addComponent(jbAgregar)
                     .addComponent(jbQuitar))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 19, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jbSalir)
-                    .addComponent(jbGuardar))
+                .addComponent(jbGuardar)
                 .addContainerGap())
         );
 
@@ -273,33 +271,102 @@ public class FormularioComida extends javax.swing.JInternalFrame {
         if (comida != null) {
             int filaElegida = jtIngredientes.getSelectedRow();
             int idIngrediente = Integer.parseInt(jtIngredientes.getValueAt(filaElegida, 0).toString());
-            comidaData.agregarIngredienteAComida(comida.getIdComida(), idIngrediente);
+            String nombreIngrediente = jtIngredientes.getValueAt(filaElegida, 1).toString();
+            Ingrediente ingrediente = new Ingrediente(idIngrediente, nombreIngrediente);
+            comidaData.agregarIngredienteAComida(comida.getIdComida(), ingrediente.getIdIngrediente());
+            ingredientesEnUso.add(ingrediente);
         } else {
             int filaElegida = jtIngredientes.getSelectedRow();
             int idIngrediente = Integer.parseInt(jtIngredientes.getValueAt(filaElegida, 0).toString());
             String nombreIngrediente = jtIngredientes.getValueAt(filaElegida, 1).toString();
-            Ingrediente ingrediente = new Ingrediente (idIngrediente, nombreIngrediente);
+            Ingrediente ingrediente = new Ingrediente(idIngrediente, nombreIngrediente);
             ingredientesEnUso.add(ingrediente);
         }
+        limpiarTabla();
+        jrbQuitarIngrediente.setSelected(false);
+        jrbAgregarIngrediente.setSelected(false);
+        jbAgregar.setEnabled(false);
     }//GEN-LAST:event_jbAgregarActionPerformed
-
-    private void jbSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbSalirActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jbSalirActionPerformed
 
     private void jbQuitarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbQuitarActionPerformed
         if (comida != null) {
             int filaElegida = jtIngredientes.getSelectedRow();
             int idIngrediente = Integer.parseInt(jtIngredientes.getValueAt(filaElegida, 0).toString());
-            comidaData.agregarIngredienteAComida(comida.getIdComida(), idIngrediente);
+            String nombreIngrediente = jtIngredientes.getValueAt(filaElegida, 1).toString();
+            Ingrediente ingrediente = new Ingrediente(idIngrediente, nombreIngrediente);
+            comidaData.eliminarIngredienteDeComida(comida.getIdComida(), ingrediente.getIdIngrediente());
+            ingredientesEnUso.remove(ingrediente);
         } else {
             int filaElegida = jtIngredientes.getSelectedRow();
             int idIngrediente = Integer.parseInt(jtIngredientes.getValueAt(filaElegida, 0).toString());
             String nombreIngrediente = jtIngredientes.getValueAt(filaElegida, 1).toString();
-            Ingrediente ingrediente = new Ingrediente (idIngrediente, nombreIngrediente);
+            Ingrediente ingrediente = new Ingrediente(idIngrediente, nombreIngrediente);
             ingredientesEnUso.remove(ingrediente);
         }
+        limpiarTabla();
+        jrbQuitarIngrediente.setSelected(false);
+        jrbAgregarIngrediente.setSelected(false);
+        jbQuitar.setEnabled(false);
     }//GEN-LAST:event_jbQuitarActionPerformed
+
+    private void jbGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbGuardarActionPerformed
+        boolean flagError = false;
+        String nombreComida = jtfNombreComida.getText();
+        String tipo = jtfTipoComida.getText();
+        String detalle = jtaDetalle.getText();
+        String calorias = jtfCaloriasX100grm.getText();
+        if (nombreComida.isEmpty() || tipo.isEmpty() || detalle.isEmpty() || calorias.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "No pueden haber campos vacios.");
+            flagError = true;
+            return;
+        } else {
+            flagError = false;
+        }
+        String val = "[a-zA-ZáéíóúÁÉÍÓÚ\\s]*";
+        if (!nombreComida.matches(val)) {
+            JOptionPane.showMessageDialog(this, "El nombre de la comida no puede llevar numeros.");
+            flagError = true;
+            return;
+        }
+        String[] tiposValidos = {"desayuno", "almuerzo", "merienda", "cena", "snack"};
+        boolean tipoValido = Arrays.asList(tiposValidos).contains(tipo.toLowerCase());
+        if (!tipoValido) {
+            JOptionPane.showMessageDialog(this, "En tipo solo puede ser alguno de los siguientes 5: Desayuno - Almuerzo - Merienda - Cena - Snack.");
+            flagError = true;
+            return;
+        } else {
+            flagError = false;
+        }
+        double caloriasx100grm = Double.parseDouble(calorias);
+        if (caloriasx100grm <= 0) {
+            JOptionPane.showMessageDialog(this, "Las calorias no puede ser menor o igual a 0.");
+            flagError = true;
+            return;
+        } else {
+            flagError = false;
+        }
+        if (ingredientesEnUso.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "La comida no puede no tener ingredientes.");
+            flagError = true;
+            return;
+        } else {
+            flagError = false;
+        }
+        if (!flagError) {
+            if (comida != null) {
+                int id = Integer.parseInt(jtfId.getText());
+                Comida comida2 = new Comida(id, nombreComida, caloriasx100grm, tipo, detalle);
+                comidaData.modificarComida(comida2.getIdComida(), comida2.getNomComida(), comida2.getTipo(), comida2.getCaloriasPor100Grm(), comida2.getDetalle());
+            } else {
+                Comida comida2 = new Comida(nombreComida, caloriasx100grm, tipo, detalle);
+                comidaData.cargarComida(comida2);
+                for (Ingrediente i : ingredientesEnUso) {
+                    comidaData.agregarIngredienteAComida(comida2.getIdComida(), i.getIdIngrediente());
+                }
+            }
+            this.dispose();
+        }
+    }//GEN-LAST:event_jbGuardarActionPerformed
 
     private void seteoCampos(Comida comida) {
         this.jtfId.setText(String.valueOf(comida.getIdComida()));
@@ -360,6 +427,21 @@ public class FormularioComida extends javax.swing.JInternalFrame {
         }
     }
 
+    private void validarCampos() {
+        String nombre = jtfNombreComida.getText();
+        String tipo = jtfTipoComida.getText();
+        String detalle = jtaDetalle.getText();
+        String calorias = jtfCaloriasX100grm.getText();
+        if (nombre.isEmpty() || tipo.isEmpty() || detalle.isEmpty() || calorias.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "No pueden haber campos vacios.");
+            return;
+        }
+        double caloriasx100grm = Double.parseDouble(calorias);
+        if (caloriasx100grm <= 0) {
+            JOptionPane.showMessageDialog(this, "Las calorias no puede ser menor o igual a 0.");
+        }
+    }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -372,7 +454,6 @@ public class FormularioComida extends javax.swing.JInternalFrame {
     private javax.swing.JButton jbAgregar;
     private javax.swing.JButton jbGuardar;
     private javax.swing.JButton jbQuitar;
-    private javax.swing.JButton jbSalir;
     private javax.swing.JRadioButton jrbAgregarIngrediente;
     private javax.swing.JRadioButton jrbQuitarIngrediente;
     private javax.swing.JTable jtIngredientes;
