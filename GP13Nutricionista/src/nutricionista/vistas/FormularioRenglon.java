@@ -50,7 +50,9 @@ public class FormularioRenglon extends javax.swing.JInternalFrame {
                 comida.setNomComida(res.getString("nombre_comida"));
                 comida.setTipo(res.getString("tipo_comida"));
                 
+                
                 ArrayList <Ingrediente> ingredientes = new ArrayList();
+                String mostarIngredientes = "SELECT 'id_ingrediente' FROM `comida_tiene_ingredientes` WEHRE 'id_comida' ="+comida.getIdComida()+"";
                                
                 comidas.add(comida);
                 
