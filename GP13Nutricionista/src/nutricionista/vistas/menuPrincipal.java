@@ -83,6 +83,11 @@ public class menuPrincipal extends javax.swing.JFrame {
         jMenuBar2.add(jMenu1);
 
         jMenu2.setText("Renglones");
+        jMenu2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jMenu2MouseClicked(evt);
+            }
+        });
         jMenuBar2.add(jMenu2);
 
         jMenu5.setText("Ingrediente");
@@ -169,6 +174,16 @@ jDesktopPane1.moveToFront(vistaPac);
         jDesktopPane1.add(listaDeComidas);
         jDesktopPane1.moveToFront(listaDeComidas);
     }//GEN-LAST:event_jMenuItem3ActionPerformed
+
+    private void jMenu2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu2MouseClicked
+
+        jDesktopPane1.removeAll();
+        jDesktopPane1.repaint();
+        FormularioRenglon formR = new FormularioRenglon();
+        formR.setVisible(true);
+        jDesktopPane1.add(formR);
+        jDesktopPane1.moveToFront(formR);
+    }//GEN-LAST:event_jMenu2MouseClicked
 
     /**
      * @param args the command line arguments

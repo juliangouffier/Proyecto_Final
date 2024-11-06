@@ -12,12 +12,12 @@ public class Renglon {
     private int numRenglon;
     private Comida comida;
     private double cantGrm;
-    private int subTotalCalorias;
+    private double subTotalCalorias;
 
     public Renglon() {
     }
 
-    public Renglon(int numRenglon, Comida comida, double cantGrm, int subTotalCalorias) {
+    public Renglon(int numRenglon, Comida comida, double cantGrm, double subTotalCalorias) {
         this.numRenglon = numRenglon;
         this.comida = comida;
         this.cantGrm = cantGrm;
@@ -48,11 +48,11 @@ public class Renglon {
         this.cantGrm = cantGrm;
     }
 
-    public int getSubTotalCalorias() {
+    public double getSubTotalCalorias() {
         return subTotalCalorias;
     }
 
-    public void setSubTotalCalorias(int subTotalCalorias) {
+    public void setSubTotalCalorias(double subTotalCalorias) {
         this.subTotalCalorias = subTotalCalorias;
     }
 

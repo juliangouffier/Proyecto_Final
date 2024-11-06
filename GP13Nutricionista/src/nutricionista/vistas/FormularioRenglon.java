@@ -12,7 +12,9 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
+import nutricionista.accesoDatos.ComidaData;
 import nutricionista.accesoDatos.Conexion;
+import nutricionista.accesoDatos.RenglonData;
 import nutricionista.entidades.Comida;
 import nutricionista.entidades.Ingrediente;
 import nutricionista.entidades.Paciente;
@@ -25,47 +27,31 @@ import nutricionista.entidades.Renglon;
 public class FormularioRenglon extends javax.swing.JInternalFrame {
     
     Connection conexion = null;
+    ComidaData comidaData;
             
     /**
      * Creates new form FormularioRenglon
      */
     public FormularioRenglon() {
         initComponents();
+        comidaData = new ComidaData();
+        llenarCombobox();
     }
     
     public void llenarCombobox (){
-        ArrayList <Comida> comidas = new ArrayList();
-        String mostrarComida = "SELECT * FROM `comida`";
-        try {
-            PreparedStatement ps = conexion.prepareStatement(mostrarComida);
-            
-            ResultSet res = ps.executeQuery();
-            
-            while(res.next()){
-                
-                Comida comida = new Comida();
-                comida.setCaloriasPor100Grm(res.getDouble("calorias_por_porcion"));
-                comida.setDetalle(res.getString("detalle"));
-                comida.setIdComida(res.getInt("cod_comida"));
-                comida.setNomComida(res.getString("nombre_comida"));
-                comida.setTipo(res.getString("tipo_comida"));
-                
-                
-                ArrayList <Ingrediente> ingredientes = new ArrayList();
-                String mostarIngredientes = "SELECT 'id_ingrediente' FROM `comida_tiene_ingredientes` WEHRE 'id_comida' ="+comida.getIdComida()+"";
-                               
-                comidas.add(comida);
-                
-            }
-            ps.close();
-            
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error al acceder a tabla Paciente (listarPacientes)");
+        ArrayList <Comida> comidas = new ArrayList(comidaData.listaDeComidas());
+        for (Comida comida : comidas) {
+            jComboBox1.addItem(comida);
         }
     }
     
     public void crearrenglon(){
-        
+        Renglon renglon = new Renglon();
+        renglon.setComida((Comida) jComboBox1.getSelectedItem());
+        renglon.setCantGrm(Double.parseDouble(jTcantidadgr.getText()));
+        renglon.setSubTotalCalorias(renglon.getComida().getCaloriasPor100Grm()*(renglon.getCantGrm()/100));
+        RenglonData rd = new RenglonData();
+        rd.crearRenglon(renglon);
     }
 
     /**
@@ -82,7 +68,7 @@ public class FormularioRenglon extends javax.swing.JInternalFrame {
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jComboBox1 = new javax.swing.JComboBox<>();
-        jTextField2 = new javax.swing.JTextField();
+        jTcantidadgr = new javax.swing.JTextField();
         jButton2 = new javax.swing.JButton();
 
         jLabel1.setFont(new java.awt.Font("Dialog", 1, 25)); // NOI18N
@@ -98,6 +84,11 @@ public class FormularioRenglon extends javax.swing.JInternalFrame {
         jLabel4.setText("Cantidad de gramos");
 
         jButton2.setText("Guardar");
+        jButton2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton2MouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -113,7 +104,7 @@ public class FormularioRenglon extends javax.swing.JInternalFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(26, 26, 26)
-                                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(jTcantidadgr, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(90, 90, 90)
                                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -140,7 +131,7 @@ public class FormularioRenglon extends javax.swing.JInternalFrame {
                 .addGap(40, 40, 40)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTcantidadgr, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 102, Short.MAX_VALUE)
                 .addComponent(jButton2)
                 .addGap(24, 24, 24))
@@ -149,14 +140,19 @@ public class FormularioRenglon extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseClicked
+
+        crearrenglon();
+    }//GEN-LAST:event_jButton2MouseClicked
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton2;
-    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JComboBox<Comida> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JTextField jTextField2;
+    private javax.swing.JTextField jTcantidadgr;
     // End of variables declaration//GEN-END:variables
 }
