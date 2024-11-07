@@ -11,6 +11,7 @@ import java.sql.SQLException;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import nutricionista.entidades.Renglon;
+import nutricionista.vistas.FormularioRenglon;
 import org.mariadb.jdbc.Statement;
 
 /**
@@ -31,18 +32,26 @@ public class RenglonData {
                 + "VALUES (?, ?, ?, ?)";
         
         try {
-            PreparedStatement ps = conection.prepareStatement(cargar);
+            PreparedStatement ps = conection.prepareStatement(cargar, java.sql.Statement.RETURN_GENERATED_KEYS);
             
             ps.setInt(1, renglon.getNumRenglon());
             ps.setInt(2, renglon.getComida().getIdComida());
             ps.setDouble(3, renglon.getCantGrm());
             ps.setDouble(4, renglon.getSubTotalCalorias());
             ps.executeUpdate();
-            ps.close();
+            
+            ResultSet res = ps.getGeneratedKeys();
+            
+            if(res.next()){
+                renglon.setNumRenglon(res.getInt(1));
+                JOptionPane.showMessageDialog(null, "Renglon cargado con éxito");
+            }
             
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al acceder a tabla renglon (crearRenglon)");
         }
+        
+        
      }
      
      public void rellenarComboBox (String tabla, String valor, JComboBox combo){

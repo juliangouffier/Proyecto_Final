@@ -19,6 +19,7 @@ import nutricionista.entidades.Comida;
 import nutricionista.entidades.Ingrediente;
 import nutricionista.entidades.Paciente;
 import nutricionista.entidades.Renglon;
+import static nutricionista.vistas.menuPrincipal.jDesktopPane1;
 
 /**
  *
@@ -46,12 +47,15 @@ public class FormularioRenglon extends javax.swing.JInternalFrame {
     }
     
     public void crearrenglon(){
+        
         Renglon renglon = new Renglon();
         renglon.setComida((Comida) jComboBox1.getSelectedItem());
         renglon.setCantGrm(Double.parseDouble(jTcantidadgr.getText()));
         renglon.setSubTotalCalorias(renglon.getComida().getCaloriasPor100Grm()*(renglon.getCantGrm()/100));
         RenglonData rd = new RenglonData();
         rd.crearRenglon(renglon);
+        jDesktopPane1.removeAll();
+        jDesktopPane1.repaint();
     }
 
     /**
