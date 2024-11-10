@@ -4,6 +4,7 @@
  */
 package nutricionista.entidades;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -12,7 +13,7 @@ import java.util.List;
  */
 public class Menu {
     private int idMenu;
-    private int dia;
+    private String dia;
     private List<Renglon> renglones;
     private double caloriasDelMenu;
 
@@ -23,13 +24,13 @@ public class Menu {
         this.idMenu = idMenu;
     }
 
-    public Menu(int dia, List<Renglon> renglones, double caloriasDelMenu) {
+    public Menu(String dia, List<Renglon> renglones, double caloriasDelMenu) {
         this.dia = dia;
         this.renglones = renglones;
         this.caloriasDelMenu = caloriasDelMenu;
     }
 
-    public Menu(int idMenu, int dia, List<Renglon> renglones, double caloriasDelMenu) {
+    public Menu(int idMenu, String dia, List<Renglon> renglones, double caloriasDelMenu) {
         this.idMenu = idMenu;
         this.dia = dia;
         this.renglones = renglones;
@@ -44,11 +45,11 @@ public class Menu {
         this.idMenu = idMenu;
     }
 
-    public int getDia() {
+    public String getDia() {
         return dia;
     }
 
-    public void setDia(int dia) {
+    public void setDia(String dia) {
         this.dia = dia;
     }
 

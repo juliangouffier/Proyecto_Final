@@ -27,23 +27,24 @@ public class MenuData {
         conection = Conexion.getConexion();
     }
 
-    public void cargarMenu(Menu menu) {
+    public Menu cargarMenu(Menu menu) {
 
         String cargar = "INSERT INTO `menu`(`dia`, `calorias_menu`) VALUES (?,?)";
 
         try {
             PreparedStatement ps = conection.prepareStatement(cargar, Statement.RETURN_GENERATED_KEYS);
-            ps.setInt(1, menu.getDia());
+            ps.setString(1, menu.getDia());
             ps.setDouble(2, menu.getCaloriasDelMenu());
             ps.executeUpdate();
             ResultSet res = ps.getGeneratedKeys();
             if (res.next()) {
                 menu.setIdMenu(res.getInt(1));
-                JOptionPane.showMessageDialog(null, "Menu cargado con éxito");
+                return menu;
             }
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al acceder a tabla Menu (cargarMenu)");
         }
+        return null;
     }
     
     public void agregarRenglon(Menu menu, Renglon renglon){

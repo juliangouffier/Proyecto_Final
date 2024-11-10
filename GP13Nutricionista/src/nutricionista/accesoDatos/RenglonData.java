@@ -8,8 +8,12 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
+import nutricionista.entidades.Comida;
+import nutricionista.entidades.Ingrediente;
 import nutricionista.entidades.Renglon;
 import nutricionista.vistas.FormularioRenglon;
 import org.mariadb.jdbc.Statement;
@@ -67,4 +71,53 @@ public class RenglonData {
              JOptionPane.showMessageDialog(null, "Error al cargar CoimboBox"+e.getMessage());
          }
      }
+     
+     
+     public ArrayList<Renglon> traerRenglones(){
+         ArrayList<Renglon> renglones = new ArrayList();
+        String sql = "SELECT * FROM `renglon` r "
+                + "JOIN `comida` c on c.cod_comida = r.id_comida ";
+        try {
+            PreparedStatement ps = conection.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Renglon renglon = new Renglon();
+                renglon.setNumRenglon(rs.getInt("nro_renglon"));
+                renglon.setCantGrm(rs.getDouble("cantidad_gramos"));
+                renglon.setSubTotalCalorias(rs.getDouble("sub_total_calorias"));
+                
+                Comida comida = new Comida();
+                comida.setIdComida(rs.getInt("cod_comida"));
+                comida.setNomComida(rs.getString("nombre_comida"));
+                comida.setCaloriasPor100Grm(rs.getDouble("calorias_por_porcion"));
+                comida.setDetalle(rs.getString("detalle"));
+                comida.setTipo(rs.getString("tipo_comida"));
+                
+                renglon.setComida(comida);
+                renglones.add(renglon);
+            }
+            ps.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla ingredientes");
+        }
+        return renglones;
+     }
+     
+     public void cargarMenuTieneRenglon(List<Integer> renglones, Integer menuId){
+         try {
+            String sql = "INSERT INTO menu_tiene_renglon (id_menu, id_renglon, estado) VALUES (?, ?, ?)";
+            PreparedStatement ps = conection.prepareStatement(sql);
+                for (Integer renglon : renglones) {
+                    ps.setInt(1, menuId);
+                    ps.setInt(2, renglon); 
+                    ps.setString(3, "ACTIVO");  
+
+                    ps.executeUpdate();
+                }
+                System.out.println("Menú cargado correctamente.");
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.out.println("Error al insertar los renglones en la tabla menu_tiene_renglon.");
+        }
+    }
 }

@@ -72,10 +72,12 @@ public class FormularioPaciente extends javax.swing.JInternalFrame {
         tablaPacientes = new javax.swing.JTable();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
+        jButton4 = new javax.swing.JButton();
+        jButton6 = new javax.swing.JButton();
 
         titulo.setFont(new java.awt.Font("Dialog", 1, 25)); // NOI18N
         titulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        titulo.setText("Formulario Paciente");
+        titulo.setText("Pacientes");
 
         jLabel1.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
@@ -114,6 +116,20 @@ public class FormularioPaciente extends javax.swing.JInternalFrame {
             }
         });
 
+        jButton4.setText("Crear Dieta");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
+
+        jButton6.setText("Ver Dieta");
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -133,14 +149,16 @@ public class FormularioPaciente extends javax.swing.JInternalFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(29, 29, 29)
                                 .addComponent(jButton2)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jButton5)
-                                .addGap(92, 92, 92)
+                                .addGap(18, 18, 18)
                                 .addComponent(jButton3)
-                                .addGap(20, 20, 20))
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 546, Short.MAX_VALUE))
+                                .addGap(18, 18, 18)
+                                .addComponent(jButton4)
+                                .addGap(18, 18, 18)
+                                .addComponent(jButton6)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jButton5))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 578, Short.MAX_VALUE))
                         .addGap(10, 10, 10)))
                 .addContainerGap())
         );
@@ -162,7 +180,9 @@ public class FormularioPaciente extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton5))
+                    .addComponent(jButton5)
+                    .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(26, Short.MAX_VALUE))
         );
 
@@ -225,6 +245,31 @@ public class FormularioPaciente extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_jButton3ActionPerformed
 
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        int filaSeleccionada = tablaPacientes.getSelectedRow();
+        if (filaSeleccionada != -1) {
+            Paciente paciente = new Paciente(
+            (int) tablaPacientes.getValueAt(filaSeleccionada, 0),    
+            (String) tablaPacientes.getValueAt(filaSeleccionada, 1),
+            (int) tablaPacientes.getValueAt(filaSeleccionada, 2),
+            (double) tablaPacientes.getValueAt(filaSeleccionada, 3),
+            (double) tablaPacientes.getValueAt(filaSeleccionada, 4),
+            (double) tablaPacientes.getValueAt(filaSeleccionada, 5));
+            
+            GenerarDieta jframe = new GenerarDieta(paciente);
+            jframe.setSize(1200, 887);
+            jframe.setLocationRelativeTo(null);
+            jframe.setVisible(true);
+            jframe.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        } else {
+            JOptionPane.showMessageDialog(null, "No hay ninguna fila seleccionada, seleccione un paciente para modificar.", "Advertencia", JOptionPane.WARNING_MESSAGE);
+        }
+    }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton6ActionPerformed
+
     public void agregarPacienteATabla(Paciente paciente){
         pacientes.add(paciente);
         DefaultTableModel modelo = (DefaultTableModel) tablaPacientes.getModel();
@@ -265,7 +310,9 @@ public class FormularioPaciente extends javax.swing.JInternalFrame {
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
+    private javax.swing.JButton jButton6;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
