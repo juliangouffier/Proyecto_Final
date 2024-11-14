@@ -56,6 +56,7 @@ public class IngredienteData {
                 ingrediente.setIdIngrediente(res.getInt(1));
                 JOptionPane.showMessageDialog(null, "Ingrediente cargado con éxito");
             }
+            ps.close();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al acceder a tabla Ingredientes (cargarIngrediente)");
         }
@@ -76,7 +77,11 @@ public class IngredienteData {
                 PreparedStatement ps = conection.prepareStatement(modificar);
                 ps.setString(1, ingrediente.getNomIngrediente());
                 ps.setInt(2, ingrediente.getIdIngrediente());
-                int res = ps.executeUpdate();
+                int update = ps.executeUpdate();
+                if (update == 1) {
+                    JOptionPane.showMessageDialog(null, "Ingrediente modificado con exito");
+                }
+                ps.close();
             } catch (SQLException ex) {
                 JOptionPane.showMessageDialog(null, "Error al acceder a tabla Ingredientes (modificarIngrediente)");
             }
@@ -102,6 +107,7 @@ public class IngredienteData {
                 if (res == 1) {
                     JOptionPane.showMessageDialog(null, "Ingrediente eliminado con éxito");
                 }
+                ps.close();
             } catch (SQLException ex) {
                 JOptionPane.showMessageDialog(null, "Error al acceder a tabla Ingredientes (eliminarIngrediente)");
             }
@@ -128,7 +134,7 @@ public class IngredienteData {
         }
         return ingredientes;
     }
-    
+
     public List<Ingrediente> ingredientesDeUnaComida(int idComida) {
         List<Ingrediente> ingredientes = new ArrayList<>();
         if (idComida > 0) {
@@ -146,6 +152,7 @@ public class IngredienteData {
                     ingrediente.setNomIngrediente(resAux.getString("nombre_ingrediente"));
                     ingredientes.add(ingrediente);
                 }
+                psAux.close();
             } catch (SQLException ex) {
                 JOptionPane.showMessageDialog(null, "Error al acceder a la tabla ingredientes");
             }

@@ -104,7 +104,40 @@ public class ComidaData {
             JOptionPane.showMessageDialog(null, "Error al acceder a tabla Comida (modificarComida)");
         }
     }
-
+    
+    public void eliminarComida(Comida comida) {
+        int contador = 0;
+        int contador2 = 0;
+        String eliminar = "DELETE FROM `comida` WHERE `cod_comida`= ?";
+        List<Comida> comidas = comidasUsadasEnRenglon();
+        for (int i = 0; i < comidas.size(); i++) {
+            if (comidas.get(i).getIdComida() == comida.getIdComida()) {
+                contador++;
+            }
+        }
+        List<Comida> comidas2 = ingredientesUsadosEnComida();
+        for (int i = 0; i < comidas2.size(); i++) {
+            if (comidas2.get(i).getIdComida() == comida.getIdComida()) {
+                contador2++;
+            }
+        }
+        if (contador == 0 && contador2 == 0) {
+            try {
+                PreparedStatement ps = conection.prepareStatement(eliminar);
+                ps.setInt(1, comida.getIdComida());
+                int res = ps.executeUpdate();
+                if (res == 1) {
+                    JOptionPane.showMessageDialog(null, "Ingrediente eliminado con éxito");
+                }
+                ps.close();
+            } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(null, "Error al acceder a tabla Comida (eliminarComida)");
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "No se puede eliminar un comida que este actualmente asignado a un renglon e ingrediente");
+        }
+    }
+    
     public List<Comida> buscarPorNombre(String nombre) {
         String query = "SELECT * FROM `comida` WHERE `nombre_comida` LIKE ? ";
 
@@ -323,5 +356,43 @@ public class ComidaData {
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Error al acceder a tabla Comida (agregarIngredienteAComida)");
         }
+    }
+    
+    private List<Comida> comidasUsadasEnRenglon() {
+        ArrayList<Comida> comidas = new ArrayList();
+        String mostrarTodo = "SELECT * FROM `renglon`";
+
+        try {
+            PreparedStatement ps = conection.prepareStatement(mostrarTodo);
+            ResultSet res = ps.executeQuery();
+            while (res.next()) {
+                Comida comida = new Comida();
+                comida.setIdComida(res.getInt("id_comida"));
+                comidas.add(comida);
+            }
+            ps.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a tabla renglon");
+        }
+        return comidas;
+    }
+    
+    private List<Comida> ingredientesUsadosEnComida() {
+        ArrayList<Comida> comidas = new ArrayList();
+        String mostrarTodo = "SELECT * FROM `comida_tiene_ingredientes`";
+
+        try {
+            PreparedStatement ps = conection.prepareStatement(mostrarTodo);
+            ResultSet res = ps.executeQuery();
+            while (res.next()) {
+                Comida comida = new Comida();
+                comida.setIdComida(res.getInt("id_comida"));
+                comidas.add(comida);
+            }
+            ps.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a tabla comida_tiene_ingredientes");
+        }
+        return comidas;
     }
 }

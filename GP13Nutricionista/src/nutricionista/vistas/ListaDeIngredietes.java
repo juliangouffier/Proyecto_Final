@@ -21,6 +21,7 @@ public class ListaDeIngredietes extends javax.swing.JInternalFrame {
     private List<Ingrediente> listaIngredientes;
     private IngredienteData ingredienteData;
     private Ingrediente ingrediente = null;
+    private Ingrediente ingrediente2 = null;
     private DefaultTableModel modelo;
 
     /**
@@ -128,12 +129,12 @@ public class ListaDeIngredietes extends javax.swing.JInternalFrame {
                 .addGap(18, 18, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jbSalir)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jbModificar)
                         .addComponent(jbAgregar)
-                        .addComponent(jbEliminar)))
+                        .addComponent(jbEliminar))
+                    .addComponent(jbSalir))
                 .addContainerGap())
         );
 
@@ -141,7 +142,7 @@ public class ListaDeIngredietes extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jbAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbAgregarActionPerformed
-        FormularioIngrediente formularioIngrediente = new FormularioIngrediente();
+        FormularioIngrediente formularioIngrediente = new FormularioIngrediente(ingrediente);
         menuPrincipal.jDesktopPane1.add(formularioIngrediente);
         formularioIngrediente.moveToFront();
         formularioIngrediente.setVisible(true);
@@ -149,16 +150,20 @@ public class ListaDeIngredietes extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jbAgregarActionPerformed
 
     private void jbModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbModificarActionPerformed
-        for (int i = 0; i < jtIngredientes.getRowCount(); i++) {
-            int idIngrediente = Integer.parseInt(jtIngredientes.getValueAt(i, 0).toString());
-            String nombreIngrediente = jtIngredientes.getValueAt(i, 1).toString();
-            ingrediente = new Ingrediente(idIngrediente, nombreIngrediente);
-            if (ingrediente != null) {
-                ingredienteData.modificarIngrediente(ingrediente);
-                ingrediente = null;
-            }
+        int filaElegida = jtIngredientes.getSelectedRow();
+        if (filaElegida != -1) {
+            ingrediente2 = null;
+            int id = Integer.parseInt(jtIngredientes.getValueAt(filaElegida, 0).toString());
+            String nombre = jtIngredientes.getValueAt(filaElegida, 1).toString();
+            ingrediente2 = new Ingrediente (id,nombre);
+            FormularioIngrediente formularioIngrediente = new FormularioIngrediente(ingrediente2);
+            menuPrincipal.jDesktopPane1.add(formularioIngrediente);
+            formularioIngrediente.moveToFront();
+            formularioIngrediente.setVisible(true);
+            formularioIngrediente.setDefaultCloseOperation(JInternalFrame.DISPOSE_ON_CLOSE);
+        } else {
+            JOptionPane.showMessageDialog(null, "No hay ninguna fila seleccionada, seleccione una para modificar ese ingrediente.");
         }
-        JOptionPane.showMessageDialog(null, "Ingredientes modificados con éxito");
     }//GEN-LAST:event_jbModificarActionPerformed
 
     private void jbEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbEliminarActionPerformed

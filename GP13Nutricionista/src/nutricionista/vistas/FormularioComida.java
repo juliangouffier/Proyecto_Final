@@ -19,7 +19,6 @@ import nutricionista.entidades.Ingrediente;
  * @author Hernan
  */
 public class FormularioComida extends javax.swing.JInternalFrame {
-
     private ComidaData comidaData;
     private Comida comida;
     private DefaultTableModel modelo;
@@ -38,6 +37,7 @@ public class FormularioComida extends javax.swing.JInternalFrame {
         modelo = new DefaultTableModel();
         if (comida != null) {
             seteoCampos(comida);
+            ingredientesEnUso = ingredienteData.ingredientesDeUnaComida(comida.getIdComida());
         }
         cabeceradeTabla();
     }
@@ -62,7 +62,6 @@ public class FormularioComida extends javax.swing.JInternalFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jtIngredientes = new javax.swing.JTable();
         jtfNombreComida = new javax.swing.JTextField();
-        jtfTipoComida = new javax.swing.JTextField();
         jbGuardar = new javax.swing.JButton();
         jtfCaloriasX100grm = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
@@ -71,6 +70,8 @@ public class FormularioComida extends javax.swing.JInternalFrame {
         jtaDetalle = new javax.swing.JTextArea();
         jbAgregar = new javax.swing.JButton();
         jbQuitar = new javax.swing.JButton();
+        jcbTipo = new javax.swing.JComboBox<>();
+        jbSalir = new javax.swing.JButton();
 
         titulo.setFont(new java.awt.Font("Dialog", 1, 25)); // NOI18N
         titulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -152,6 +153,17 @@ public class FormularioComida extends javax.swing.JInternalFrame {
             }
         });
 
+        jcbTipo.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        jcbTipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Desayuno", "Almuerzo", "Merienda", "Cena", "Snack" }));
+        jcbTipo.setSelectedIndex(-1);
+
+        jbSalir.setText("Salir");
+        jbSalir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbSalirActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -160,9 +172,11 @@ public class FormularioComida extends javax.swing.JInternalFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(jbGuardar)
-                .addGap(199, 199, 199))
+                .addGap(136, 136, 136)
+                .addComponent(jbSalir)
+                .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(92, 92, 92)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jrbAgregarIngrediente, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -171,13 +185,6 @@ public class FormularioComida extends javax.swing.JInternalFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jrbQuitarIngrediente, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(70, 70, 70))
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(titulo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1)
-                .addContainerGap())
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -196,15 +203,22 @@ public class FormularioComida extends javax.swing.JInternalFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jtfCaloriasX100grm, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jtfNombreComida, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jtfTipoComida, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jtfId, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 235, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 235, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jcbTipo, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(150, 150, 150)
                         .addComponent(jbAgregar)
                         .addGap(69, 69, 69)
                         .addComponent(jbQuitar)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(titulo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jScrollPane1)
+                        .addContainerGap())))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -226,9 +240,9 @@ public class FormularioComida extends javax.swing.JInternalFrame {
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jtfCaloriasX100grm, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jtfTipoComida, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
+                    .addComponent(jcbTipo))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -244,7 +258,9 @@ public class FormularioComida extends javax.swing.JInternalFrame {
                     .addComponent(jbQuitar)
                     .addComponent(jbAgregar))
                 .addGap(18, 18, 18)
-                .addComponent(jbGuardar)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jbGuardar)
+                    .addComponent(jbSalir))
                 .addContainerGap())
         );
 
@@ -312,10 +328,10 @@ public class FormularioComida extends javax.swing.JInternalFrame {
     private void jbGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbGuardarActionPerformed
         boolean flagError = false;
         String nombreComida = jtfNombreComida.getText();
-        String tipo = jtfTipoComida.getText();
+        String tipo = (String) jcbTipo.getSelectedItem();
         String detalle = jtaDetalle.getText();
         String calorias = jtfCaloriasX100grm.getText();
-        if (nombreComida.isEmpty() || tipo.isEmpty() || detalle.isEmpty() || calorias.isEmpty()) {
+        if (nombreComida.isEmpty() || detalle.isEmpty() || calorias.isEmpty()) {
             JOptionPane.showMessageDialog(this, "No pueden haber campos vacios.");
             flagError = true;
             return;
@@ -328,10 +344,8 @@ public class FormularioComida extends javax.swing.JInternalFrame {
             flagError = true;
             return;
         }
-        String[] tiposValidos = {"desayuno", "almuerzo", "merienda", "cena", "snack"};
-        boolean tipoValido = Arrays.asList(tiposValidos).contains(tipo.toLowerCase());
-        if (!tipoValido) {
-            JOptionPane.showMessageDialog(this, "En tipo solo puede ser alguno de los siguientes 5: Desayuno - Almuerzo - Merienda - Cena - Snack.");
+        if (tipo == null) {
+            JOptionPane.showMessageDialog(this, "Se debe elegir un tipo.");
             flagError = true;
             return;
         } else {
@@ -340,13 +354,6 @@ public class FormularioComida extends javax.swing.JInternalFrame {
         double caloriasx100grm = Double.parseDouble(calorias);
         if (caloriasx100grm <= 0) {
             JOptionPane.showMessageDialog(this, "Las calorias no puede ser menor o igual a 0.");
-            flagError = true;
-            return;
-        } else {
-            flagError = false;
-        }
-        if (ingredientesEnUso.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "La comida no puede no tener ingredientes.");
             flagError = true;
             return;
         } else {
@@ -368,11 +375,15 @@ public class FormularioComida extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_jbGuardarActionPerformed
 
+    private void jbSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbSalirActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_jbSalirActionPerformed
+
     private void seteoCampos(Comida comida) {
         this.jtfId.setText(String.valueOf(comida.getIdComida()));
         this.jtfNombreComida.setText(comida.getNomComida());
         this.jtfCaloriasX100grm.setText(String.valueOf(comida.getCaloriasPor100Grm()));
-        this.jtfTipoComida.setText(String.valueOf(comida.getTipo()));
+        this.jcbTipo.setSelectedItem(String.valueOf(comida.getTipo()));
         this.jtaDetalle.setText(String.valueOf(comida.getDetalle()));
     }
 
@@ -427,21 +438,6 @@ public class FormularioComida extends javax.swing.JInternalFrame {
         }
     }
 
-    private void validarCampos() {
-        String nombre = jtfNombreComida.getText();
-        String tipo = jtfTipoComida.getText();
-        String detalle = jtaDetalle.getText();
-        String calorias = jtfCaloriasX100grm.getText();
-        if (nombre.isEmpty() || tipo.isEmpty() || detalle.isEmpty() || calorias.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "No pueden haber campos vacios.");
-            return;
-        }
-        double caloriasx100grm = Double.parseDouble(calorias);
-        if (caloriasx100grm <= 0) {
-            JOptionPane.showMessageDialog(this, "Las calorias no puede ser menor o igual a 0.");
-        }
-    }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -454,6 +450,8 @@ public class FormularioComida extends javax.swing.JInternalFrame {
     private javax.swing.JButton jbAgregar;
     private javax.swing.JButton jbGuardar;
     private javax.swing.JButton jbQuitar;
+    private javax.swing.JButton jbSalir;
+    private javax.swing.JComboBox<String> jcbTipo;
     private javax.swing.JRadioButton jrbAgregarIngrediente;
     private javax.swing.JRadioButton jrbQuitarIngrediente;
     private javax.swing.JTable jtIngredientes;
@@ -461,7 +459,6 @@ public class FormularioComida extends javax.swing.JInternalFrame {
     private javax.swing.JTextField jtfCaloriasX100grm;
     private javax.swing.JTextField jtfId;
     private javax.swing.JTextField jtfNombreComida;
-    private javax.swing.JTextField jtfTipoComida;
     private javax.swing.JLabel titulo;
     // End of variables declaration//GEN-END:variables
 }

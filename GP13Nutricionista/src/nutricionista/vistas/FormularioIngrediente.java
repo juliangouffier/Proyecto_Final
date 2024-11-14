@@ -13,13 +13,20 @@ import nutricionista.entidades.Ingrediente;
  * @author Hernan
  */
 public class FormularioIngrediente extends javax.swing.JInternalFrame {
+
     private IngredienteData ingredienteData = new IngredienteData();
     private Ingrediente ingrediente = null;
+
     /**
      * Creates new form FormularioIngrediente
      */
-    public FormularioIngrediente() {
+    public FormularioIngrediente(Ingrediente ingrediente) {
         initComponents();
+        ingredienteData = new IngredienteData();
+        this.ingrediente = ingrediente;
+        if (ingrediente != null) {
+            seteoCampos(ingrediente);
+        }
     }
 
     /**
@@ -34,11 +41,13 @@ public class FormularioIngrediente extends javax.swing.JInternalFrame {
         labelFormularioIngrediente = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
         labelNombre = new javax.swing.JLabel();
-        jtfNombreIngrediente = new javax.swing.JTextField();
         jbGuardar = new javax.swing.JButton();
         jbSalir = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        jtfIdIngrediente = new javax.swing.JTextField();
+        jtfNombreIngrediente = new javax.swing.JTextField();
 
-        setPreferredSize(new java.awt.Dimension(470, 200));
+        setPreferredSize(new java.awt.Dimension(470, 225));
 
         labelFormularioIngrediente.setFont(new java.awt.Font("Dialog", 1, 25)); // NOI18N
         labelFormularioIngrediente.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -62,6 +71,15 @@ public class FormularioIngrediente extends javax.swing.JInternalFrame {
             }
         });
 
+        jLabel1.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel1.setText("ID");
+
+        jtfIdIngrediente.setEditable(false);
+        jtfIdIngrediente.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+
+        jtfNombreIngrediente.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -75,49 +93,65 @@ public class FormularioIngrediente extends javax.swing.JInternalFrame {
                             .addComponent(jSeparator1)
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(70, 70, 70)
-                                .addComponent(labelNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(labelNombre, javax.swing.GroupLayout.DEFAULT_SIZE, 110, Short.MAX_VALUE))
                                 .addGap(18, 18, 18)
-                                .addComponent(jtfNombreIngrediente, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 83, Short.MAX_VALUE))))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jtfIdIngrediente, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jtfNombreIngrediente, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(0, 0, Short.MAX_VALUE))))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(189, 189, 189)
+                        .addGap(191, 191, 191)
                         .addComponent(jbGuardar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 139, Short.MAX_VALUE)
                         .addComponent(jbSalir)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap()
                 .addComponent(labelFormularioIngrediente, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jtfIdIngrediente, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(labelNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jtfNombreIngrediente, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addComponent(jbGuardar)
-                        .addGap(26, 26, 26))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jbSalir)
-                        .addContainerGap())))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(labelNombre, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
+                    .addComponent(jtfNombreIngrediente))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jbGuardar)
+                    .addComponent(jbSalir))
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void jbGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbGuardarActionPerformed
+        int idIngrediente = Integer.parseInt(jtfIdIngrediente.getText());
         String nombreIngrediente = jtfNombreIngrediente.getText();
-        if (nombreIngrediente.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Debe colocar el nombre del ingrediente");
+        if (ingrediente != null) {
+            if (nombreIngrediente.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Debe colocar el nombre del ingrediente");
+            } else {
+                Ingrediente ingrediente2 = new Ingrediente(idIngrediente,nombreIngrediente);
+                ingredienteData.modificarIngrediente(ingrediente2);
+                this.dispose();
+            }
         } else {
-            ingrediente = new Ingrediente(nombreIngrediente);
-            ingredienteData.cargarIngrediente(ingrediente);
-            jtfNombreIngrediente.setText("");
+            if (nombreIngrediente.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Debe colocar el nombre del ingrediente");
+            } else {
+                Ingrediente ingrediente2 = new Ingrediente(idIngrediente,nombreIngrediente);
+                ingredienteData.cargarIngrediente(ingrediente2);
+                jtfNombreIngrediente.setText("");
+            }
         }
     }//GEN-LAST:event_jbGuardarActionPerformed
 
@@ -125,11 +159,17 @@ public class FormularioIngrediente extends javax.swing.JInternalFrame {
         this.dispose();
     }//GEN-LAST:event_jbSalirActionPerformed
 
-
+    private void seteoCampos(Ingrediente ingrediente) {
+        this.jtfIdIngrediente.setText(String.valueOf(ingrediente.getIdIngrediente()));
+        this.jtfNombreIngrediente.setText(ingrediente.getNomIngrediente());
+    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JButton jbGuardar;
     private javax.swing.JButton jbSalir;
+    private javax.swing.JTextField jtfIdIngrediente;
     private javax.swing.JTextField jtfNombreIngrediente;
     private javax.swing.JLabel labelFormularioIngrediente;
     private javax.swing.JLabel labelNombre;

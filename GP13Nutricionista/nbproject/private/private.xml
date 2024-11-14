@@ -3,13 +3,9 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Hernan/OneDrive/Documentos/GitHub/Proyecto_Final/GP13Nutricionista/src/nutricionista/vistas/ListaDeMenus.java</file>
-            <file>file:/C:/Users/Hernan/OneDrive/Documentos/GitHub/Proyecto_Final/GP13Nutricionista/src/nutricionista/vistas/ListaDeRenglones.java</file>
-            <file>file:/C:/Users/Hernan/OneDrive/Documentos/GitHub/Proyecto_Final/GP13Nutricionista/src/nutricionista/accesoDatos/DietaData.java</file>
-            <file>file:/C:/Users/Hernan/OneDrive/Documentos/GitHub/Proyecto_Final/GP13Nutricionista/src/nutricionista/accesoDatos/MenuData.java</file>
-            <file>file:/C:/Users/Hernan/OneDrive/Documentos/GitHub/Proyecto_Final/GP13Nutricionista/src/nutricionista/vistas/menuPrincipal.java</file>
-            <file>file:/C:/Users/Hernan/OneDrive/Documentos/GitHub/Proyecto_Final/GP13Nutricionista/src/nutricionista/vistas/CrearDieta.java</file>
-            <file>file:/C:/Users/Hernan/OneDrive/Documentos/GitHub/Proyecto_Final/GP13Nutricionista/src/nutricionista/vistas/CrearMenu.java</file>
+            <file>file:/C:/Users/Hernan/OneDrive/Documentos/GitHub/Proyecto_Final/GP13Nutricionista/src/nutricionista/vistas/GenerarDieta.java</file>
+            <file>file:/C:/Users/Hernan/OneDrive/Documentos/GitHub/Proyecto_Final/GP13Nutricionista/src/nutricionista/vistas/FormularioPaciente.java</file>
+            <file>file:/C:/Users/Hernan/OneDrive/Documentos/GitHub/Proyecto_Final/GP13Nutricionista/src/nutricionista/vistas/CrearPaciente.java</file>
         </group>
     </open-files>
 </project-private>

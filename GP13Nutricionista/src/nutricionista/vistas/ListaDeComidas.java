@@ -135,7 +135,7 @@ public class ListaDeComidas extends javax.swing.JInternalFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(ListaDeIngredientes)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 119, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -174,19 +174,23 @@ public class ListaDeComidas extends javax.swing.JInternalFrame {
             formularioComida.setVisible(true);
             formularioComida.setDefaultCloseOperation(JInternalFrame.DISPOSE_ON_CLOSE);
         } else {
-            JOptionPane.showMessageDialog(null, "No hay ninguna fila seleccionada, seleccione un paciente para modificar.", "Advertencia", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(null, "No hay ninguna fila seleccionada, seleccione una para modificar esa comida.");
         }
     }//GEN-LAST:event_jbModificarActionPerformed
 
     private void jbEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbEliminarActionPerformed
-//        int filaElegida = jtIngredientes.getSelectedRow();
-//        if (filaElegida != -1) {
-//            int idIngrediente = Integer.parseInt(jtIngredientes.getValueAt(filaElegida, 0).toString());
-//            String nombreIngrediente = jtIngredientes.getValueAt(filaElegida, 1).toString();
-//            ingrediente = new Ingrediente(idIngrediente, nombreIngrediente);
-//            ingredienteData.eliminarIngrediente(ingrediente);
-//            ingrediente = null;
-//        }
+        int filaElegida = jtComidas.getSelectedRow();
+        if (filaElegida != -1) {
+            int id = Integer.parseInt(jtComidas.getValueAt(filaElegida, 0).toString());
+            String nombre = jtComidas.getValueAt(filaElegida, 1).toString();
+            String tipo = jtComidas.getValueAt(filaElegida, 2).toString();
+            Double calorias = Double.parseDouble(jtComidas.getValueAt(filaElegida, 3).toString());
+            String detalle = jtComidas.getValueAt(filaElegida, 4).toString();
+            List<Ingrediente> ingredientes = ingredienteData.ingredientesDeUnaComida(id);
+            comida = new Comida(id, nombre, calorias, tipo, detalle, ingredientes);
+            comidaData.eliminarComida(comida);
+            comida = null;
+        }
     }//GEN-LAST:event_jbEliminarActionPerformed
 
     private void jbSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbSalirActionPerformed
