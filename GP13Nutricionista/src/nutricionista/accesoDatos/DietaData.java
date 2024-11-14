@@ -43,7 +43,11 @@ public class DietaData {
             } else {
                 ps.setNull(6, java.sql.Types.DOUBLE);
             }
-            ps.setDouble(7, dieta.getTotalCalorias());
+            if (dieta.getTotalCalorias() != null) {
+                ps.setDouble(7, dieta.getTotalCalorias());
+            } else {
+                ps.setNull(7, java.sql.Types.DOUBLE);
+            }
             ps.setInt(8,dieta.getIdDieta());
             int filas_actualiz=ps.executeUpdate();
             
