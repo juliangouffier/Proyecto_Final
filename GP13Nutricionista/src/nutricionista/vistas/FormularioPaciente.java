@@ -70,14 +70,14 @@ public class FormularioPaciente extends javax.swing.JInternalFrame {
         jSeparator1 = new javax.swing.JSeparator();
         jLabel1 = new javax.swing.JLabel();
         nombreText = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
+        jbBuscar = new javax.swing.JButton();
+        jbSalir = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tablaPacientes = new javax.swing.JTable();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
-        jButton6 = new javax.swing.JButton();
+        jbCrearPaciente = new javax.swing.JButton();
+        jbModificarPaciente = new javax.swing.JButton();
+        jbCrearDieta = new javax.swing.JButton();
+        jbVerDieta = new javax.swing.JButton();
 
         titulo.setFont(new java.awt.Font("Dialog", 1, 25)); // NOI18N
         titulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -87,14 +87,19 @@ public class FormularioPaciente extends javax.swing.JInternalFrame {
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel1.setText("Ingrese nombre paciente");
 
-        jButton1.setText("Buscar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        jbBuscar.setText("Buscar");
+        jbBuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                jbBuscarActionPerformed(evt);
             }
         });
 
-        jButton5.setText("Salir");
+        jbSalir.setText("Salir");
+        jbSalir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbSalirActionPerformed(evt);
+            }
+        });
 
         tablaPacientes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -106,31 +111,31 @@ public class FormularioPaciente extends javax.swing.JInternalFrame {
         ));
         jScrollPane1.setViewportView(tablaPacientes);
 
-        jButton2.setText("Crear Paciente");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        jbCrearPaciente.setText("Crear Paciente");
+        jbCrearPaciente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                jbCrearPacienteActionPerformed(evt);
             }
         });
 
-        jButton3.setText("Modificar Paciente");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        jbModificarPaciente.setText("Modificar Paciente");
+        jbModificarPaciente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                jbModificarPacienteActionPerformed(evt);
             }
         });
 
-        jButton4.setText("Crear Dieta");
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
+        jbCrearDieta.setText("Crear Dieta");
+        jbCrearDieta.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
+                jbCrearDietaActionPerformed(evt);
             }
         });
 
-        jButton6.setText("Ver Dieta");
-        jButton6.addActionListener(new java.awt.event.ActionListener() {
+        jbVerDieta.setText("Ver Dieta");
+        jbVerDieta.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton6ActionPerformed(evt);
+                jbVerDietaActionPerformed(evt);
             }
         });
 
@@ -151,17 +156,17 @@ public class FormularioPaciente extends javax.swing.JInternalFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(nombreText)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(jbBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jButton2)
+                                .addComponent(jbCrearPaciente)
                                 .addGap(18, 18, 18)
-                                .addComponent(jButton3)
+                                .addComponent(jbModificarPaciente)
                                 .addGap(18, 18, 18)
-                                .addComponent(jButton4)
+                                .addComponent(jbCrearDieta)
                                 .addGap(18, 18, 18)
-                                .addComponent(jButton6)
+                                .addComponent(jbVerDieta)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jButton5))
+                                .addComponent(jbSalir))
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 578, Short.MAX_VALUE))
                         .addGap(10, 10, 10)))
                 .addContainerGap())
@@ -177,25 +182,30 @@ public class FormularioPaciente extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(nombreText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jbBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton5)
-                    .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jbCrearPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jbModificarPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jbSalir)
+                    .addComponent(jbCrearDieta, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jbVerDieta, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(26, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-       List<Paciente> pacientesList = pacienteData.buscarPacientesPorNombre("%"+nombreText.getText()+"%");
-        
+    private void jbBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbBuscarActionPerformed
+        String val = "[a-zA-ZáéíóúÁÉÍÓÚ\\s]*";
+        if (nombreText.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this,"Debe ingresar un nombre.");
+        } else if (!nombreText.getText().matches(val)){
+            JOptionPane.showMessageDialog(this,"Solo pueden ingresarse letras.");
+        } else {
+        List<Paciente> pacientesList = pacienteData.buscarPacientesPorNombre("%"+nombreText.getText()+"%");
     
         // Crear el modelo de la tabla con los nombres de las columnas
         DefaultTableModel modelo = new DefaultTableModel(columnas, 0);
@@ -215,20 +225,19 @@ public class FormularioPaciente extends javax.swing.JInternalFrame {
 
         // Asignar el modelo a la tabla
         tablaPacientes.setModel(modelo);
-        
-    }//GEN-LAST:event_jButton1ActionPerformed
+        }
+    }//GEN-LAST:event_jbBuscarActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        
+    private void jbCrearPacienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbCrearPacienteActionPerformed
         CrearPaciente jframe = new CrearPaciente(this);
         jframe.setSize(523, 463);
         jframe.setLocationRelativeTo(null);
         jframe.setVisible(true);
         jframe.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_jbCrearPacienteActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void jbModificarPacienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbModificarPacienteActionPerformed
         int filaSeleccionada = tablaPacientes.getSelectedRow();
         if (filaSeleccionada != -1) {
             Paciente paciente = new Paciente(
@@ -247,9 +256,9 @@ public class FormularioPaciente extends javax.swing.JInternalFrame {
         } else {
             JOptionPane.showMessageDialog(null, "No hay ninguna fila seleccionada, seleccione un paciente para modificar.", "Advertencia", JOptionPane.WARNING_MESSAGE);
         }
-    }//GEN-LAST:event_jButton3ActionPerformed
+    }//GEN-LAST:event_jbModificarPacienteActionPerformed
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+    private void jbCrearDietaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbCrearDietaActionPerformed
         int filaSeleccionada = tablaPacientes.getSelectedRow();
         if (filaSeleccionada != -1) {
             Paciente paciente = new Paciente(
@@ -268,9 +277,9 @@ public class FormularioPaciente extends javax.swing.JInternalFrame {
         } else {
             JOptionPane.showMessageDialog(null, "No hay ninguna fila seleccionada, seleccione un paciente para modificar.", "Advertencia", JOptionPane.WARNING_MESSAGE);
         }
-    }//GEN-LAST:event_jButton4ActionPerformed
+    }//GEN-LAST:event_jbCrearDietaActionPerformed
 
-    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+    private void jbVerDietaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbVerDietaActionPerformed
         int filaSeleccionada = tablaPacientes.getSelectedRow();
         if (filaSeleccionada != -1) {
             
@@ -298,7 +307,11 @@ public class FormularioPaciente extends javax.swing.JInternalFrame {
         } else {
             JOptionPane.showMessageDialog(null, "No hay ninguna fila seleccionada, seleccione un paciente para modificar.", "Advertencia", JOptionPane.WARNING_MESSAGE);
         }
-    }//GEN-LAST:event_jButton6ActionPerformed
+    }//GEN-LAST:event_jbVerDietaActionPerformed
+
+    private void jbSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbSalirActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_jbSalirActionPerformed
 
     public void agregarPacienteATabla(Paciente paciente){
         pacientes.add(paciente);
@@ -337,15 +350,15 @@ public class FormularioPaciente extends javax.swing.JInternalFrame {
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton6;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JButton jbBuscar;
+    private javax.swing.JButton jbCrearDieta;
+    private javax.swing.JButton jbCrearPaciente;
+    private javax.swing.JButton jbModificarPaciente;
+    private javax.swing.JButton jbSalir;
+    private javax.swing.JButton jbVerDieta;
     private javax.swing.JTextField nombreText;
     private javax.swing.JTable tablaPacientes;
     private javax.swing.JLabel titulo;

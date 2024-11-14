@@ -30,7 +30,6 @@ public class ListaDeComidas extends javax.swing.JInternalFrame {
     private Comida comida = null;
     private Comida comida2 = null;
     private DefaultTableModel modelo;
-    private Connection conection = null;
 
     /**
      * Creates new form NewJInternalFrame

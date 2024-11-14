@@ -4,6 +4,8 @@
  */
 package nutricionista.vistas;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import nutricionista.accesoDatos.PacienteData;
 import nutricionista.entidades.Paciente;
@@ -60,8 +62,8 @@ public class ModificarPaciente extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         pesoBuscadoText = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
-        jButton6 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
+        jbGuardar = new javax.swing.JButton();
+        jbCancelar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -171,17 +173,17 @@ public class ModificarPaciente extends javax.swing.JFrame {
                 .addGap(46, 46, 46))
         );
 
-        jButton6.setText("Guardar");
-        jButton6.addActionListener(new java.awt.event.ActionListener() {
+        jbGuardar.setText("Guardar");
+        jbGuardar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton6ActionPerformed(evt);
+                jbGuardarActionPerformed(evt);
             }
         });
 
-        jButton5.setText("Cancelar");
-        jButton5.addActionListener(new java.awt.event.ActionListener() {
+        jbCancelar.setText("Cancelar");
+        jbCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton5ActionPerformed(evt);
+                jbCancelarActionPerformed(evt);
             }
         });
 
@@ -191,9 +193,9 @@ public class ModificarPaciente extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(58, 58, 58)
-                .addComponent(jButton6)
+                .addComponent(jbGuardar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton5)
+                .addComponent(jbCancelar)
                 .addGap(77, 77, 77))
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
@@ -207,47 +209,101 @@ public class ModificarPaciente extends javax.swing.JFrame {
                 .addComponent(jLayeredPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton6)
-                    .addComponent(jButton5))
+                    .addComponent(jbGuardar)
+                    .addComponent(jbCancelar))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        // TODO add your handling code here:
+    private void jbCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbCancelarActionPerformed
         this.setVisible(false);
-    }//GEN-LAST:event_jButton5ActionPerformed
+    }//GEN-LAST:event_jbCancelarActionPerformed
 
-    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-       try {
-           Paciente paciente = this.paciente;
-           paciente.setEdad(Integer.parseInt(edadText.getText()));
-           paciente.setAltura(Double.parseDouble(alturaText.getText()));
-           paciente.setNombreCompleto(nombreText.getText());
-           paciente.setPesoActual(Double.parseDouble(pesoActualText.getText()));
-           paciente.setPesoBuscado(Double.parseDouble(pesoBuscadoText.getText()));
-           pacienteData.modificarPaciente(paciente);
-           this.setVisible(false);
-           form.actualizarListado(paciente);
-           JOptionPane.showMessageDialog(null, "Se modifico al paciente correctamente.", "Exito", JOptionPane.PLAIN_MESSAGE);
-       } catch(Exception e) {
-           JOptionPane.showMessageDialog(null, "Ocurrio un problema al intentar modificar al paciente.", "ERROR", JOptionPane.ERROR_MESSAGE);
-       }
-    }//GEN-LAST:event_jButton6ActionPerformed
+    private void jbGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbGuardarActionPerformed
+        boolean flagError = validarCampos();
+        if (!flagError) {
+            Paciente paciente = this.paciente;
+            paciente.setEdad(Integer.parseInt(edadText.getText()));
+            paciente.setAltura(Double.parseDouble(alturaText.getText()));
+            paciente.setNombreCompleto(nombreText.getText());
+            paciente.setPesoActual(Double.parseDouble(pesoActualText.getText()));
+            paciente.setPesoBuscado(Double.parseDouble(pesoBuscadoText.getText()));
+            try {
+                pacienteData.modificarPaciente(paciente);
+            } catch (Exception ex) {
+            
+            }
+            this.form.actualizarListado(paciente);
+            nombreText.setText("");
+            alturaText.setText("");
+            edadText.setText("");
+            pesoActualText.setText("");
+            pesoBuscadoText.setText("");
+            this.setVisible(false);
+            JOptionPane.showMessageDialog(null, "Se modifico al paciente correctamente.", "Exito", JOptionPane.PLAIN_MESSAGE);
+        }
+    }//GEN-LAST:event_jbGuardarActionPerformed
 
     private void pesoActualTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pesoActualTextActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_pesoActualTextActionPerformed
 
-
+    private boolean validarCampos(){
+        boolean flagError = false;
+        String val = "[a-zA-ZáéíóúÁÉÍÓÚ\\s]*";
+        String val1 = "[0-9]*";
+        String val2 = "^\\d+(.\\d+)?$";
+        if (nombreText.getText().isEmpty() || edadText.getText().isEmpty() || alturaText.getText().isEmpty() || pesoActualText.getText().isEmpty() || pesoBuscadoText.getText().isEmpty()){
+            JOptionPane.showMessageDialog(this, "No pueden haber campos vacios");
+            flagError = true;
+            return flagError;
+        } else {
+            flagError = false;
+        }
+        if (!nombreText.getText().matches(val)) {
+            JOptionPane.showMessageDialog(this, "El nombre del paciente no puede llevar numeros.");
+            flagError = true;
+            return flagError;
+        } else {
+            flagError = false;
+        }
+        if (!edadText.getText().matches(val1)) {
+            JOptionPane.showMessageDialog(this, "En la edad solo pueden ser ingresados numeros.");
+            flagError = true;
+            return flagError;
+        } else {
+            flagError = false;
+        }
+        if (!alturaText.getText().matches(val2)) {
+            JOptionPane.showMessageDialog(this, "En la altura solo pueden ser ingresados numeros.");
+            flagError = true;
+            return flagError;
+        } else {
+            flagError = false;
+        }
+        if (!pesoActualText.getText().matches(val2)) {
+            JOptionPane.showMessageDialog(this, "En el peso actual solo pueden ser ingresados numeros.");
+            flagError = true;
+            return flagError;
+        } else {
+            flagError = false;
+        }
+        if (!pesoBuscadoText.getText().matches(val2)) {
+            JOptionPane.showMessageDialog(this, "En el peso buscado solo pueden ser ingresados numeros.");
+            flagError = true;
+            return flagError;
+        } else {
+            flagError = false;
+        }
+        return flagError;
+    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField alturaText;
     private javax.swing.JTextField edadText;
     private javax.swing.JTextField idText;
-    private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton6;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -256,6 +312,8 @@ public class ModificarPaciente extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLayeredPane jLayeredPane1;
+    private javax.swing.JButton jbCancelar;
+    private javax.swing.JButton jbGuardar;
     private javax.swing.JTextField nombreText;
     private javax.swing.JTextField pesoActualText;
     private javax.swing.JTextField pesoBuscadoText;

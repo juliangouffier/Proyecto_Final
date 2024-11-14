@@ -63,7 +63,6 @@ public class IngredienteData {
     }
 
     public void modificarIngrediente(Ingrediente ingrediente) {
-
         int contador = 0;
         List<Ingrediente> ingredientes = ingredientesUsados();
         for (int i = 0; i < ingredientes.size(); i++) {
