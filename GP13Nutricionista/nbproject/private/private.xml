@@ -3,25 +3,14 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-<<<<<<< Updated upstream
             <file>file:/C:/Users/Hernan/OneDrive/Documentos/GitHub/Proyecto_Final/GP13Nutricionista/src/nutricionista/vistas/ListaDeRenglones.java</file>
             <file>file:/C:/Users/Hernan/OneDrive/Documentos/GitHub/Proyecto_Final/GP13Nutricionista/src/nutricionista/accesoDatos/PacienteData.java</file>
             <file>file:/C:/Users/Hernan/OneDrive/Documentos/GitHub/Proyecto_Final/GP13Nutricionista/src/nutricionista/vistas/ModificarPaciente.java</file>
             <file>file:/C:/Users/Hernan/OneDrive/Documentos/GitHub/Proyecto_Final/GP13Nutricionista/src/nutricionista/vistas/FormularioRenglon.java</file>
             <file>file:/C:/Users/Hernan/OneDrive/Documentos/GitHub/Proyecto_Final/GP13Nutricionista/src/nutricionista/vistas/FormularioComida.java</file>
+            <file>file:/C:/Users/Hernan/OneDrive/Documentos/GitHub/Proyecto_Final/GP13Nutricionista/src/nutricionista/vistas/FinalizarDieta.java</file>
             <file>file:/C:/Users/Hernan/OneDrive/Documentos/GitHub/Proyecto_Final/GP13Nutricionista/src/nutricionista/vistas/FormularioPaciente.java</file>
             <file>file:/C:/Users/Hernan/OneDrive/Documentos/GitHub/Proyecto_Final/GP13Nutricionista/src/nutricionista/vistas/CrearPaciente.java</file>
-=======
-            <file>file:/C:/Users/Hernan/OneDrive/Documentos/GitHub/Proyecto_Final/GP13Nutricionista/src/nutricionista/entidades/Dieta.java</file>
-            <file>file:/C:/Users/Hernan/OneDrive/Documentos/GitHub/Proyecto_Final/GP13Nutricionista/src/nutricionista/vistas/ListaDeMenus.java</file>
-            <file>file:/C:/Users/Hernan/OneDrive/Documentos/GitHub/Proyecto_Final/GP13Nutricionista/src/nutricionista/vistas/ListaDeRenglones.java</file>
-            <file>file:/C:/Users/Hernan/OneDrive/Documentos/GitHub/Proyecto_Final/GP13Nutricionista/src/nutricionista/vistas/ListaDeComidas.java</file>
-            <file>file:/C:/Users/Hernan/OneDrive/Documentos/GitHub/Proyecto_Final/GP13Nutricionista/src/nutricionista/vistas/ListaDeIngredietes.java</file>
-            <file>file:/C:/Users/Hernan/OneDrive/Documentos/GitHub/Proyecto_Final/GP13Nutricionista/src/nutricionista/vistas/menuPrincipal.java</file>
-            <file>file:/C:/Users/Hernan/OneDrive/Documentos/GitHub/Proyecto_Final/GP13Nutricionista/src/nutricionista/vistas/CrearDieta.java</file>
-            <file>file:/C:/Users/Hernan/OneDrive/Documentos/GitHub/Proyecto_Final/GP13Nutricionista/src/nutricionista/vistas/CrearMenu.java</file>
-            <file>file:/C:/Users/Hernan/OneDrive/Documentos/GitHub/Proyecto_Final/GP13Nutricionista/src/nutricionista/entidades/Menu.java</file>
->>>>>>> Stashed changes
         </group>
     </open-files>
 </project-private>
