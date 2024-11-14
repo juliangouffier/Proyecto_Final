@@ -262,6 +262,11 @@ public class VerDieta extends javax.swing.JFrame {
         jLayeredPane3.add(jPanel1);
 
         jButton3.setText("Salir");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         jLayeredPane4.setLayout(new java.awt.GridLayout(1, 0));
 
@@ -326,8 +331,18 @@ public class VerDieta extends javax.swing.JFrame {
         fechaInicio.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
 
         totalCalorias.setEnabled(false);
+        totalCalorias.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                totalCaloriasKeyTyped(evt);
+            }
+        });
 
         pesoInicial.setEnabled(false);
+        pesoInicial.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                pesoInicialKeyTyped(evt);
+            }
+        });
 
         jLayeredPane5.setLayer(jLabel5, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPane5.setLayer(nombre, javax.swing.JLayeredPane.DEFAULT_LAYER);
@@ -443,6 +458,11 @@ public class VerDieta extends javax.swing.JFrame {
         });
 
         jButton4.setText("Finalizar Dieta");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
 
         jLayeredPane1.setLayer(jButton1, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPane1.setLayer(jButton2, javax.swing.JLayeredPane.DEFAULT_LAYER);
@@ -585,6 +605,34 @@ public class VerDieta extends javax.swing.JFrame {
                 jframe.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void totalCaloriasKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_totalCaloriasKeyTyped
+
+    }//GEN-LAST:event_totalCaloriasKeyTyped
+
+    private void pesoInicialKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_pesoInicialKeyTyped
+        char c = evt.getKeyChar();
+        String text = pesoInicial.getText();
+        if (!Character.isDigit(c) && c != '.') {
+            evt.consume(); 
+        } else if (c == '.' && text.contains(".")) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_pesoInicialKeyTyped
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+        this.setVisible(false);
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        // abro nuevo jframe 
+        FinalizarDieta jframe = new FinalizarDieta(dieta);
+        //jframe.setSize(1200, 887);
+                jframe.setLocationRelativeTo(null);
+                jframe.setVisible(true);
+                jframe.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+    }//GEN-LAST:event_jButton4ActionPerformed
 
     public void inicializarTablas(){
         List<Menu> menues = menuData.traerMenuesPorDieta(dieta.getIdDieta());

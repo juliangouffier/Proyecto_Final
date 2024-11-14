@@ -12,6 +12,7 @@ import javax.swing.JOptionPane;
 import nutricionista.entidades.Comida;
 import nutricionista.entidades.Dieta;
 import nutricionista.entidades.Ingrediente;
+import nutricionista.entidades.Paciente;
 
 
 
@@ -27,14 +28,14 @@ public class DietaData {
     }
     
     public void modificarDieta(Dieta dieta){
-        String modificar=" UPDATE `dieta` SET `nombre`=?,`fecha_inicio`=?,`fecha_fin`=?,`id_paciente`=?',`peso_inicial`=?',`peso_final`=?,`total_calorias`=? WHERE `id_dieta`=?";
+        String modificar = "UPDATE `dieta` SET `nombre`=?, `fecha_inicio`=?, `fecha_fin`=?, `id_paciente`=?, `peso_inicial`=?, `peso_final`=?, `total_calorias`=? WHERE `id_dieta`=?";
         
         try {
             PreparedStatement ps= conection.prepareStatement(modificar);
             
             ps.setString(1, dieta.getNombre());
-            ps.setDate(2, (Date) dieta.getFechaInicio());
-            ps.setDate(3, (Date) dieta.getFechaFin());
+            ps.setDate(2, new java.sql.Date(dieta.getFechaInicio().getTime()));
+            ps.setDate(3, new java.sql.Date(dieta.getFechaFin().getTime()));
             ps.setInt(4, dieta.getPaciente().getIdPaciente());
             ps.setDouble(5, dieta.getPesoInicial());
             if (dieta.getPesoFinal() != null) {
@@ -120,6 +121,9 @@ public class DietaData {
                 dieta.setFechaInicio(rs.getDate("fecha_inicio"));
                 dieta.setFechaFin(rs.getDate("fecha_fin"));
                 dieta.setNombre(rs.getString("nombre"));
+                Paciente paciente = new Paciente();
+                paciente.setIdPaciente(rs.getInt("id_paciente"));
+                dieta.setPaciente(paciente);
                 dieta.setPesoInicial(rs.getDouble("peso_inicial"));
                 dieta.setTotalCalorias(rs.getDouble("total_calorias"));
             }
@@ -157,4 +161,21 @@ public class DietaData {
         }
         return null;
      }
+     
+     public Integer validarSiExisteDietaActual(Integer pacienteId) {
+        String sql = "SELECT CASE WHEN COUNT(*) > 0 THEN 1 ELSE 0 END FROM dieta WHERE id_paciente = ? AND CURRENT_TIMESTAMP BETWEEN fecha_inicio AND fecha_fin";
+        try {
+            PreparedStatement ps = conection.prepareStatement(sql);
+            ps.setInt(1, pacienteId);
+            ResultSet rs1 = ps.executeQuery();
+
+            if (rs1.next()) { 
+                return rs1.getInt(1);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
+
 }
