@@ -148,7 +148,7 @@ public class FormularioIngrediente extends javax.swing.JInternalFrame {
             if (nombreIngrediente.isEmpty()) {
                 JOptionPane.showMessageDialog(this, "Debe colocar el nombre del ingrediente");
             } else {
-                Ingrediente ingrediente2 = new Ingrediente(idIngrediente,nombreIngrediente);
+                Ingrediente ingrediente2 = new Ingrediente(nombreIngrediente);
                 ingredienteData.cargarIngrediente(ingrediente2);
                 jtfNombreIngrediente.setText("");
             }

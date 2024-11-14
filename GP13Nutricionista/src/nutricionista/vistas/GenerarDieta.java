@@ -562,7 +562,7 @@ public class GenerarDieta extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         Integer flag = 0;
-        if(!nombre.getText().isBlank() && !nombre.getText().isEmpty()){
+        if(!nombre.getText().isEmpty() && !nombre.getText().isEmpty()){
             flag++;
         }
         if(fechaInicio != null && fechaInicio.getDate() != null){
@@ -571,7 +571,7 @@ public class GenerarDieta extends javax.swing.JFrame {
         if(fechaFin != null && fechaFin.getDate() != null){
             flag++;
         }
-        if(!pesoInicial.getText().isBlank() && !pesoInicial.getText().isEmpty()){
+        if(!pesoInicial.getText().isEmpty() && !pesoInicial.getText().isEmpty()){
             flag++;
         }
         if(flag == 4){

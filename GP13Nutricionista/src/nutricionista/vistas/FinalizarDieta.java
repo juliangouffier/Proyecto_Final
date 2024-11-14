@@ -165,7 +165,7 @@ public class FinalizarDieta extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        if(pesoFinal == null || pesoFinal.getText().isBlank()){
+        if(pesoFinal == null || pesoFinal.getText().isEmpty()){
             JOptionPane.showMessageDialog(null, "Debe ingresar un valor para el peso final.", "Advertencia", JOptionPane.WARNING_MESSAGE);
         } else {
             dieta.setFechaFin(new Date());
