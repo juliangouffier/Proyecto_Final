@@ -48,7 +48,36 @@
         </Menu>
         <Menu class="javax.swing.JMenu" name="jmRenglon">
           <Properties>
+<<<<<<< Updated upstream
             <Property name="text" type="java.lang.String" value="Renglon"/>
+=======
+            <Property name="text" type="java.lang.String" value="Dieta"/>
+          </Properties>
+          <SubComponents>
+            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem4">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Crear Dieta"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItem4ActionPerformed"/>
+              </Events>
+            </MenuItem>
+          </SubComponents>
+        </Menu>
+        <Menu class="javax.swing.JMenu" name="jMenu1">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Menues"/>
+          </Properties>
+        </Menu>
+        <Menu class="javax.swing.JMenu" name="jMenu2">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Renglones"/>
+          </Properties>
+        </Menu>
+        <Menu class="javax.swing.JMenu" name="jMenu5">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Ingrediente"/>
+>>>>>>> Stashed changes
           </Properties>
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="jmiListaRenglones">

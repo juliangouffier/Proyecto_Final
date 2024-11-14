@@ -32,6 +32,7 @@ public class menuPrincipal extends javax.swing.JFrame {
         jMenuItem4 = new javax.swing.JMenuItem();
         jDesktopPane1 = new javax.swing.JDesktopPane();
         jMenuBar2 = new javax.swing.JMenuBar();
+<<<<<<< Updated upstream
         jmPaciente = new javax.swing.JMenu();
         jmiBuscarPacientes = new javax.swing.JMenuItem();
         jmRenglon = new javax.swing.JMenu();
@@ -48,6 +49,18 @@ public class menuPrincipal extends javax.swing.JFrame {
         jMenuBar1.add(jMenu4);
 
         jMenuItem4.setText("jMenuItem4");
+=======
+        jMenu3 = new javax.swing.JMenu();
+        jMenuItem2 = new javax.swing.JMenuItem();
+        jMenu4 = new javax.swing.JMenu();
+        jMenuItem4 = new javax.swing.JMenuItem();
+        jMenu1 = new javax.swing.JMenu();
+        jMenu2 = new javax.swing.JMenu();
+        jMenu5 = new javax.swing.JMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
+        jMenu6 = new javax.swing.JMenu();
+        jMenuItem3 = new javax.swing.JMenuItem();
+>>>>>>> Stashed changes
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("GP13-NUTRICIONISTA");
@@ -87,7 +100,21 @@ public class menuPrincipal extends javax.swing.JFrame {
 
         jMenuBar2.add(jmPaciente);
 
+<<<<<<< Updated upstream
         jmRenglon.setText("Renglon");
+=======
+        jMenu4.setText("Dieta");
+
+        jMenuItem4.setText("Crear Dieta");
+        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem4ActionPerformed(evt);
+            }
+        });
+        jMenu4.add(jMenuItem4);
+
+        jMenuBar2.add(jMenu4);
+>>>>>>> Stashed changes
 
         jmiListaRenglones.setText("Lista de renglones");
         jmiListaRenglones.addActionListener(new java.awt.event.ActionListener() {
@@ -193,6 +220,15 @@ public class menuPrincipal extends javax.swing.JFrame {
         jDesktopPane1.moveToFront(listaDeRenglones);
     }//GEN-LAST:event_jmiListaRenglonesActionPerformed
 
+    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
+        jDesktopPane1.removeAll();
+        jDesktopPane1.repaint();
+        CrearDieta crearDieta = new CrearDieta();
+        crearDieta.setVisible(true);
+        jDesktopPane1.add(crearDieta);
+        jDesktopPane1.moveToFront(crearDieta);
+    }//GEN-LAST:event_jMenuItem4ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -237,6 +273,7 @@ public class menuPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuBar jMenuBar2;
+<<<<<<< Updated upstream
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenu jmComida;
     private javax.swing.JMenu jmIngrediente;
@@ -246,5 +283,11 @@ public class menuPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jmiListaComidas;
     private javax.swing.JMenuItem jmiListaIngredientes;
     private javax.swing.JMenuItem jmiListaRenglones;
+=======
+    private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenuItem jMenuItem3;
+    private javax.swing.JMenuItem jMenuItem4;
+>>>>>>> Stashed changes
     // End of variables declaration//GEN-END:variables
 }

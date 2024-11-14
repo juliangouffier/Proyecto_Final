@@ -20,25 +20,43 @@
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="1" attributes="0">
+<<<<<<< Updated upstream:GP13Nutricionista/src/nutricionista/vistas/ListaDeIngredientes.form
               <EmptySpace max="32767" attributes="0"/>
+=======
+              <EmptySpace pref="170" max="32767" attributes="0"/>
+>>>>>>> Stashed changes:GP13Nutricionista/src/nutricionista/vistas/ListaDeIngredietes.form
               <Component id="jbAgregar" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Component id="jbModificar" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Component id="jbEliminar" min="-2" max="-2" attributes="0"/>
+<<<<<<< Updated upstream:GP13Nutricionista/src/nutricionista/vistas/ListaDeIngredientes.form
               <EmptySpace min="-2" pref="100" max="-2" attributes="0"/>
               <Component id="jbSalir" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
           <Group type="102" attributes="0">
+=======
+              <EmptySpace min="-2" pref="145" max="-2" attributes="0"/>
+              <Component id="jbSalir" min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+          </Group>
+          <Group type="102" alignment="0" attributes="0">
+>>>>>>> Stashed changes:GP13Nutricionista/src/nutricionista/vistas/ListaDeIngredietes.form
               <EmptySpace max="-2" attributes="0"/>
               <Component id="ListaDeIngredientes" max="32767" attributes="0"/>
               <EmptySpace min="6" pref="6" max="-2" attributes="0"/>
           </Group>
           <Group type="102" alignment="0" attributes="0">
+<<<<<<< Updated upstream:GP13Nutricionista/src/nutricionista/vistas/ListaDeIngredientes.form
               <EmptySpace min="-2" pref="56" max="-2" attributes="0"/>
               <Component id="jScrollPane1" min="-2" pref="486" max="-2" attributes="0"/>
               <EmptySpace pref="56" max="32767" attributes="0"/>
+=======
+              <EmptySpace min="-2" pref="106" max="-2" attributes="0"/>
+              <Component id="jScrollPane1" min="-2" pref="436" max="-2" attributes="0"/>
+              <EmptySpace max="32767" attributes="0"/>
+>>>>>>> Stashed changes:GP13Nutricionista/src/nutricionista/vistas/ListaDeIngredietes.form
           </Group>
       </Group>
     </DimensionLayout>
@@ -47,7 +65,7 @@
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Component id="ListaDeIngredientes" min="-2" max="-2" attributes="0"/>
-              <EmptySpace type="separate" max="32767" attributes="0"/>
+              <EmptySpace pref="18" max="32767" attributes="0"/>
               <Component id="jScrollPane1" min="-2" pref="214" max="-2" attributes="0"/>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">

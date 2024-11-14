@@ -102,13 +102,21 @@ public class ListaDeIngredientes extends javax.swing.JInternalFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+<<<<<<< Updated upstream:GP13Nutricionista/src/nutricionista/vistas/ListaDeIngredientes.java
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+=======
+                .addContainerGap(170, Short.MAX_VALUE)
+>>>>>>> Stashed changes:GP13Nutricionista/src/nutricionista/vistas/ListaDeIngredietes.java
                 .addComponent(jbAgregar)
                 .addGap(18, 18, 18)
                 .addComponent(jbModificar)
                 .addGap(18, 18, 18)
                 .addComponent(jbEliminar)
+<<<<<<< Updated upstream:GP13Nutricionista/src/nutricionista/vistas/ListaDeIngredientes.java
                 .addGap(100, 100, 100)
+=======
+                .addGap(145, 145, 145)
+>>>>>>> Stashed changes:GP13Nutricionista/src/nutricionista/vistas/ListaDeIngredietes.java
                 .addComponent(jbSalir)
                 .addContainerGap())
             .addGroup(layout.createSequentialGroup()
@@ -116,16 +124,22 @@ public class ListaDeIngredientes extends javax.swing.JInternalFrame {
                 .addComponent(ListaDeIngredientes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(6, 6, 6))
             .addGroup(layout.createSequentialGroup()
+<<<<<<< Updated upstream:GP13Nutricionista/src/nutricionista/vistas/ListaDeIngredientes.java
                 .addGap(56, 56, 56)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 486, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(56, Short.MAX_VALUE))
+=======
+                .addGap(106, 106, 106)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 436, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+>>>>>>> Stashed changes:GP13Nutricionista/src/nutricionista/vistas/ListaDeIngredietes.java
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(ListaDeIngredientes)
-                .addGap(18, 18, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
