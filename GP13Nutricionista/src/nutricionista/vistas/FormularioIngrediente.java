@@ -134,13 +134,13 @@ public class FormularioIngrediente extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jbGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbGuardarActionPerformed
+        int idIngrediente = Integer.parseInt(jtfIdIngrediente.getText());
         String nombreIngrediente = jtfNombreIngrediente.getText();
         if (ingrediente != null) {
-            int idIngrediente = Integer.parseInt(jtfIdIngrediente.getText());
             if (nombreIngrediente.isEmpty()) {
                 JOptionPane.showMessageDialog(this, "Debe colocar el nombre del ingrediente");
             } else {
-                Ingrediente ingrediente2 = new Ingrediente(idIngrediente, nombreIngrediente);
+                Ingrediente ingrediente2 = new Ingrediente(idIngrediente,nombreIngrediente);
                 ingredienteData.modificarIngrediente(ingrediente2);
                 this.dispose();
             }
@@ -148,10 +148,10 @@ public class FormularioIngrediente extends javax.swing.JInternalFrame {
             if (nombreIngrediente.isEmpty()) {
                 JOptionPane.showMessageDialog(this, "Debe colocar el nombre del ingrediente");
             } else {
-                Ingrediente ingrediente2 = new Ingrediente(nombreIngrediente);
+                Ingrediente ingrediente2 = new Ingrediente(idIngrediente,nombreIngrediente);
                 ingredienteData.cargarIngrediente(ingrediente2);
+                jtfNombreIngrediente.setText("");
             }
-            this.dispose();
         }
     }//GEN-LAST:event_jbGuardarActionPerformed
 
@@ -163,7 +163,7 @@ public class FormularioIngrediente extends javax.swing.JInternalFrame {
         this.jtfIdIngrediente.setText(String.valueOf(ingrediente.getIdIngrediente()));
         this.jtfNombreIngrediente.setText(ingrediente.getNomIngrediente());
     }
-
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
     private javax.swing.JSeparator jSeparator1;

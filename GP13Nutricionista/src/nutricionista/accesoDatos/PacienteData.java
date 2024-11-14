@@ -146,10 +146,7 @@ public class PacienteData {
             ps.setDouble(4, paciente.getPesoActual());
             ps.setDouble(5, paciente.getPesoBuscado());
             ps.setInt(6, paciente.getIdPaciente());
-            int update = ps.executeUpdate();
-            if (update == 1) {
-                    JOptionPane.showMessageDialog(null, "Paciente modificado con exito");
-            }
+            int filas_actualizadas = ps.executeUpdate();
             ps.close();
         } catch (SQLException ex) {
             throw new Exception("Ocurrio un error al modificar el paciente");

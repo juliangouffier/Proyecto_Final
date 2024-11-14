@@ -16,7 +16,8 @@ import nutricionista.entidades.Ingrediente;
  *
  * @author Hernan
  */
-public class ListaDeIngredientes extends javax.swing.JInternalFrame {
+public class ListaDeIngredietes extends javax.swing.JInternalFrame {
+
     private List<Ingrediente> listaIngredientes;
     private IngredienteData ingredienteData;
     private Ingrediente ingrediente = null;
@@ -26,7 +27,7 @@ public class ListaDeIngredientes extends javax.swing.JInternalFrame {
     /**
      * Creates new form NewJInternalFrame
      */
-    public ListaDeIngredientes() {
+    public ListaDeIngredietes() {
         initComponents();
         modelo = new DefaultTableModel();
         ingredienteData = new IngredienteData();
