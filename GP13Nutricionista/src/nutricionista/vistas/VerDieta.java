@@ -4,9 +4,15 @@
  */
 package nutricionista.vistas;
 
+import java.util.List;
 import javax.swing.JFrame;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
 import nutricionista.accesoDatos.MenuData;
+import nutricionista.accesoDatos.RenglonData;
 import nutricionista.entidades.Dieta;
+import nutricionista.entidades.Menu;
+import nutricionista.entidades.Renglon;
 
 /**
  *
@@ -15,6 +21,7 @@ import nutricionista.entidades.Dieta;
 public class VerDieta extends javax.swing.JFrame {
 
     Dieta dieta;
+    MenuData menuData;
     public VerDieta(Dieta dieta) {
         initComponents();
         this.dieta = dieta;
@@ -22,6 +29,8 @@ public class VerDieta extends javax.swing.JFrame {
         fechaInicio.setDate(dieta.getFechaInicio());
         fechaFin.setDate(dieta.getFechaFin());
         pesoInicial.setText(String.valueOf(dieta.getPesoInicial()));
+        this.menuData = new MenuData();
+        inicializarTablas();
     }
 
     /**
@@ -523,7 +532,22 @@ public class VerDieta extends javax.swing.JFrame {
                 JOptionPane.WARNING_MESSAGE);
         }*/
     }//GEN-LAST:event_jButton2ActionPerformed
-
+    
+    private void eliminarColumnas(JTable tabla) {
+        if (tabla.getColumnCount() > 4) {
+            tabla.getColumnModel().getColumn(0).setMinWidth(0); 
+            tabla.getColumnModel().getColumn(0).setMaxWidth(0);
+            tabla.getColumnModel().getColumn(0).setWidth(0);
+            tabla.getColumnModel().getColumn(0).setResizable(false);
+        }
+        if (tabla.getColumnCount() > 0) {
+            tabla.getColumnModel().getColumn(0).setMinWidth(0);
+            tabla.getColumnModel().getColumn(0).setMaxWidth(0);
+            tabla.getColumnModel().getColumn(0).setWidth(0);
+            tabla.getColumnModel().getColumn(0).setResizable(false);
+        }
+    }
+    
     private void checkBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkBoxActionPerformed
         if(checkBox.isSelected()){
             nombre.setEnabled(true);
@@ -547,6 +571,178 @@ public class VerDieta extends javax.swing.JFrame {
         
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    public void inicializarTablas(){
+        List<Menu> menues = menuData.traerMenuesPorDieta(dieta.getIdDieta());
+        String[] columnas = {"ID", "Nombre", "Cantidad Grm", "Tipo", "subTotalCalorias"};
+        if(menues != null && !menues.isEmpty()){
+            // los agrego a las tablas
+            for(Menu menu : menues){
+                switch(menu.getDia().toUpperCase()){
+                    case "LUNES":
+                        DefaultTableModel modeloLunes = new DefaultTableModel(columnas, 0) {
+                            @Override
+                            public boolean isCellEditable(int row, int column) {
+                                return false;
+                            }
+                        };
+                        for (Renglon renglon : menu.getRenglones()) {
+                            Object[] dataRow = {
+                                renglon.getNumRenglon(),
+                                renglon.getComida().getNomComida(),
+                                renglon.getCantGrm(),
+                                renglon.getComida().getTipo(),
+                                renglon.getSubTotalCalorias()
+                            };
+
+                            modeloLunes.addRow(dataRow);
+                        }
+
+                        lunes.setName("lunes");
+                        lunes.setModel(modeloLunes);
+                        eliminarColumnas(lunes);
+                        break;
+                    case "MARTES": 
+                        DefaultTableModel modeloMartes = new DefaultTableModel(columnas, 0) {
+                            @Override
+                            public boolean isCellEditable(int row, int column) {
+                                return false;
+                            }
+                        };
+                        for (Renglon renglon : menu.getRenglones()) {
+                            Object[] dataRow = {
+                                renglon.getNumRenglon(),
+                                renglon.getComida().getNomComida(),
+                                renglon.getCantGrm(),
+                                renglon.getComida().getTipo(),
+                                renglon.getSubTotalCalorias()
+                            };
+
+                            modeloMartes.addRow(dataRow);
+                        }
+
+                        martes.setName("martes");
+                        martes.setModel(modeloMartes);
+                        eliminarColumnas(martes);
+                        break;
+                    case "MIERCOLES": 
+                        DefaultTableModel modeloMiercoles = new DefaultTableModel(columnas, 0) {
+                            @Override
+                            public boolean isCellEditable(int row, int column) {
+                                return false;
+                            }
+                        };
+                        for (Renglon renglon : menu.getRenglones()) {
+                            Object[] dataRow = {
+                                renglon.getNumRenglon(),
+                                renglon.getComida().getNomComida(),
+                                renglon.getCantGrm(),
+                                renglon.getComida().getTipo(),
+                                renglon.getSubTotalCalorias()
+                            };
+
+                            modeloMiercoles.addRow(dataRow);
+                        }
+
+                        miercoles.setName("miercoles");
+                        miercoles.setModel(modeloMiercoles);
+                        eliminarColumnas(miercoles);
+                        break;
+                    case "JUEVES": 
+                        DefaultTableModel modeloJueves = new DefaultTableModel(columnas, 0) {
+                            @Override
+                            public boolean isCellEditable(int row, int column) {
+                                return false;
+                            }
+                        };
+                        for (Renglon renglon : menu.getRenglones()) {
+                            Object[] dataRow = {
+                                renglon.getNumRenglon(),
+                                renglon.getComida().getNomComida(),
+                                renglon.getCantGrm(),
+                                renglon.getComida().getTipo(),
+                                renglon.getSubTotalCalorias()
+                            };
+
+                            modeloJueves.addRow(dataRow);
+                        }
+
+                        jueves.setName("jueves");
+                        jueves.setModel(modeloJueves);
+                        eliminarColumnas(jueves);
+                        break;    
+                    case "VIERNES":
+                        DefaultTableModel modeloViernes = new DefaultTableModel(columnas, 0) {
+                            @Override
+                            public boolean isCellEditable(int row, int column) {
+                                return false;
+                            }
+                        };
+                        for (Renglon renglon : menu.getRenglones()) {
+                            Object[] dataRow = {
+                                renglon.getNumRenglon(),
+                                renglon.getComida().getNomComida(),
+                                renglon.getCantGrm(),
+                                renglon.getComida().getTipo(),
+                                renglon.getSubTotalCalorias()
+                            };
+
+                            modeloViernes.addRow(dataRow);
+                        }
+
+                        viernes.setName("viernes");
+                        viernes.setModel(modeloViernes);
+                        eliminarColumnas(viernes);
+                        break;
+                    case "SABADO":
+                        DefaultTableModel modeloSabado = new DefaultTableModel(columnas, 0) {
+                            @Override
+                            public boolean isCellEditable(int row, int column) {
+                                return false;
+                            }
+                        };
+                        for (Renglon renglon : menu.getRenglones()) {
+                            Object[] dataRow = {
+                                renglon.getNumRenglon(),
+                                renglon.getComida().getNomComida(),
+                                renglon.getCantGrm(),
+                                renglon.getComida().getTipo(),
+                                renglon.getSubTotalCalorias()
+                            };
+
+                            modeloSabado.addRow(dataRow);
+                        }
+
+                        sabado.setName("sabado");
+                        sabado.setModel(modeloSabado);
+                        eliminarColumnas(sabado);
+                        break;
+                    case "DOMINGO":
+                        DefaultTableModel modeloDomingo= new DefaultTableModel(columnas, 0) {
+                            @Override
+                            public boolean isCellEditable(int row, int column) {
+                                return false;
+                            }
+                        };
+                        for (Renglon renglon : menu.getRenglones()) {
+                            Object[] dataRow = {
+                                renglon.getNumRenglon(),
+                                renglon.getComida().getNomComida(),
+                                renglon.getCantGrm(),
+                                renglon.getComida().getTipo(),
+                                renglon.getSubTotalCalorias()
+                            };
+
+                            modeloDomingo.addRow(dataRow);
+                        }
+
+                        domingo.setName("domingo");
+                        domingo.setModel(modeloDomingo);
+                        eliminarColumnas(domingo);
+                        break;
+                }
+            }
+        }
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JCheckBox checkBox;
