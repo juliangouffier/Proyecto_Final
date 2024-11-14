@@ -121,20 +121,22 @@ public class RenglonData {
         }
     }
      
-     public ArrayList<Renglon> traerRenglonesQueNoEstenEnDieta(Integer dietaId){
+     public ArrayList<Renglon> traerRenglonesQueNoEstenEnDietaNiMenu(Integer dietaId, String dia){
          ArrayList<Renglon> renglones = new ArrayList();
          String sql = "SELECT DISTINCT * FROM `renglon` r "
            + "JOIN `comida` c ON c.cod_comida = r.id_comida "
            + "WHERE r.nro_renglon NOT IN ( "
            + "   SELECT mtr.id_renglon "
            + "   FROM `dieta_tiene_menu` dtm "
+           + "   JOIN menu m on m.cod_menu = dtm.id_menu "
            + "   JOIN `menu_tiene_renglon` mtr ON mtr.id_menu = dtm.id_menu "
-           + "   WHERE dtm.id_dieta = ? "
+           + "   WHERE dtm.id_dieta = ? AND m.dia = ? AND mtr.estado = 1 "
            + ")";   
 
         try {
             PreparedStatement ps = conection.prepareStatement(sql);
             ps.setInt(1, dietaId);
+            ps.setString(2, dia.toUpperCase());
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 Renglon renglon = new Renglon();
@@ -192,4 +194,29 @@ public class RenglonData {
         return renglones;
      }
      
+     public void cambiarRenglones(Integer menuId, Integer renglonActual, Integer renglonFinal){
+         try {
+            String sql = "UPDATE menu_tiene_renglon mtr SET estado = 0 "
+                + "WHERE mtr.id_menu = ? AND mtr.id_renglon = ? AND mtr.estado = 1";
+            PreparedStatement ps = conection.prepareStatement(sql);
+            ps.setInt(1, menuId);
+            ps.setInt(2, renglonActual);
+            ps.executeUpdate();
+            
+            try {
+                String sqlInsert = "INSERT INTO menu_tiene_renglon (id_menu, id_renglon, estado) VALUES (?, ?, ?)";
+                PreparedStatement ps1 = conection.prepareStatement(sqlInsert);
+                ps1.setInt(1, menuId);
+                ps1.setInt(2, renglonFinal);
+                ps1.setInt(3, 1);
+                ps1.executeUpdate();
+            } catch (SQLException eq){
+                eq.printStackTrace();
+                System.out.println("Fallo el insert del neuvo renglon.");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.out.println("Fallo el update");
+        }
+     }
 }

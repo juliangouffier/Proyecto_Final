@@ -8,7 +8,9 @@ import java.util.List;
 import java.util.Optional;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
+import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
+import nutricionista.accesoDatos.DietaData;
 import nutricionista.accesoDatos.MenuData;
 import nutricionista.accesoDatos.RenglonData;
 import nutricionista.entidades.Dieta;
@@ -23,11 +25,17 @@ public class CambiarMenu extends javax.swing.JFrame {
 
     Dieta dieta;
     MenuData menuData;
+    DietaData dietaData;
     List<Menu> menues;
     RenglonData renglonData;
-    
-    public CambiarMenu(Dieta dieta) {
+    Integer menuId;
+    JTextField totalCaloriasField;
+    VerDieta verDieta;
+    public CambiarMenu(Dieta dieta, JTextField j, VerDieta verDieta) {
         initComponents();
+        this.verDieta = verDieta;
+        this.totalCaloriasField = j;
+        this.dietaData = new DietaData();
         this.dieta = dieta;
         this.menuData = new MenuData();
         this.renglonData = new RenglonData();
@@ -77,6 +85,8 @@ public class CambiarMenu extends javax.swing.JFrame {
 
             }
         ));
+        tablaRenglonesMenu.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        tablaRenglonesMenu.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jScrollPane1.setViewportView(tablaRenglonesMenu);
 
         tablaRenglonesDisponibles.setModel(new javax.swing.table.DefaultTableModel(
@@ -90,6 +100,8 @@ public class CambiarMenu extends javax.swing.JFrame {
 
             }
         ));
+        tablaRenglonesDisponibles.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        tablaRenglonesDisponibles.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jScrollPane2.setViewportView(tablaRenglonesDisponibles);
 
         jButton2.setText("Cambiar Menu Automatico");
@@ -216,7 +228,7 @@ public class CambiarMenu extends javax.swing.JFrame {
         String diaSeleccionado = menuSelect.getSelectedItem().toString();
         if(!diaSeleccionado.equalsIgnoreCase("Seleccione un Menu")){
             // lleno tabla
-            Integer menuId = 0;
+            menuId = 0;
             Optional<Integer> menuIdOptional = menues.stream()
             .filter(x -> x.getDia().equalsIgnoreCase(diaSeleccionado)) // Filtrar por el día seleccionado
             .map(Menu::getIdMenu).findFirst();
@@ -247,6 +259,31 @@ public class CambiarMenu extends javax.swing.JFrame {
             tablaRenglonesMenu.setModel(modeloTabla);
             eliminarColumnas(tablaRenglonesMenu);
             
+            List<Renglon> renglones1 = renglonData.traerRenglonesQueNoEstenEnDietaNiMenu(dieta.getIdDieta(), diaSeleccionado);
+
+            DefaultTableModel modeloTabla1 = new DefaultTableModel(columnas, 0) {
+                @Override
+                public boolean isCellEditable(int row, int column) {
+                    return false;
+                }
+            };
+            
+            for (Renglon renglon : renglones1) {
+                Object[] dataRow = {
+                    renglon.getNumRenglon(),
+                    renglon.getComida().getNomComida(),
+                    renglon.getCantGrm(),
+                    renglon.getComida().getTipo(),
+                    renglon.getSubTotalCalorias()
+                };
+
+                modeloTabla1.addRow(dataRow);
+            }
+
+            tablaRenglonesDisponibles.setName("renglones");
+            tablaRenglonesDisponibles.setModel(modeloTabla1);
+            eliminarColumnas(tablaRenglonesDisponibles);
+            
         } else {
             // limpio tabla
             tablaRenglonesMenu.setModel(new DefaultTableModel());
@@ -254,16 +291,35 @@ public class CambiarMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_menuSelectItemStateChanged
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
         int filaSeleccionada1 = tablaRenglonesMenu.getSelectedRow();
         int filaSeleccionada2 = tablaRenglonesDisponibles.getSelectedRow();
         if (filaSeleccionada1 != -1 && filaSeleccionada2 != -1) {
+            int renglonIdTableRenglones = (int) tablaRenglonesMenu.getValueAt(filaSeleccionada1, 0);
+            int renglonIdTableRenglonesDisponibles = (int) tablaRenglonesDisponibles.getValueAt(filaSeleccionada2, 0);
+            renglonData.cambiarRenglones(menuId, renglonIdTableRenglones, renglonIdTableRenglonesDisponibles);
+            recalculoTotalCaloriasMenu(menuId);
+            Double totalCalorias = recalculoTotalCaloriasDieta(dieta.getIdDieta());
+            dieta.setTotalCalorias(totalCalorias);
+            totalCaloriasField.setText(String.valueOf(totalCalorias));
+            JOptionPane.showMessageDialog(null, "Se cambio de renglon exitosamente.", "Informacion", JOptionPane.INFORMATION_MESSAGE);
+            tablaRenglonesMenu.setModel(new DefaultTableModel());
+            tablaRenglonesDisponibles.setModel(new DefaultTableModel());
+            menuSelect.setSelectedIndex(0);
+            verDieta.inicializarTablas();
             
         } else {
             JOptionPane.showMessageDialog(null, "No hay ninguna fila seleccionada, debe seleccionar una en cada tabla.", "Advertencia", JOptionPane.WARNING_MESSAGE);
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    public Double recalculoTotalCaloriasDieta(Integer idDieta){
+        return dietaData.recalculoTotalCaloriasDieta(idDieta);
+    }
+    
+    public void recalculoTotalCaloriasMenu(Integer menuId){
+        menuData.recalculoTotalCaloriasMenu(menuId);
+    }
+    
     private void eliminarColumnas(JTable tabla) {
         if (tabla.getColumnCount() > 4) {
             tabla.getColumnModel().getColumn(0).setMinWidth(0); 
@@ -284,31 +340,6 @@ public class CambiarMenu extends javax.swing.JFrame {
         menuSelect.addItem(x.getDia().toUpperCase());
         });
         
-        List<Renglon> renglones = renglonData.traerRenglonesQueNoEstenEnDieta(dieta.getIdDieta());
-            String[] columnas = {"ID", "Nombre", "Cantidad Grm", "Tipo", "subTotalCalorias"};
-
-            DefaultTableModel modeloTabla = new DefaultTableModel(columnas, 0) {
-                @Override
-                public boolean isCellEditable(int row, int column) {
-                    return false;
-                }
-            };
-            
-            for (Renglon renglon : renglones) {
-                Object[] dataRow = {
-                    renglon.getNumRenglon(),
-                    renglon.getComida().getNomComida(),
-                    renglon.getCantGrm(),
-                    renglon.getComida().getTipo(),
-                    renglon.getSubTotalCalorias()
-                };
-
-                modeloTabla.addRow(dataRow);
-            }
-
-            tablaRenglonesDisponibles.setName("renglones");
-            tablaRenglonesDisponibles.setModel(modeloTabla);
-            eliminarColumnas(tablaRenglonesDisponibles);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

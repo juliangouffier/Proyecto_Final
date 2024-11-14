@@ -135,4 +135,19 @@ public class MenuData {
         }
         return menues;
     }
+    
+    public Double recalculoTotalCaloriasMenu(Integer menu){
+         String sql = "UPDATE menu SET calorias_menu = (SELECT SUM(r.sub_total_calorias) FROM menu_tiene_renglon mtr "
+                 + "JOIN renglon r on r.nro_renglon = mtr.id_renglon WHERE mtr.id_menu = ? AND mtr.estado = 1 ) WHERE cod_menu = ?";
+         try {
+             
+            PreparedStatement ps1 = conection.prepareStatement(sql);
+            ps1.setInt(1, menu);
+            ps1.setInt(2, menu);
+            int rs1 = ps1.executeUpdate();
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+     }
 }

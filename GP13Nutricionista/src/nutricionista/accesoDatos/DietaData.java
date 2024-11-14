@@ -37,7 +37,11 @@ public class DietaData {
             ps.setDate(3, (Date) dieta.getFechaFin());
             ps.setInt(4, dieta.getPaciente().getIdPaciente());
             ps.setDouble(5, dieta.getPesoInicial());
-            ps.setDouble(6, dieta.getPesoFinal());
+            if (dieta.getPesoFinal() != null) {
+                ps.setDouble(6, dieta.getPesoFinal());
+            } else {
+                ps.setNull(6, java.sql.Types.DOUBLE);
+            }
             ps.setDouble(7, dieta.getTotalCalorias());
             ps.setInt(8,dieta.getIdDieta());
             int filas_actualiz=ps.executeUpdate();
@@ -125,5 +129,32 @@ public class DietaData {
              e.printStackTrace();
              return null;
          }
+     }
+     
+     public Double recalculoTotalCaloriasDieta(Integer dieta){
+         String sql = "UPDATE dieta SET total_calorias = (SELECT SUM(m.calorias_menu) FROM dieta_tiene_menu dtm "
+                 + "JOIN menu m on m.cod_menu = dtm.id_menu WHERE dtm.id_dieta = ? AND dtm.estado = 1 ) WHERE id_dieta = ?";
+         
+         String sql2 = "SELECT total_calorias FROM dieta WHERE id_dieta = ?";
+         
+         try {
+             
+            PreparedStatement ps1 = conection.prepareStatement(sql);
+            ps1.setInt(1, dieta);
+            ps1.setInt(2, dieta);
+            int rs1 = ps1.executeUpdate();
+             
+            if(rs1 != 0){
+                PreparedStatement ps2 = conection.prepareStatement(sql2);
+                ps2.setInt(1, dieta);
+                ResultSet rs2 = ps2.executeQuery();
+                if(rs2.first()){
+                    return rs2.getDouble("total_calorias");
+                }
+            }
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+        return null;
      }
 }

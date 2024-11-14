@@ -278,7 +278,7 @@ public class FormularioPaciente extends javax.swing.JInternalFrame {
             Dieta dieta = dietaData.pacientePoseeDieta((int) tablaPacientes.getValueAt(filaSeleccionada, 0));
             if(dieta != null){
                 VerDieta jframe = new VerDieta(dieta);
-                jframe.setSize(1200, 887);
+                jframe.setSize(1200, 957);
                 jframe.setLocationRelativeTo(null);
                 jframe.setVisible(true);
                 jframe.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
