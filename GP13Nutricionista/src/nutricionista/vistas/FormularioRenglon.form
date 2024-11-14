@@ -35,7 +35,7 @@
                               <EmptySpace min="-2" pref="90" max="-2" attributes="0"/>
                               <Component id="jLabel3" min="-2" pref="85" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
-                              <Component id="jComboBox1" min="-2" pref="200" max="-2" attributes="0"/>
+                              <Component id="jcbComida" min="-2" pref="200" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                       <EmptySpace min="0" pref="60" max="32767" attributes="0"/>
@@ -45,7 +45,7 @@
           </Group>
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace min="-2" pref="132" max="-2" attributes="0"/>
-              <Component id="jButton2" min="-2" pref="205" max="-2" attributes="0"/>
+              <Component id="jbGuardar" min="-2" pref="205" max="-2" attributes="0"/>
               <EmptySpace max="32767" attributes="0"/>
           </Group>
       </Group>
@@ -60,7 +60,7 @@
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jLabel3" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
-                  <Component id="jComboBox1" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                  <Component id="jcbComida" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="40" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
@@ -68,7 +68,7 @@
                   <Component id="jTcantidadgr" min="-2" pref="30" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
-              <Component id="jButton2" min="-2" max="-2" attributes="0"/>
+              <Component id="jbGuardar" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="32767" attributes="0"/>
           </Group>
       </Group>
@@ -104,19 +104,19 @@
         <Property name="text" type="java.lang.String" value="Cantidad de gramos"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JComboBox" name="jComboBox1">
+    <Component class="javax.swing.JComboBox" name="jcbComida">
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;Comida&gt;"/>
       </AuxValues>
     </Component>
     <Component class="javax.swing.JTextField" name="jTcantidadgr">
     </Component>
-    <Component class="javax.swing.JButton" name="jButton2">
+    <Component class="javax.swing.JButton" name="jbGuardar">
       <Properties>
         <Property name="text" type="java.lang.String" value="Guardar"/>
       </Properties>
       <Events>
-        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jButton2MouseClicked"/>
+        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jbGuardarMouseClicked"/>
       </Events>
     </Component>
   </SubComponents>
