@@ -44,9 +44,7 @@ public class ListaDeRenglones extends javax.swing.JInternalFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jtRenglon = new javax.swing.JTable();
         jbSalir = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
         jbNuevo = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
 
         ListaDeIngredientes.setFont(new java.awt.Font("Dialog", 1, 25)); // NOI18N
         ListaDeIngredientes.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -72,16 +70,12 @@ public class ListaDeRenglones extends javax.swing.JInternalFrame {
             }
         });
 
-        jButton2.setText("Modificar");
-
         jbNuevo.setText("Nuevo");
         jbNuevo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbNuevoActionPerformed(evt);
             }
         });
-
-        jButton4.setText("Elegir");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -98,11 +92,7 @@ public class ListaDeRenglones extends javax.swing.JInternalFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(jbNuevo)
-                        .addGap(18, 18, 18)
-                        .addComponent(jButton2)
-                        .addGap(18, 18, 18)
-                        .addComponent(jButton4)
-                        .addGap(262, 262, 262)
+                        .addGap(367, 367, 367)
                         .addComponent(jbSalir)))
                 .addContainerGap())
         );
@@ -116,9 +106,7 @@ public class ListaDeRenglones extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jbSalir)
-                    .addComponent(jButton2)
-                    .addComponent(jbNuevo)
-                    .addComponent(jButton4))
+                    .addComponent(jbNuevo))
                 .addContainerGap())
         );
 
@@ -157,8 +145,6 @@ public class ListaDeRenglones extends javax.swing.JInternalFrame {
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel ListaDeIngredientes;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton jbNuevo;
     private javax.swing.JButton jbSalir;

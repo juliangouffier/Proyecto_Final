@@ -31,11 +31,7 @@
                   <Group type="102" alignment="1" attributes="0">
                       <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                       <Component id="jbNuevo" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="jButton2" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="jButton4" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="262" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="367" max="-2" attributes="0"/>
                       <Component id="jbSalir" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
@@ -53,9 +49,7 @@
               <EmptySpace pref="29" max="32767" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jbSalir" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jButton2" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jbNuevo" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jButton4" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
@@ -101,11 +95,6 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jbSalirActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="jButton2">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Modificar"/>
-      </Properties>
-    </Component>
     <Component class="javax.swing.JButton" name="jbNuevo">
       <Properties>
         <Property name="text" type="java.lang.String" value="Nuevo"/>
@@ -113,11 +102,6 @@
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jbNuevoActionPerformed"/>
       </Events>
-    </Component>
-    <Component class="javax.swing.JButton" name="jButton4">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Elegir"/>
-      </Properties>
     </Component>
   </SubComponents>
 </Form>
