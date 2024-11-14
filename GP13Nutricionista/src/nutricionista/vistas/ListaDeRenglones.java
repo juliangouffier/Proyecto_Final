@@ -4,7 +4,11 @@
  */
 package nutricionista.vistas;
 
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JInternalFrame;
+import javax.swing.table.DefaultTableModel;
+import nutricionista.accesoDatos.RenglonData;
 import nutricionista.entidades.Renglon;
 
 /**
@@ -12,11 +16,19 @@ import nutricionista.entidades.Renglon;
  * @author Hernan
  */
 public class ListaDeRenglones extends javax.swing.JInternalFrame {
+    private List<Renglon> listaRenglones;
+    private RenglonData renglonData;
+    private DefaultTableModel modelo;
     /**
      * Creates new form ListaDeRenglones
      */
     public ListaDeRenglones() {
         initComponents();
+        modelo = new DefaultTableModel();
+        renglonData = new RenglonData();
+        listaRenglones = renglonData.traerRenglones();
+        cabeceradeTabla();
+        cargarTabla();
     }
 
     /**
@@ -30,8 +42,8 @@ public class ListaDeRenglones extends javax.swing.JInternalFrame {
 
         ListaDeIngredientes = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
-        jButton1 = new javax.swing.JButton();
+        jtRenglon = new javax.swing.JTable();
+        jbSalir = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jbNuevo = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
@@ -40,7 +52,7 @@ public class ListaDeRenglones extends javax.swing.JInternalFrame {
         ListaDeIngredientes.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         ListaDeIngredientes.setText("Lista de Renglones");
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        jtRenglon.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -51,9 +63,14 @@ public class ListaDeRenglones extends javax.swing.JInternalFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(jtRenglon);
 
-        jButton1.setText("Salir");
+        jbSalir.setText("Salir");
+        jbSalir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbSalirActionPerformed(evt);
+            }
+        });
 
         jButton2.setText("Modificar");
 
@@ -86,7 +103,7 @@ public class ListaDeRenglones extends javax.swing.JInternalFrame {
                         .addGap(18, 18, 18)
                         .addComponent(jButton4)
                         .addGap(262, 262, 262)
-                        .addComponent(jButton1)))
+                        .addComponent(jbSalir)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -98,7 +115,7 @@ public class ListaDeRenglones extends javax.swing.JInternalFrame {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
+                    .addComponent(jbSalir)
                     .addComponent(jButton2)
                     .addComponent(jbNuevo)
                     .addComponent(jButton4))
@@ -116,14 +133,35 @@ public class ListaDeRenglones extends javax.swing.JInternalFrame {
         formularioRenglon.setDefaultCloseOperation(JInternalFrame.DISPOSE_ON_CLOSE);
     }//GEN-LAST:event_jbNuevoActionPerformed
 
+    private void jbSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbSalirActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_jbSalirActionPerformed
 
+    private void cabeceradeTabla() {
+        ArrayList<Object> cabecera = new ArrayList<>();
+        cabecera.add("ID");
+        cabecera.add("Comida");
+        cabecera.add("Cantidad de gramos");
+        cabecera.add("Subtotal de calorias");
+        for (Object it : cabecera) {
+            modelo.addColumn(it);
+        }
+        jtRenglon.setModel(modelo);
+    }
+
+    private void cargarTabla() {
+        for (Renglon i : listaRenglones) {
+            modelo.addRow(new Object[]{i.getNumRenglon(), i.getComida(), i.getCantGrm(), i.getSubTotalCalorias()});
+        }
+    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel ListaDeIngredientes;
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton4;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JButton jbNuevo;
+    private javax.swing.JButton jbSalir;
+    private javax.swing.JTable jtRenglon;
     // End of variables declaration//GEN-END:variables
 }
