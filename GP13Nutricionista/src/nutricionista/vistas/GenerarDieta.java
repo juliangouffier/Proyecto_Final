@@ -263,11 +263,6 @@ public class GenerarDieta extends javax.swing.JFrame {
         jLayeredPane3.add(jPanel1);
 
         jButton3.setText("Salir");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
-            }
-        });
 
         jLayeredPane4.setLayout(new java.awt.GridLayout(1, 0));
 
@@ -342,12 +337,6 @@ public class GenerarDieta extends javax.swing.JFrame {
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(18, 162, 0, 0);
         jLayeredPane7.add(jLabel8, gridBagConstraints);
-
-        pesoInicial.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                pesoInicialKeyTyped(evt);
-            }
-        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 3;
@@ -531,20 +520,6 @@ public class GenerarDieta extends javax.swing.JFrame {
                 JOptionPane.WARNING_MESSAGE);
         }
     }//GEN-LAST:event_jButton2ActionPerformed
-
-    private void pesoInicialKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_pesoInicialKeyTyped
-        char c = evt.getKeyChar();
-        String text = pesoInicial.getText();
-        if (!Character.isDigit(c) && c != '.') {
-            evt.consume(); 
-        } else if (c == '.' && text.contains(".")) {
-            evt.consume();
-        }
-    }//GEN-LAST:event_pesoInicialKeyTyped
-
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        this.setVisible(false);
-    }//GEN-LAST:event_jButton3ActionPerformed
 
     private void iniciarTablas() {
     List<Renglon> renglones = renglonData.traerRenglones();

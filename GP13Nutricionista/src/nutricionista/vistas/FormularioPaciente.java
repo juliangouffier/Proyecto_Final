@@ -260,17 +260,11 @@ public class FormularioPaciente extends javax.swing.JInternalFrame {
             (double) tablaPacientes.getValueAt(filaSeleccionada, 4),
             (double) tablaPacientes.getValueAt(filaSeleccionada, 5));
             
-            // valido si existe una dieta actualmente para este paciente
-            Integer flag = dietaData.validarSiExisteDietaActual(paciente.getIdPaciente());
-            if(flag == 0){
-                GenerarDieta jframe = new GenerarDieta(paciente);
-                jframe.setSize(1200, 887);
-                jframe.setLocationRelativeTo(null);
-                jframe.setVisible(true);
-                jframe.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-            } else {
-                JOptionPane.showMessageDialog(null, "El paciente posee una dieta actualmente.", "Advertencia", JOptionPane.WARNING_MESSAGE);
-            }
+            GenerarDieta jframe = new GenerarDieta(paciente);
+            jframe.setSize(1200, 887);
+            jframe.setLocationRelativeTo(null);
+            jframe.setVisible(true);
+            jframe.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         } else {
             JOptionPane.showMessageDialog(null, "No hay ninguna fila seleccionada, seleccione un paciente para modificar.", "Advertencia", JOptionPane.WARNING_MESSAGE);
         }

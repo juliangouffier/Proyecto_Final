@@ -335,9 +335,6 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Salir"/>
           </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton3ActionPerformed"/>
-          </Events>
         </Component>
         <Container class="javax.swing.JLayeredPane" name="jLayeredPane4">
 
@@ -558,17 +555,11 @@
                   <Properties>
                     <Property name="enabled" type="boolean" value="false"/>
                   </Properties>
-                  <Events>
-                    <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="totalCaloriasKeyTyped"/>
-                  </Events>
                 </Component>
                 <Component class="javax.swing.JTextField" name="pesoInicial">
                   <Properties>
                     <Property name="enabled" type="boolean" value="false"/>
                   </Properties>
-                  <Events>
-                    <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="pesoInicialKeyTyped"/>
-                  </Events>
                 </Component>
               </SubComponents>
             </Container>
@@ -620,9 +611,6 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Finalizar Dieta"/>
           </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton4ActionPerformed"/>
-          </Events>
         </Component>
       </SubComponents>
     </Container>
