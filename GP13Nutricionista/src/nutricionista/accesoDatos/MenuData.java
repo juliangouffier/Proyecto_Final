@@ -54,7 +54,7 @@ public class MenuData {
             PreparedStatement ps = conection.prepareStatement(cargar, Statement.RETURN_GENERATED_KEYS);
             ps.setInt(1,menu.getIdMenu());
             ps.setInt(2, renglon.getNumRenglon());
-            ps.setBoolean(3, true);
+            ps.setInt(3, 1);
             ps.executeUpdate();
             ResultSet res = ps.getGeneratedKeys();
             if (res.next()) {
@@ -79,5 +79,28 @@ public class MenuData {
         for (Renglon renglones : menu.getRenglones()) {
             renglon.toString();
         }
+    }
+    
+    public ArrayList<Menu> traerMenuesPorDieta(Integer dietaId){
+        ArrayList<Menu> menues = new ArrayList();
+        String sql = "SELECT * FROM dieta_tiene_menu dt "
+                + "JOIN menu m on m.cod_menu = dt.id_menu "
+                + "WHERE dt.id_dieta = ? AND estado = 1";
+        try {
+            PreparedStatement ps = conection.prepareStatement(sql);
+            ps.setInt(1, dietaId);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Menu menu = new Menu();
+                menu.setIdMenu(rs.getInt("id_menu"));
+                menu.setDia(rs.getString("dia"));
+                menu.setCaloriasDelMenu(rs.getDouble("calorias_menu"));
+                menues.add(menu);
+            }
+            ps.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla menues");
+        }
+        return menues;
     }
 }

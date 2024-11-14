@@ -6,9 +6,12 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
+import nutricionista.entidades.Comida;
 import nutricionista.entidades.Dieta;
+import nutricionista.entidades.Ingrediente;
 
 
 
@@ -89,7 +92,7 @@ public class DietaData {
                 for (Integer menuId : menues) {
                     ps.setInt(1, menuId);
                     ps.setInt(2, dietaId); 
-                    ps.setString(3, "ACTIVO");  
+                    ps.setInt(3, 1);  
 
                     ps.executeUpdate();
                 }
@@ -99,4 +102,28 @@ public class DietaData {
             System.out.println("Error al insertar los renglones en la tabla dietatieneMenu.");
         }
     }
+     
+     public Dieta pacientePoseeDieta(int pacienteId){
+         try {
+             Dieta dieta = null;
+             String query = "SELECT * FROM dieta WHERE id_paciente = ? AND CURRENT_TIMESTAMP BETWEEN fecha_inicio AND fecha_fin ";
+            PreparedStatement ps = conection.prepareStatement(query);
+            ps.setInt(1, pacienteId);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                dieta = new Dieta();
+                dieta.setIdDieta(rs.getInt("id_dieta"));
+                dieta.setFechaInicio(rs.getDate("fecha_inicio"));
+                dieta.setFechaFin(rs.getDate("fecha_fin"));
+                dieta.setNombre(rs.getString("nombre"));
+                dieta.setPesoInicial(rs.getDouble("peso_inicial"));
+                dieta.setTotalCalorias(rs.getDouble("total_calorias"));
+            }
+            ps.close();
+            return dieta;
+         } catch (Exception e) {
+             e.printStackTrace();
+             return null;
+         }
+     }
 }

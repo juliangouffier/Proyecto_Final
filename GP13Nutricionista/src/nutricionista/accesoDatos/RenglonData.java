@@ -110,7 +110,7 @@ public class RenglonData {
                 for (Integer renglon : renglones) {
                     ps.setInt(1, menuId);
                     ps.setInt(2, renglon); 
-                    ps.setString(3, "ACTIVO");  
+                    ps.setInt(3, 1);  
 
                     ps.executeUpdate();
                 }
@@ -120,4 +120,76 @@ public class RenglonData {
             System.out.println("Error al insertar los renglones en la tabla menu_tiene_renglon.");
         }
     }
+     
+     public ArrayList<Renglon> traerRenglonesQueNoEstenEnDieta(Integer dietaId){
+         ArrayList<Renglon> renglones = new ArrayList();
+         String sql = "SELECT DISTINCT * FROM `renglon` r "
+           + "JOIN `comida` c ON c.cod_comida = r.id_comida "
+           + "WHERE r.nro_renglon NOT IN ( "
+           + "   SELECT mtr.id_renglon "
+           + "   FROM `dieta_tiene_menu` dtm "
+           + "   JOIN `menu_tiene_renglon` mtr ON mtr.id_menu = dtm.id_menu "
+           + "   WHERE dtm.id_dieta = ? "
+           + ")";   
+
+        try {
+            PreparedStatement ps = conection.prepareStatement(sql);
+            ps.setInt(1, dietaId);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Renglon renglon = new Renglon();
+                renglon.setNumRenglon(rs.getInt("nro_renglon"));
+                renglon.setCantGrm(rs.getDouble("cantidad_gramos"));
+                renglon.setSubTotalCalorias(rs.getDouble("sub_total_calorias"));
+                
+                Comida comida = new Comida();
+                comida.setIdComida(rs.getInt("cod_comida"));
+                comida.setNomComida(rs.getString("nombre_comida"));
+                comida.setCaloriasPor100Grm(rs.getDouble("calorias_por_porcion"));
+                comida.setDetalle(rs.getString("detalle"));
+                comida.setTipo(rs.getString("tipo_comida"));
+                
+                renglon.setComida(comida);
+                renglones.add(renglon);
+            }
+            ps.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla traerRenglonesQueNoEstenEnDieta");
+        }
+        return renglones;
+     }
+     
+     public ArrayList<Renglon> traerRenglonesAsociadosAMenu(Integer menuId){
+         ArrayList<Renglon> renglones = new ArrayList();
+        String sql = "SELECT * FROM menu_tiene_renglon mtr "
+                + "JOIN renglon r on r.nro_renglon = mtr.id_renglon "
+                + "JOIN comida c on c.cod_comida = r.id_comida "
+                + "WHERE mtr.id_menu = ? AND mtr.estado = 1";
+        try {
+            PreparedStatement ps = conection.prepareStatement(sql);
+            ps.setInt(1, menuId);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Renglon renglon = new Renglon();
+                renglon.setNumRenglon(rs.getInt("nro_renglon"));
+                renglon.setCantGrm(rs.getDouble("cantidad_gramos"));
+                renglon.setSubTotalCalorias(rs.getDouble("sub_total_calorias"));
+                
+                Comida comida = new Comida();
+                comida.setIdComida(rs.getInt("cod_comida"));
+                comida.setNomComida(rs.getString("nombre_comida"));
+                comida.setCaloriasPor100Grm(rs.getDouble("calorias_por_porcion"));
+                comida.setDetalle(rs.getString("detalle"));
+                comida.setTipo(rs.getString("tipo_comida"));
+                
+                renglon.setComida(comida);
+                renglones.add(renglon);
+            }
+            ps.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla menu_tiene_renglon");
+        }
+        return renglones;
+     }
+     
 }

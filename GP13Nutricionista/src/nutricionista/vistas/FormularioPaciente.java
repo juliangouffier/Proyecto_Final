@@ -10,7 +10,9 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableModel;
+import nutricionista.accesoDatos.DietaData;
 import nutricionista.accesoDatos.PacienteData;
+import nutricionista.entidades.Dieta;
 import nutricionista.entidades.Paciente;
 
 /**
@@ -21,6 +23,7 @@ public class FormularioPaciente extends javax.swing.JInternalFrame {
     
     List<Paciente> pacientes = new ArrayList();
     PacienteData pacienteData;
+    DietaData dietaData;
     String[] columnas = {"Número de Paciente", "Nombre Completo", "Edad", "Altura", "Peso Actual", "Peso Buscado"};
     /**
      * Creates new form NewJInternalFrame
@@ -31,6 +34,7 @@ public class FormularioPaciente extends javax.swing.JInternalFrame {
         List<Paciente> pacientesList = pacienteData.listarPacientes();
         pacientes = pacientesList;
         tablaPacientes.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        dietaData = new DietaData();
         String[] columnas = {"Número de Paciente", "Nombre Completo", "Edad", "Altura", "Peso Actual", "Peso Buscado"};
     
         // Crear el modelo de la tabla con los nombres de las columnas
@@ -267,7 +271,33 @@ public class FormularioPaciente extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-        // TODO add your handling code here:
+        int filaSeleccionada = tablaPacientes.getSelectedRow();
+        if (filaSeleccionada != -1) {
+            
+            // valido que posea una dieta 
+            Dieta dieta = dietaData.pacientePoseeDieta((int) tablaPacientes.getValueAt(filaSeleccionada, 0));
+            if(dieta != null){
+                VerDieta jframe = new VerDieta(dieta);
+                jframe.setSize(1200, 887);
+                jframe.setLocationRelativeTo(null);
+                jframe.setVisible(true);
+                jframe.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+            } else {
+                JOptionPane.showMessageDialog(null, "El paciente seleccionado no posee una dieta activa.", "Advertencia", JOptionPane.WARNING_MESSAGE);
+            }
+            System.out.println("DIETA " + dieta);
+            /*Paciente paciente = new Paciente(
+            (int) tablaPacientes.getValueAt(filaSeleccionada, 0),    
+            (String) tablaPacientes.getValueAt(filaSeleccionada, 1),
+            (int) tablaPacientes.getValueAt(filaSeleccionada, 2),
+            (double) tablaPacientes.getValueAt(filaSeleccionada, 3),
+            (double) tablaPacientes.getValueAt(filaSeleccionada, 4),
+            (double) tablaPacientes.getValueAt(filaSeleccionada, 5));*/
+            
+            
+        } else {
+            JOptionPane.showMessageDialog(null, "No hay ninguna fila seleccionada, seleccione un paciente para modificar.", "Advertencia", JOptionPane.WARNING_MESSAGE);
+        }
     }//GEN-LAST:event_jButton6ActionPerformed
 
     public void agregarPacienteATabla(Paciente paciente){

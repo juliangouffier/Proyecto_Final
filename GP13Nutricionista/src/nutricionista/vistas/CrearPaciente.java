@@ -4,8 +4,6 @@
  */
 package nutricionista.vistas;
 
-import java.util.ArrayList;
-import java.util.List;
 import nutricionista.accesoDatos.PacienteData;
 import nutricionista.entidades.Paciente;
 
