@@ -26,15 +26,19 @@ public class menuPrincipal extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jMenuItem5 = new javax.swing.JMenuItem();
         jDesktopPane1 = new javax.swing.JDesktopPane();
         jMenuBar2 = new javax.swing.JMenuBar();
         jMenu3 = new javax.swing.JMenu();
         jMenuItem2 = new javax.swing.JMenuItem();
-        jMenu2 = new javax.swing.JMenu();
-        jMenu5 = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
+        jMenu1 = new javax.swing.JMenu();
+        jMenuItem6 = new javax.swing.JMenuItem();
         jMenu6 = new javax.swing.JMenu();
         jMenuItem3 = new javax.swing.JMenuItem();
+        jMenu5 = new javax.swing.JMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
+
+        jMenuItem5.setText("jMenuItem5");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("GP13-NUTRICIONISTA");
@@ -74,25 +78,17 @@ public class menuPrincipal extends javax.swing.JFrame {
 
         jMenuBar2.add(jMenu3);
 
-        jMenu2.setText("Renglones");
-        jMenu2.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jMenu2MouseClicked(evt);
-            }
-        });
-        jMenuBar2.add(jMenu2);
+        jMenu1.setText("Renglon");
 
-        jMenu5.setText("Ingrediente");
-
-        jMenuItem1.setText("Lista de ingredientes");
-        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+        jMenuItem6.setText("Lista de Renglones");
+        jMenuItem6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem1ActionPerformed(evt);
+                jMenuItem6ActionPerformed(evt);
             }
         });
-        jMenu5.add(jMenuItem1);
+        jMenu1.add(jMenuItem6);
 
-        jMenuBar2.add(jMenu5);
+        jMenuBar2.add(jMenu1);
 
         jMenu6.setText("Comida");
 
@@ -105,6 +101,18 @@ public class menuPrincipal extends javax.swing.JFrame {
         jMenu6.add(jMenuItem3);
 
         jMenuBar2.add(jMenu6);
+
+        jMenu5.setText("Ingrediente");
+
+        jMenuItem1.setText("Lista de ingredientes");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        jMenu5.add(jMenuItem1);
+
+        jMenuBar2.add(jMenu5);
 
         setJMenuBar(jMenuBar2);
 
@@ -167,15 +175,14 @@ public class menuPrincipal extends javax.swing.JFrame {
         jDesktopPane1.moveToFront(listaDeComidas);
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
-    private void jMenu2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu2MouseClicked
-
+    private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
         jDesktopPane1.removeAll();
         jDesktopPane1.repaint();
-        FormularioRenglon formR = new FormularioRenglon();
-        formR.setVisible(true);
-        jDesktopPane1.add(formR);
-        jDesktopPane1.moveToFront(formR);
-    }//GEN-LAST:event_jMenu2MouseClicked
+        ListaDeRenglones listaDeRenglones = new ListaDeRenglones();
+        listaDeRenglones.setVisible(true);
+        jDesktopPane1.add(listaDeRenglones);
+        jDesktopPane1.moveToFront(listaDeRenglones);
+    }//GEN-LAST:event_jMenuItem6ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -217,7 +224,7 @@ public class menuPrincipal extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     static javax.swing.JDesktopPane jDesktopPane1;
-    private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu5;
     private javax.swing.JMenu jMenu6;
@@ -225,5 +232,7 @@ public class menuPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
+    private javax.swing.JMenuItem jMenuItem5;
+    private javax.swing.JMenuItem jMenuItem6;
     // End of variables declaration//GEN-END:variables
 }

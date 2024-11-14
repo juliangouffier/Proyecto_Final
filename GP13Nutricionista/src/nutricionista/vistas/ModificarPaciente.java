@@ -221,26 +221,82 @@ public class ModificarPaciente extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-       try {
-           Paciente paciente = this.paciente;
-           paciente.setEdad(Integer.parseInt(edadText.getText()));
-           paciente.setAltura(Double.parseDouble(alturaText.getText()));
-           paciente.setNombreCompleto(nombreText.getText());
-           paciente.setPesoActual(Double.parseDouble(pesoActualText.getText()));
-           paciente.setPesoBuscado(Double.parseDouble(pesoBuscadoText.getText()));
-           pacienteData.modificarPaciente(paciente);
-           this.setVisible(false);
-           form.actualizarListado(paciente);
-           JOptionPane.showMessageDialog(null, "Se modifico al paciente correctamente.", "Exito", JOptionPane.PLAIN_MESSAGE);
-       } catch(Exception e) {
-           JOptionPane.showMessageDialog(null, "Ocurrio un problema al intentar modificar al paciente.", "ERROR", JOptionPane.ERROR_MESSAGE);
-       }
+       boolean flagError = validarCampos();
+        if (!flagError) {
+            Paciente paciente = this.paciente;
+            paciente.setEdad(Integer.parseInt(edadText.getText()));
+            paciente.setAltura(Double.parseDouble(alturaText.getText()));
+            paciente.setNombreCompleto(nombreText.getText());
+            paciente.setPesoActual(Double.parseDouble(pesoActualText.getText()));
+            paciente.setPesoBuscado(Double.parseDouble(pesoBuscadoText.getText()));
+            try {
+                pacienteData.modificarPaciente(paciente);
+            } catch (Exception ex) {
+            }
+            this.form.actualizarListado(paciente);
+            nombreText.setText("");
+            alturaText.setText("");
+            edadText.setText("");
+            pesoActualText.setText("");
+            pesoBuscadoText.setText("");
+            this.setVisible(false);
+            JOptionPane.showMessageDialog(null, "Se modifico al paciente correctamente.", "Exito", JOptionPane.PLAIN_MESSAGE);
+        }
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void pesoActualTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pesoActualTextActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_pesoActualTextActionPerformed
-
+    
+    private boolean validarCampos(){
+        boolean flagError = false;
+        String val = "[a-zA-ZáéíóúÁÉÍÓÚ\\s]*";
+        String val1 = "[0-9]*";
+        String val2 = "^\\d+(.\\d+)?$";
+        if (nombreText.getText().isEmpty() || edadText.getText().isEmpty() || alturaText.getText().isEmpty() || pesoActualText.getText().isEmpty() || pesoBuscadoText.getText().isEmpty()){
+            JOptionPane.showMessageDialog(this, "No pueden haber campos vacios");
+            flagError = true;
+            return flagError;
+        } else {
+            flagError = false;
+        }
+        if (!nombreText.getText().matches(val)) {
+            JOptionPane.showMessageDialog(this, "El nombre del paciente no puede llevar numeros.");
+            flagError = true;
+            return flagError;
+        } else {
+            flagError = false;
+        }
+        if (!edadText.getText().matches(val1)) {
+            JOptionPane.showMessageDialog(this, "En la edad solo pueden ser ingresados numeros.");
+            flagError = true;
+            return flagError;
+        } else {
+            flagError = false;
+        }
+        if (!alturaText.getText().matches(val2)) {
+            JOptionPane.showMessageDialog(this, "En la altura solo pueden ser ingresados numeros.");
+            flagError = true;
+            return flagError;
+        } else {
+            flagError = false;
+        }
+        if (!pesoActualText.getText().matches(val2)) {
+            JOptionPane.showMessageDialog(this, "En el peso actual solo pueden ser ingresados numeros.");
+            flagError = true;
+            return flagError;
+        } else {
+            flagError = false;
+        }
+        if (!pesoBuscadoText.getText().matches(val2)) {
+            JOptionPane.showMessageDialog(this, "En el peso buscado solo pueden ser ingresados numeros.");
+            flagError = true;
+            return flagError;
+        } else {
+            flagError = false;
+        }
+        return flagError;
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField alturaText;

@@ -12,11 +12,10 @@ import nutricionista.entidades.Renglon;
  * @author Hernan
  */
 public class ListaDeRenglones extends javax.swing.JInternalFrame {
-    private Renglon renglon;
     /**
      * Creates new form ListaDeRenglones
      */
-    public ListaDeRenglones(Renglon renglon) {
+    public ListaDeRenglones() {
         initComponents();
     }
 

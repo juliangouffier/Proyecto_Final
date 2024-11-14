@@ -10,14 +10,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import javax.swing.JComboBox;
-import javax.swing.JOptionPane;
 import nutricionista.accesoDatos.ComidaData;
 import nutricionista.accesoDatos.Conexion;
 import nutricionista.accesoDatos.RenglonData;
 import nutricionista.entidades.Comida;
-import nutricionista.entidades.Ingrediente;
-import nutricionista.entidades.Paciente;
 import nutricionista.entidades.Renglon;
 import static nutricionista.vistas.menuPrincipal.jDesktopPane1;
 
@@ -117,7 +113,7 @@ public class FormularioRenglon extends javax.swing.JInternalFrame {
                         .addGap(0, 60, Short.MAX_VALUE)))
                 .addContainerGap())
             .addGroup(layout.createSequentialGroup()
-                .addGap(121, 121, 121)
+                .addGap(132, 132, 132)
                 .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -136,9 +132,9 @@ public class FormularioRenglon extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jTcantidadgr, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 102, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addComponent(jButton2)
-                .addGap(24, 24, 24))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
