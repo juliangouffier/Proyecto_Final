@@ -20,8 +20,10 @@ public class FinalizarDieta extends javax.swing.JFrame {
      */
     Dieta dieta;
     DietaData dietaData;
-    public FinalizarDieta(Dieta dieta) {
+    VerDieta verDieta;
+    public FinalizarDieta(Dieta dieta,VerDieta verDieta) {
         initComponents();
+        this.verDieta = verDieta;
         this.dietaData = new DietaData();
         this.dieta = dieta;
     }
@@ -171,7 +173,9 @@ public class FinalizarDieta extends javax.swing.JFrame {
             dieta.setFechaFin(new Date());
             dieta.setPesoFinal(Double.valueOf(pesoFinal.getText()));
             dietaData.modificarDieta(dieta);
+            JOptionPane.showMessageDialog(null, "Dieta Finalizada con exito.", "Completado", JOptionPane.INFORMATION_MESSAGE);
             this.setVisible(false);
+            this.verDieta.setVisible(false);
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 

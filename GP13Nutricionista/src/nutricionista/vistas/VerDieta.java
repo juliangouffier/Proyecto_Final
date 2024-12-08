@@ -627,7 +627,7 @@ public class VerDieta extends javax.swing.JFrame {
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // abro nuevo jframe 
-        FinalizarDieta jframe = new FinalizarDieta(dieta);
+        FinalizarDieta jframe = new FinalizarDieta(dieta,this);
         //jframe.setSize(1200, 887);
                 jframe.setLocationRelativeTo(null);
                 jframe.setVisible(true);

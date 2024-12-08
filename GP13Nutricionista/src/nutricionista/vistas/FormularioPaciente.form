@@ -35,17 +35,19 @@
                               <Component id="jbBuscar" min="-2" pref="104" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
-                              <Component id="jbCrearPaciente" min="-2" max="-2" attributes="0"/>
+                              <Component id="jbCrearPaciente" linkSize="2" min="-2" max="-2" attributes="0"/>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Component id="jbModificarPaciente" min="-2" max="-2" attributes="0"/>
+                              <Component id="jbModificarPaciente" linkSize="2" min="-2" max="-2" attributes="0"/>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Component id="jbCrearDieta" min="-2" max="-2" attributes="0"/>
+                              <Component id="jbCrearDieta" linkSize="2" min="-2" max="-2" attributes="0"/>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Component id="jbVerDieta" min="-2" max="-2" attributes="0"/>
+                              <Component id="jbVerDieta" linkSize="2" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <Component id="jbVerDieta1" linkSize="2" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="32767" attributes="0"/>
-                              <Component id="jbSalir" min="-2" max="-2" attributes="0"/>
+                              <Component id="jbSalir" linkSize="2" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <Component id="jScrollPane1" alignment="1" pref="578" max="32767" attributes="0"/>
+                          <Component id="jScrollPane1" alignment="1" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
                   </Group>
@@ -76,6 +78,7 @@
                   <Component id="jbSalir" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jbCrearDieta" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
                   <Component id="jbVerDieta" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                  <Component id="jbVerDieta1" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
               </Group>
               <EmptySpace pref="26" max="32767" attributes="0"/>
           </Group>
@@ -173,6 +176,14 @@
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jbVerDietaActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="jbVerDieta1">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Historial Dietas"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jbVerDieta1ActionPerformed"/>
       </Events>
     </Component>
   </SubComponents>

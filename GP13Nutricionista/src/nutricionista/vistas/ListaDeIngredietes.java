@@ -6,6 +6,7 @@ package nutricionista.vistas;
 
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -22,17 +23,13 @@ public class ListaDeIngredietes extends javax.swing.JInternalFrame {
     private IngredienteData ingredienteData;
     private Ingrediente ingrediente = null;
     private Ingrediente ingrediente2 = null;
-    private DefaultTableModel modelo;
 
     /**
      * Creates new form NewJInternalFrame
      */
     public ListaDeIngredietes() {
         initComponents();
-        modelo = new DefaultTableModel();
         ingredienteData = new IngredienteData();
-        listaIngredientes = ingredienteData.listaDeIngredientes();
-        cabeceradeTabla();
         cargarTabla();
     }
 
@@ -53,22 +50,26 @@ public class ListaDeIngredietes extends javax.swing.JInternalFrame {
         jbEliminar = new javax.swing.JButton();
         jbSalir = new javax.swing.JButton();
 
+        setPreferredSize(new java.awt.Dimension(621, 438));
+
         ListaDeIngredientes.setFont(new java.awt.Font("Dialog", 1, 25)); // NOI18N
         ListaDeIngredientes.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         ListaDeIngredientes.setText("Lista de Ingredientes");
 
         jtIngredientes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+
             }
         ));
+        jtIngredientes.setEditingColumn(0);
+        jtIngredientes.setEditingRow(0);
+        jtIngredientes.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        jtIngredientes.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jScrollPane1.setViewportView(jtIngredientes);
+        jtIngredientes.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
 
         jbAgregar.setText("Agregar");
         jbAgregar.addActionListener(new java.awt.event.ActionListener() {
@@ -102,38 +103,36 @@ public class ListaDeIngredietes extends javax.swing.JInternalFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jbAgregar)
-                .addGap(18, 18, 18)
-                .addComponent(jbModificar)
-                .addGap(18, 18, 18)
-                .addComponent(jbEliminar)
-                .addGap(100, 100, 100)
-                .addComponent(jbSalir)
-                .addContainerGap())
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(ListaDeIngredientes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(6, 6, 6))
             .addGroup(layout.createSequentialGroup()
                 .addGap(56, 56, 56)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 486, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(56, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jbAgregar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jbModificar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jbEliminar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(175, 175, 175)
+                        .addComponent(jbSalir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1))
+                .addGap(56, 56, 56))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(ListaDeIngredientes)
-                .addGap(18, 18, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(ListaDeIngredientes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jbModificar)
-                        .addComponent(jbAgregar)
-                        .addComponent(jbEliminar))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 214, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jbModificar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jbAgregar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jbEliminar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jbSalir))
                 .addContainerGap())
         );
@@ -142,11 +141,11 @@ public class ListaDeIngredietes extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jbAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbAgregarActionPerformed
-        FormularioIngrediente formularioIngrediente = new FormularioIngrediente(ingrediente);
-        menuPrincipal.jDesktopPane1.add(formularioIngrediente);
-        formularioIngrediente.moveToFront();
-        formularioIngrediente.setVisible(true);
-        formularioIngrediente.setDefaultCloseOperation(JInternalFrame.DISPOSE_ON_CLOSE);
+        CrearIngrediente jframe = new CrearIngrediente(this);
+        jframe.setSize(423, 303);
+        jframe.setLocationRelativeTo(null);
+        jframe.setVisible(true);
+        jframe.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     }//GEN-LAST:event_jbAgregarActionPerformed
 
     private void jbModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbModificarActionPerformed
@@ -156,11 +155,11 @@ public class ListaDeIngredietes extends javax.swing.JInternalFrame {
             int id = Integer.parseInt(jtIngredientes.getValueAt(filaElegida, 0).toString());
             String nombre = jtIngredientes.getValueAt(filaElegida, 1).toString();
             ingrediente2 = new Ingrediente (id,nombre);
-            FormularioIngrediente formularioIngrediente = new FormularioIngrediente(ingrediente2);
-            menuPrincipal.jDesktopPane1.add(formularioIngrediente);
-            formularioIngrediente.moveToFront();
-            formularioIngrediente.setVisible(true);
-            formularioIngrediente.setDefaultCloseOperation(JInternalFrame.DISPOSE_ON_CLOSE);
+            ModificarIngrediente jframe = new ModificarIngrediente(nombre, id,this);
+            jframe.setSize(423, 303);
+            jframe.setLocationRelativeTo(null);
+            jframe.setVisible(true);
+            jframe.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         } else {
             JOptionPane.showMessageDialog(null, "No hay ninguna fila seleccionada, seleccione una para modificar ese ingrediente.");
         }
@@ -169,11 +168,45 @@ public class ListaDeIngredietes extends javax.swing.JInternalFrame {
     private void jbEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbEliminarActionPerformed
         int filaElegida = jtIngredientes.getSelectedRow();
         if (filaElegida != -1) {
-            int idIngrediente = Integer.parseInt(jtIngredientes.getValueAt(filaElegida, 0).toString());
-            String nombreIngrediente = jtIngredientes.getValueAt(filaElegida, 1).toString();
-            ingrediente = new Ingrediente(idIngrediente, nombreIngrediente);
-            ingredienteData.eliminarIngrediente(ingrediente);
-            ingrediente = null;
+            Object[] opciones = {"Sí", "No"};
+            int confirmacion = JOptionPane.showOptionDialog(
+                this,
+                "¿Desea eliminar el ingrediente seleccionado?",
+                "Confirmación de eliminación",
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.QUESTION_MESSAGE,
+                null, // Icono personalizado (null para el predeterminado)
+                opciones, // Botones personalizados
+                opciones[0] // Botón predeterminado
+            );
+
+            if (confirmacion == JOptionPane.YES_OPTION) {
+                try {
+                    int idIngrediente = Integer.parseInt(jtIngredientes.getValueAt(filaElegida, 0).toString());
+                    String nombreIngrediente = jtIngredientes.getValueAt(filaElegida, 1).toString();
+                    Ingrediente ingrediente = new Ingrediente(idIngrediente, nombreIngrediente);
+
+                    ingredienteData.eliminarIngrediente(ingrediente); // Método para eliminar el ingrediente de la BD
+
+                    ingrediente = null; // Limpiamos la referencia
+                    this.limpioTabla(); // Limpia la tabla actual
+                    this.cargarTabla(); // Recarga la tabla actualizada
+                } catch (NumberFormatException | NullPointerException ex) {
+                    JOptionPane.showMessageDialog(
+                        this,
+                        "Error al procesar la información del ingrediente: " + ex.getMessage(),
+                        "Error",
+                        JOptionPane.ERROR_MESSAGE
+                    );
+                }
+            }
+        } else {
+            JOptionPane.showMessageDialog(
+                this,
+                "Debe seleccionar un ingrediente para eliminar.",
+                "Advertencia",
+                JOptionPane.WARNING_MESSAGE
+            );
         }
     }//GEN-LAST:event_jbEliminarActionPerformed
 
@@ -181,7 +214,10 @@ public class ListaDeIngredietes extends javax.swing.JInternalFrame {
         this.dispose();
     }//GEN-LAST:event_jbSalirActionPerformed
 
-    private void cabeceradeTabla() {
+
+
+    public void cargarTabla() {
+        DefaultTableModel modelo = new DefaultTableModel();
         ArrayList<Object> cabecera = new ArrayList<>();
         cabecera.add("ID");
         cabecera.add("Nombre del Ingrediente");
@@ -189,12 +225,15 @@ public class ListaDeIngredietes extends javax.swing.JInternalFrame {
             modelo.addColumn(it);
         }
         jtIngredientes.setModel(modelo);
-    }
-
-    private void cargarTabla() {
+        listaIngredientes = ingredienteData.listaDeIngredientes();
         for (Ingrediente i : listaIngredientes) {
             modelo.addRow(new Object[]{i.getIdIngrediente(), i.getNomIngrediente()});
         }
+    }
+    
+    public void limpioTabla(){
+        listaIngredientes = new ArrayList();
+        jtIngredientes.setModel(new DefaultTableModel());
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

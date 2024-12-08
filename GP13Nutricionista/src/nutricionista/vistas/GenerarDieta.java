@@ -15,6 +15,7 @@ import java.util.Map;
 import java.util.Random;
 import java.util.Set;
 import java.util.stream.Collectors;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
@@ -97,11 +98,9 @@ public class GenerarDieta extends javax.swing.JFrame {
         nombre = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
-        pesoInicial = new javax.swing.JTextField();
         fechaFin = new com.toedter.calendar.JDateChooser();
         jLabel9 = new javax.swing.JLabel();
         fechaInicio = new com.toedter.calendar.JDateChooser();
-        jLabel17 = new javax.swing.JLabel();
         jLayeredPane8 = new javax.swing.JLayeredPane();
         jLabel4 = new javax.swing.JLabel();
 
@@ -357,21 +356,6 @@ public class GenerarDieta extends javax.swing.JFrame {
         gridBagConstraints.insets = new java.awt.Insets(18, 162, 0, 0);
         jLayeredPane7.add(jLabel8, gridBagConstraints);
 
-        pesoInicial.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                pesoInicialKeyTyped(evt);
-            }
-        });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 3;
-        gridBagConstraints.gridheight = 2;
-        gridBagConstraints.ipadx = 156;
-        gridBagConstraints.ipady = 3;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(13, 6, 6, 211);
-        jLayeredPane7.add(pesoInicial, gridBagConstraints);
-
         fechaFin.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
@@ -400,16 +384,6 @@ public class GenerarDieta extends javax.swing.JFrame {
         gridBagConstraints.insets = new java.awt.Insets(18, 6, 0, 211);
         jLayeredPane7.add(fechaInicio, gridBagConstraints);
 
-        jLabel17.setText("Peso Inicial");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 3;
-        gridBagConstraints.ipadx = 105;
-        gridBagConstraints.ipady = 15;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(6, 162, 0, 0);
-        jLayeredPane7.add(jLabel17, gridBagConstraints);
-
         jLabel4.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel4.setText("DIETA");
@@ -429,7 +403,7 @@ public class GenerarDieta extends javax.swing.JFrame {
             jLayeredPane8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jLayeredPane8Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(15, 15, 15))
         );
 
@@ -478,7 +452,7 @@ public class GenerarDieta extends javax.swing.JFrame {
             jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jLayeredPane1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLayeredPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jLayeredPane8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLayeredPane7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -515,7 +489,9 @@ public class GenerarDieta extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        JTable[] tablasDias = {lunes, martes, miercoles, jueves, viernes, sabado, domingo};
+        
+        if(validoCampos()){
+          JTable[] tablasDias = {lunes, martes, miercoles, jueves, viernes, sabado, domingo};
 
         int diasSeleccionados = 0;
         int showMsg1 = 0;
@@ -531,7 +507,7 @@ public class GenerarDieta extends javax.swing.JFrame {
         }
 
         if (diasSeleccionados >= 3 && !(showMsg1 >=1)) {
-            crearDieta(tablasDias, this.paciente, nombre.getText(), fechaInicio.getDate(), fechaFin.getDate(), pesoInicial.getText());
+            crearDieta(tablasDias, this.paciente, nombre.getText(), fechaInicio.getDate(), fechaFin.getDate());
             System.out.println("Dieta guardada correctamente.");
             JOptionPane.showMessageDialog(this,
                 "Se genero la dieta correctamente.",
@@ -543,24 +519,22 @@ public class GenerarDieta extends javax.swing.JFrame {
                 "Debe seleccionar al menos 5 comidas en al menos 3 días diferentes.",
                 "Selección insuficiente",
                 JOptionPane.WARNING_MESSAGE);
+        }   
         }
     }//GEN-LAST:event_jButton2ActionPerformed
-
-    private void pesoInicialKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_pesoInicialKeyTyped
-        char c = evt.getKeyChar();
-        String text = pesoInicial.getText();
-        if (!Character.isDigit(c) && c != '.') {
-            evt.consume(); 
-        } else if (c == '.' && text.contains(".")) {
-            evt.consume();
-        }
-    }//GEN-LAST:event_pesoInicialKeyTyped
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         this.setVisible(false);
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        
+        ElegirIngredientesAutoGeneracion jframe = new ElegirIngredientesAutoGeneracion();
+        jframe.setSize(422, 333);
+        jframe.setLocationRelativeTo(null);
+        jframe.setVisible(true);
+        jframe.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        /*
         Integer flag = 0;
         if(!nombre.getText().isEmpty() && !nombre.getText().isEmpty()){
             flag++;
@@ -584,7 +558,7 @@ public class GenerarDieta extends javax.swing.JFrame {
             autoGenerarDieta(dieta);
         } else {
             JOptionPane.showMessageDialog(null, "Debe completar todos los campos de la dieta.", "Advertencia", JOptionPane.WARNING_MESSAGE);
-        }
+        }*/
 
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -850,7 +824,7 @@ private void eliminarColumnas(JTable tabla) {
 }
 
 
-    private void crearDieta(JTable[] tablasDias, Paciente paciente, String nombre, Date fechaInicio, Date fechaFin, String pesoInicial){
+    private void crearDieta(JTable[] tablasDias, Paciente paciente, String nombre, Date fechaInicio, Date fechaFin){
         List<Integer> menues = new ArrayList<>();
         Double totalCaloriasMenues = 0.00;
         for (JTable tabla : tablasDias) {
@@ -880,12 +854,62 @@ private void eliminarColumnas(JTable tabla) {
         dieta.setFechaInicio(fechaInicio);
         dieta.setFechaFin(fechaFin);
         dieta.setPaciente(paciente);
-        dieta.setPesoInicial(Double.valueOf(pesoInicial));
+        dieta.setPesoInicial(paciente.getPesoActual());
         dieta.setTotalCalorias(totalCaloriasMenues);
+        dieta.setPesoBuscado(paciente.getPesoBuscado());
         dieta = dietaData.cargarDieta(dieta);
         dietaData.cargarDietaTieneMenues(menues, dieta.getIdDieta());
     }
 
+    public Boolean validoCampos(){
+        Boolean flag = true;
+        Boolean alreadyShow = false;
+        Date now = new Date();
+        if(!alreadyShow && nombre.getText().isBlank()){
+            flag = false;
+            JOptionPane.showMessageDialog(this,
+                "Porfavor pongale un nombre a la dieta.",
+                "ATENCION",
+                JOptionPane.WARNING_MESSAGE);
+            alreadyShow = true;
+        }
+        if(!alreadyShow && fechaInicio.getDate() == null){
+            flag = false;
+            JOptionPane.showMessageDialog(this,
+                "Seleccione una fecha de inicio.",
+                "ATENCION",
+                JOptionPane.WARNING_MESSAGE);
+            alreadyShow = true;
+        } else {
+            if(!alreadyShow && fechaInicio.getDate().after(now)){
+            JOptionPane.showMessageDialog(this,
+                "La fecha de inicio no puede ser mayor a hoy.",
+                "ATENCION",
+                JOptionPane.WARNING_MESSAGE);
+            flag = false;
+            alreadyShow = true;
+            }
+        }
+
+        if(!alreadyShow && fechaFin.getDate() == null){
+            flag = false;
+            JOptionPane.showMessageDialog(this,
+                "Seleccione una fecha de inicio.",
+                "ATENCION",
+                JOptionPane.WARNING_MESSAGE);
+            alreadyShow = true;
+        } else {
+            if(!alreadyShow && fechaFin.getDate().before(now)){
+            JOptionPane.showMessageDialog(this,
+                "La fecha de Fin no puede ser menor a hoy.",
+                "ATENCION",
+                JOptionPane.WARNING_MESSAGE);
+            flag = false;
+            alreadyShow = true;
+            }
+        }
+        return flag;
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable domingo;
     private com.toedter.calendar.JDateChooser fechaFin;
@@ -898,7 +922,6 @@ private void eliminarColumnas(JTable tabla) {
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
-    private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -927,7 +950,6 @@ private void eliminarColumnas(JTable tabla) {
     private javax.swing.JTable martes;
     private javax.swing.JTable miercoles;
     private javax.swing.JTextField nombre;
-    private javax.swing.JTextField pesoInicial;
     private javax.swing.JTable sabado;
     private javax.swing.JTable viernes;
     // End of variables declaration//GEN-END:variables

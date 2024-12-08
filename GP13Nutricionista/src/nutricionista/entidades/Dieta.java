@@ -18,11 +18,12 @@ public class Dieta {
     private Double pesoFinal;
     private Double totalCalorias;
     private List<Menu> menues;
+    private Double pesoBuscado;
 
     public Dieta() {
     }
 
-    public Dieta(int idDieta, String nombre, Date fechaInicio, Date fechaFin, Paciente paciente, Double pesoInicial, Double pesoFinal, Double totalCalorias, List<Menu> menues) {
+    public Dieta(int idDieta, String nombre, Date fechaInicio, Date fechaFin, Paciente paciente, Double pesoInicial, Double pesoFinal, Double totalCalorias, List<Menu> menues, Double pesoBuscado) {
         this.idDieta = idDieta;
         this.nombre = nombre;
         this.fechaInicio = fechaInicio;
@@ -32,6 +33,7 @@ public class Dieta {
         this.pesoFinal = pesoFinal;
         this.totalCalorias = totalCalorias;
         this.menues = menues;
+        this.pesoBuscado = pesoBuscado;
     }
 
     public int getIdDieta() {
@@ -105,7 +107,12 @@ public class Dieta {
     public void setMenues(List<Menu> menues) {
         this.menues = menues;
     }
-    
-    
-    
+
+    public Double getPesoBuscado() {
+        return pesoBuscado;
+    }
+
+    public void setPesoBuscado(Double pesoBuscado) {
+        this.pesoBuscado = pesoBuscado;
+    }
 }

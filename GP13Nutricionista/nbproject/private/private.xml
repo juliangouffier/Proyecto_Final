@@ -3,9 +3,21 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Hernan/OneDrive/Documentos/GitHub/Proyecto_Final/GP13Nutricionista/src/nutricionista/vistas/GenerarDieta.java</file>
-            <file>file:/C:/Users/Hernan/OneDrive/Documentos/GitHub/Proyecto_Final/GP13Nutricionista/src/nutricionista/vistas/FormularioPaciente.java</file>
-            <file>file:/C:/Users/Hernan/OneDrive/Documentos/GitHub/Proyecto_Final/GP13Nutricionista/src/nutricionista/vistas/CrearPaciente.java</file>
+            <file>file:/C:/Users/gouff/Documents/GitHub/Proyecto_Final/GP13Nutricionista/src/nutricionista/vistas/CrearPaciente.java</file>
+            <file>file:/C:/Users/gouff/Documents/GitHub/Proyecto_Final/GP13Nutricionista/src/nutricionista/vistas/ListaDeRenglones.java</file>
+            <file>file:/C:/Users/gouff/Documents/GitHub/Proyecto_Final/GP13Nutricionista/src/nutricionista/vistas/FormularioIngrediente.java</file>
+            <file>file:/C:/Users/gouff/Documents/GitHub/Proyecto_Final/GP13Nutricionista/src/nutricionista/accesoDatos/IngredienteData.java</file>
+            <file>file:/C:/Users/gouff/Documents/GitHub/Proyecto_Final/GP13Nutricionista/src/nutricionista/vistas/ModificarIngrediente.java</file>
+            <file>file:/C:/Users/gouff/Documents/GitHub/Proyecto_Final/GP13Nutricionista/src/nutricionista/accesoDatos/HistorialData.java</file>
+            <file>file:/C:/Users/gouff/Documents/GitHub/Proyecto_Final/GP13Nutricionista/src/nutricionista/vistas/FinalizarDieta.java</file>
+            <file>file:/C:/Users/gouff/Documents/GitHub/Proyecto_Final/GP13Nutricionista/src/nutricionista/vistas/ListaDeComidas.java</file>
+            <file>file:/C:/Users/gouff/Documents/GitHub/Proyecto_Final/GP13Nutricionista/src/nutricionista/vistas/FormularioPaciente.java</file>
+            <file>file:/C:/Users/gouff/Documents/GitHub/Proyecto_Final/GP13Nutricionista/src/nutricionista/vistas/CrearIngrediente.java</file>
+            <file>file:/C:/Users/gouff/Documents/GitHub/Proyecto_Final/GP13Nutricionista/src/nutricionista/vistas/menuPrincipal.java</file>
+            <file>file:/C:/Users/gouff/Documents/GitHub/Proyecto_Final/GP13Nutricionista/src/nutricionista/vistas/ElegirIngredientesAutoGeneracion.java</file>
+            <file>file:/C:/Users/gouff/Documents/GitHub/Proyecto_Final/GP13Nutricionista/src/nutricionista/vistas/ListaDeIngredietes.java</file>
+            <file>file:/C:/Users/gouff/Documents/GitHub/Proyecto_Final/GP13Nutricionista/src/nutricionista/vistas/GenerarDieta.java</file>
+            <file>file:/C:/Users/gouff/Documents/GitHub/Proyecto_Final/GP13Nutricionista/src/nutricionista/entidades/HistorialDto.java</file>
         </group>
     </open-files>
 </project-private>

@@ -46,6 +46,8 @@ public class ListaDeRenglones extends javax.swing.JInternalFrame {
         jbSalir = new javax.swing.JButton();
         jbNuevo = new javax.swing.JButton();
 
+        setPreferredSize(new java.awt.Dimension(621, 438));
+
         ListaDeIngredientes.setFont(new java.awt.Font("Dialog", 1, 25)); // NOI18N
         ListaDeIngredientes.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         ListaDeIngredientes.setText("Lista de Renglones");

@@ -14,6 +14,15 @@ import nutricionista.accesoDatos.DietaData;
 import nutricionista.accesoDatos.PacienteData;
 import nutricionista.entidades.Dieta;
 import nutricionista.entidades.Paciente;
+import com.itextpdf.kernel.pdf.PdfWriter;
+import com.itextpdf.kernel.pdf.PdfDocument;
+import com.itextpdf.layout.Document;
+import com.itextpdf.layout.element.Table;
+import com.itextpdf.layout.element.Cell;
+import com.itextpdf.layout.element.Paragraph;
+
+import javax.swing.*;
+import java.io.File;
 
 /**
  *
@@ -79,6 +88,7 @@ public class FormularioPaciente extends javax.swing.JInternalFrame {
         jbModificarPaciente = new javax.swing.JButton();
         jbCrearDieta = new javax.swing.JButton();
         jbVerDieta = new javax.swing.JButton();
+        jbVerDieta1 = new javax.swing.JButton();
 
         titulo.setFont(new java.awt.Font("Dialog", 1, 25)); // NOI18N
         titulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -140,6 +150,13 @@ public class FormularioPaciente extends javax.swing.JInternalFrame {
             }
         });
 
+        jbVerDieta1.setText("Historial Dietas");
+        jbVerDieta1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbVerDieta1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -166,12 +183,17 @@ public class FormularioPaciente extends javax.swing.JInternalFrame {
                                 .addComponent(jbCrearDieta)
                                 .addGap(18, 18, 18)
                                 .addComponent(jbVerDieta)
+                                .addGap(18, 18, 18)
+                                .addComponent(jbVerDieta1)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jbSalir))
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 578, Short.MAX_VALUE))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING))
                         .addGap(10, 10, 10)))
                 .addContainerGap())
         );
+
+        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jbCrearDieta, jbCrearPaciente, jbModificarPaciente, jbSalir, jbVerDieta, jbVerDieta1});
+
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
@@ -192,7 +214,8 @@ public class FormularioPaciente extends javax.swing.JInternalFrame {
                     .addComponent(jbModificarPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jbSalir)
                     .addComponent(jbCrearDieta, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jbVerDieta, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jbVerDieta, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jbVerDieta1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(26, Short.MAX_VALUE))
         );
 
@@ -320,6 +343,21 @@ public class FormularioPaciente extends javax.swing.JInternalFrame {
         this.dispose();
     }//GEN-LAST:event_jbSalirActionPerformed
 
+    private void jbVerDieta1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbVerDieta1ActionPerformed
+      int filaSeleccionada = tablaPacientes.getSelectedRow();
+        if (filaSeleccionada != -1) {
+                String name = (String) tablaPacientes.getValueAt(filaSeleccionada, 1);
+                int pacienteId = (int) tablaPacientes.getValueAt(filaSeleccionada, 0);
+                HistorialDietas jframe = new HistorialDietas(name,pacienteId);
+                jframe.setSize( jframe.getWidth(),  jframe.getHeight());
+                jframe.setLocationRelativeTo(null);
+                jframe.setVisible(true);
+                jframe.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        } else {
+            JOptionPane.showMessageDialog(null, "No hay ninguna fila seleccionada, seleccione un paciente para ver su historial.", "Advertencia", JOptionPane.WARNING_MESSAGE);
+        }
+    }//GEN-LAST:event_jbVerDieta1ActionPerformed
+
     public void agregarPacienteATabla(Paciente paciente) {
         pacientes.add(paciente);
         DefaultTableModel modelo = (DefaultTableModel) tablaPacientes.getModel();
@@ -355,7 +393,7 @@ public class FormularioPaciente extends javax.swing.JInternalFrame {
         tablaPacientes.setModel(model);
     }
 
-
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
@@ -366,6 +404,7 @@ public class FormularioPaciente extends javax.swing.JInternalFrame {
     private javax.swing.JButton jbModificarPaciente;
     private javax.swing.JButton jbSalir;
     private javax.swing.JButton jbVerDieta;
+    private javax.swing.JButton jbVerDieta1;
     private javax.swing.JTextField nombreText;
     private javax.swing.JTable tablaPacientes;
     private javax.swing.JLabel titulo;

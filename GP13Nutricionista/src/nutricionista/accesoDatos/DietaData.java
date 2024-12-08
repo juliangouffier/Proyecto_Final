@@ -60,7 +60,7 @@ public class DietaData {
         }
     }
      public Dieta cargarDieta(Dieta dieta) {
-        String sql = "INSERT INTO dieta (nombre, fecha_inicio, fecha_fin, id_paciente, peso_inicial, total_calorias) VALUES (?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO dieta (nombre, fecha_inicio, fecha_fin, id_paciente, peso_inicial, total_calorias, peso_buscado) VALUES (?, ?, ?, ?, ?, ?, ?)";
 
         try {
             java.util.Date fechaInicioUtil = dieta.getFechaInicio();
@@ -75,6 +75,7 @@ public class DietaData {
             ps.setInt(4, dieta.getPaciente().getIdPaciente());
             ps.setDouble(5, dieta.getPesoInicial());
             ps.setDouble(6, dieta.getTotalCalorias());
+            ps.setDouble(7, dieta.getPesoBuscado());
             ps.executeUpdate();
 
             ResultSet res = ps.getGeneratedKeys();

@@ -159,4 +159,25 @@ public class IngredienteData {
         }
         return ingredientes;
     }
+    
+    public Boolean checkSiIngredienteEstaONo(String name) {
+    String sql = "SELECT COUNT(*) AS total FROM ingredientes WHERE LOWER(nombre_ingrediente) = LOWER(?)";
+    try {
+        PreparedStatement ps = conection.prepareStatement(sql);
+        ps.setString(1,name); 
+        ResultSet rs = ps.executeQuery();
+        if (rs.next()) {
+            int count = rs.getInt("total"); 
+            ps.close();
+            return count > 0; 
+        }
+
+        ps.close();
+    } catch (SQLException ex) {
+        JOptionPane.showMessageDialog(null, "Error al acceder a la tabla ingredientes: " + ex.getMessage());
+    }
+
+        return false;
+    }
+
 }

@@ -158,9 +158,13 @@ public class menuPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        
         jDesktopPane1.removeAll();
         jDesktopPane1.repaint();
         ListaDeIngredietes listaDeIngredientes = new ListaDeIngredietes();
+        int ancho = jDesktopPane1.getWidth();
+        int alto = listaDeIngredientes.getHeight();
+        listaDeIngredientes.setSize(ancho, alto);
         listaDeIngredientes.setVisible(true);
         jDesktopPane1.add(listaDeIngredientes);
         jDesktopPane1.moveToFront(listaDeIngredientes);
@@ -170,6 +174,9 @@ public class menuPrincipal extends javax.swing.JFrame {
         jDesktopPane1.removeAll();
         jDesktopPane1.repaint();
         ListaDeComidas listaDeComidas = new ListaDeComidas();
+        int ancho = jDesktopPane1.getWidth();
+        int alto = listaDeComidas.getHeight();
+        listaDeComidas.setSize(ancho, alto);
         listaDeComidas.setVisible(true);
         jDesktopPane1.add(listaDeComidas);
         jDesktopPane1.moveToFront(listaDeComidas);
@@ -179,6 +186,9 @@ public class menuPrincipal extends javax.swing.JFrame {
         jDesktopPane1.removeAll();
         jDesktopPane1.repaint();
         ListaDeRenglones listaDeRenglones = new ListaDeRenglones();
+        int ancho = jDesktopPane1.getWidth();
+        int alto = listaDeRenglones.getHeight();
+        listaDeRenglones.setSize(ancho, alto);
         listaDeRenglones.setVisible(true);
         jDesktopPane1.add(listaDeRenglones);
         jDesktopPane1.moveToFront(listaDeRenglones);
@@ -215,7 +225,7 @@ public class menuPrincipal extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 menuPrincipal menu = new menuPrincipal();
-                menu.setSize(900, 750);
+                menu.setSize(950, 750);
                 menu.setLocationRelativeTo(null);
                 menu.setVisible(true);
             }
