@@ -48,7 +48,12 @@ public class FormularioPaciente extends javax.swing.JInternalFrame {
         String[] columnas = {"Número de Paciente", "Nombre Completo", "Edad", "Altura", "Peso Actual", "Peso Buscado"};
 
         // Crear el modelo de la tabla con los nombres de las columnas
-        DefaultTableModel modelo = new DefaultTableModel(columnas, 0);
+        DefaultTableModel modelo = new DefaultTableModel(columnas, 0) {
+                @Override
+                public boolean isCellEditable(int row, int column) {
+                    return false; // Todas las celdas no son editables
+                }
+            };
 
         // Recorrer la lista de pacientes y agregar cada uno al modelo de la tabla
         for (Paciente paciente : pacientesList) {
@@ -120,6 +125,8 @@ public class FormularioPaciente extends javax.swing.JInternalFrame {
 
             }
         ));
+        tablaPacientes.setEditingColumn(0);
+        tablaPacientes.setEditingRow(0);
         jScrollPane1.setViewportView(tablaPacientes);
 
         jbCrearPaciente.setText("Crear Paciente");
@@ -231,10 +238,12 @@ public class FormularioPaciente extends javax.swing.JInternalFrame {
         } else {
             List<Paciente> pacientesList = pacienteData.buscarPacientesPorNombre("%" + nombreText.getText() + "%");
 
-            // Crear el modelo de la tabla con los nombres de las columnas
-            DefaultTableModel modelo = new DefaultTableModel(columnas, 0);
-
-            // Recorrer la lista de pacientes y agregar cada uno al modelo de la tabla
+            DefaultTableModel modelo = new DefaultTableModel(columnas, 0) {
+                @Override
+                public boolean isCellEditable(int row, int column) {
+                    return false;
+                }
+            };
             for (Paciente paciente : pacientesList) {
                 Object[] fila = {
                     paciente.getIdPaciente(),
@@ -246,8 +255,6 @@ public class FormularioPaciente extends javax.swing.JInternalFrame {
                 };
                 modelo.addRow(fila);
             }
-
-            // Asignar el modelo a la tabla
             tablaPacientes.setModel(modelo);
         }
     }//GEN-LAST:event_jbBuscarActionPerformed

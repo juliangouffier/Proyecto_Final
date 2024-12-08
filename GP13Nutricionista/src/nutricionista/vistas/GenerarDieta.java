@@ -534,7 +534,7 @@ public class GenerarDieta extends javax.swing.JFrame {
         jframe.setLocationRelativeTo(null);
         jframe.setVisible(true);
         jframe.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        /*
+        
         Integer flag = 0;
         if(!nombre.getText().isEmpty() && !nombre.getText().isEmpty()){
             flag++;
@@ -545,20 +545,17 @@ public class GenerarDieta extends javax.swing.JFrame {
         if(fechaFin != null && fechaFin.getDate() != null){
             flag++;
         }
-        if(!pesoInicial.getText().isEmpty() && !pesoInicial.getText().isEmpty()){
-            flag++;
-        }
-        if(flag == 4){
+        if(flag == 3){
             Dieta dieta = new Dieta();
             dieta.setNombre(nombre.getText());
             dieta.setPaciente(paciente);
             dieta.setFechaInicio(fechaInicio.getDate());
             dieta.setFechaFin(fechaFin.getDate());
-            dieta.setPesoInicial(Double.valueOf(pesoInicial.getText()));
+            dieta.setPesoInicial(paciente.getPesoActual());
             autoGenerarDieta(dieta);
         } else {
             JOptionPane.showMessageDialog(null, "Debe completar todos los campos de la dieta.", "Advertencia", JOptionPane.WARNING_MESSAGE);
-        }*/
+        }
 
     }//GEN-LAST:event_jButton1ActionPerformed
 
