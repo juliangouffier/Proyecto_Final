@@ -8,6 +8,7 @@ import java.util.List;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import nutricionista.accesoDatos.IngredienteData;
+import nutricionista.entidades.Dieta;
 import nutricionista.entidades.Ingrediente;
 
 /**
@@ -20,8 +21,10 @@ public class ElegirIngredientesAutoGeneracion extends javax.swing.JFrame {
      * Creates new form ElegirIngredientesAutoGeneracion
      */
     IngredienteData ingredienteData;
-    public ElegirIngredientesAutoGeneracion() {
+    Dieta dieta;
+    public ElegirIngredientesAutoGeneracion(Dieta dieta) {
         initComponents();
+        this.dieta = dieta;
         this.ingredienteData = new IngredienteData();
         inicializarTabla();
     }

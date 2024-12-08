@@ -46,16 +46,13 @@ public class FormularioPaciente extends javax.swing.JInternalFrame {
         tablaPacientes.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         dietaData = new DietaData();
         String[] columnas = {"Número de Paciente", "Nombre Completo", "Edad", "Altura", "Peso Actual", "Peso Buscado"};
-
-        // Crear el modelo de la tabla con los nombres de las columnas
         DefaultTableModel modelo = new DefaultTableModel(columnas, 0) {
                 @Override
                 public boolean isCellEditable(int row, int column) {
-                    return false; // Todas las celdas no son editables
+                    return false;
                 }
             };
 
-        // Recorrer la lista de pacientes y agregar cada uno al modelo de la tabla
         for (Paciente paciente : pacientesList) {
             Object[] fila = {
                 paciente.getIdPaciente(),
@@ -67,8 +64,6 @@ public class FormularioPaciente extends javax.swing.JInternalFrame {
             };
             modelo.addRow(fila);
         }
-
-        // Asignar el modelo a la tabla
         tablaPacientes.setModel(modelo);
     }
 

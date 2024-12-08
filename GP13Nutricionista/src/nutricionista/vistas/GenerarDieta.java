@@ -528,35 +528,19 @@ public class GenerarDieta extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        
-        ElegirIngredientesAutoGeneracion jframe = new ElegirIngredientesAutoGeneracion();
-        jframe.setSize(422, 333);
-        jframe.setLocationRelativeTo(null);
-        jframe.setVisible(true);
-        jframe.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        
-        Integer flag = 0;
-        if(!nombre.getText().isEmpty() && !nombre.getText().isEmpty()){
-            flag++;
-        }
-        if(fechaInicio != null && fechaInicio.getDate() != null){
-            flag++;
-        }
-        if(fechaFin != null && fechaFin.getDate() != null){
-            flag++;
-        }
-        if(flag == 3){
-            Dieta dieta = new Dieta();
+        if(validoCampos()){
+           Dieta dieta = new Dieta();
             dieta.setNombre(nombre.getText());
             dieta.setPaciente(paciente);
             dieta.setFechaInicio(fechaInicio.getDate());
             dieta.setFechaFin(fechaFin.getDate());
             dieta.setPesoInicial(paciente.getPesoActual());
-            autoGenerarDieta(dieta);
-        } else {
-            JOptionPane.showMessageDialog(null, "Debe completar todos los campos de la dieta.", "Advertencia", JOptionPane.WARNING_MESSAGE);
+            ElegirIngredientesAutoGeneracion jframe = new ElegirIngredientesAutoGeneracion(dieta);
+            jframe.setSize(422, 333);
+            jframe.setLocationRelativeTo(null);
+            jframe.setVisible(true);
+            jframe.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); 
         }
-
     }//GEN-LAST:event_jButton1ActionPerformed
 
     public void autoGenerarDieta(Dieta dieta){
