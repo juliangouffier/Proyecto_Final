@@ -338,56 +338,63 @@ public class FormularioComida extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jbQuitarActionPerformed
 
     private void jbGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbGuardarActionPerformed
-        // TODO valido que no exista ya la comida con ese tipo y cantidad gramos
-        boolean flagError = false;
-        String nombreComida = jtfNombreComida.getText();
-        String tipo = (String) jcbTipo.getSelectedItem();
-        String detalle = jtaDetalle.getText();
-        String calorias = jtfCaloriasX100grm.getText();
-        if (nombreComida.isEmpty() || detalle.isEmpty() || calorias.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "No pueden haber campos vacios.");
-            flagError = true;
-            return;
-        } else {
-            flagError = false;
-        }
-        String val = "[a-zA-ZáéíóúÁÉÍÓÚ\\s]*";
-        if (!nombreComida.matches(val)) {
-            JOptionPane.showMessageDialog(this, "El nombre de la comida no puede llevar numeros.");
-            flagError = true;
-            return;
-        }
-        if (tipo == null) {
-            JOptionPane.showMessageDialog(this, "Se debe elegir un tipo.");
-            flagError = true;
-            return;
-        } else {
-            flagError = false;
-        }
-        double caloriasx100grm = Double.parseDouble(calorias);
-        if (caloriasx100grm <= 0) {
-            JOptionPane.showMessageDialog(this, "Las calorias no puede ser menor o igual a 0.");
-            flagError = true;
-            return;
-        } else {
-            flagError = false;
-        }
-        if (!flagError) {
-            if (comida != null) {
-                int id = Integer.parseInt(jtfId.getText());
-                Comida comida2 = new Comida(id, nombreComida, caloriasx100grm, tipo, detalle);
-                comidaData.modificarComida(comida2.getIdComida(), comida2.getNomComida(), comida2.getTipo(), comida2.getCaloriasPor100Grm(), comida2.getDetalle());
+        if(!validoComidaExistente()){
+            boolean flagError = false;
+            String nombreComida = jtfNombreComida.getText().trim();
+            String tipo = (String) jcbTipo.getSelectedItem();
+            String detalle = jtaDetalle.getText();
+            String calorias = jtfCaloriasX100grm.getText();
+            if (nombreComida.isEmpty() || detalle.isEmpty() || calorias.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "No pueden haber campos vacios.");
+                flagError = true;
+                return;
             } else {
-                Comida comida2 = new Comida(nombreComida, caloriasx100grm, tipo, detalle);
-                comidaData.cargarComida(comida2);
-                for (Ingrediente i : ingredientesEnUso) {
-                    comidaData.agregarIngredienteAComida(comida2.getIdComida(), i.getIdIngrediente());
-                }
+                flagError = false;
             }
-            listado.limpiarTabla();
-            listado.cargarTabla();
-            this.dispose();
+            String val = "[a-zA-ZáéíóúÁÉÍÓÚ\\s]*";
+            if (!nombreComida.matches(val)) {
+                JOptionPane.showMessageDialog(this, "El nombre de la comida no puede llevar numeros.");
+                flagError = true;
+                return;
+            }
+            if (tipo == null) {
+                JOptionPane.showMessageDialog(this, "Se debe elegir un tipo.");
+                flagError = true;
+                return;
+            } else {
+                flagError = false;
+            }
+            double caloriasx100grm = Double.parseDouble(calorias);
+            if (caloriasx100grm <= 0) {
+                JOptionPane.showMessageDialog(this, "Las calorias no puede ser menor o igual a 0.");
+                flagError = true;
+                return;
+            } else {
+                flagError = false;
+            }
+            if (!flagError) {
+                if (comida != null) {
+                    int id = Integer.parseInt(jtfId.getText());
+                    Comida comida2 = new Comida(id, nombreComida, caloriasx100grm, tipo, detalle);
+                    comidaData.modificarComida(comida2.getIdComida(), comida2.getNomComida(), comida2.getTipo(), comida2.getCaloriasPor100Grm(), comida2.getDetalle());
+                } else {
+                    Comida comida2 = new Comida(nombreComida, caloriasx100grm, tipo, detalle);
+                    comidaData.cargarComida(comida2);
+                    for (Ingrediente i : ingredientesEnUso) {
+                        comidaData.agregarIngredienteAComida(comida2.getIdComida(), i.getIdIngrediente());
+                    }
+                }
+                listado.limpiarTabla();
+                listado.cargarTabla();
+                this.dispose();
+            }
+        } else {
+            JOptionPane.showMessageDialog(this,
+                "Ya existe la comida en la base de datos.",
+                "ATENCION",
+                JOptionPane.WARNING_MESSAGE);
         }
+        
     }//GEN-LAST:event_jbGuardarActionPerformed
 
     private void jbSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbSalirActionPerformed
@@ -460,6 +467,12 @@ public class FormularioComida extends javax.swing.JInternalFrame {
         }
     }
 
+    private Boolean validoComidaExistente(){
+        String comida = jtfNombreComida.getText();
+        Double calorias = Double.parseDouble(jtfCaloriasX100grm.getText());
+        String tipo = (String) jcbTipo.getSelectedItem();
+        return comidaData.validoComidaExistente(comida,calorias,tipo);
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

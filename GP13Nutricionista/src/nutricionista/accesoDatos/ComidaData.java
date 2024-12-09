@@ -434,4 +434,31 @@ public class ComidaData {
         }
         return comidas;
     }
+    
+    public Boolean validoComidaExistente(String nombreComida, Double calorias, String tipo) {
+    String sql = "SELECT 1 FROM `comida` WHERE LOWER(nombre_comida) = LOWER(?) AND calorias_por_porcion = ? AND LOWER(tipo_comida) = LOWER(?) LIMIT 1";
+
+        try {
+            PreparedStatement ps = conection.prepareStatement(sql);
+            ps.setString(1, nombreComida);
+            ps.setDouble(2, calorias);
+            ps.setString(3, tipo);
+
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+                rs.close();
+                ps.close();
+                return true;
+            }
+
+            rs.close();
+            ps.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla comida");
+        }
+
+        return false;
+    }
+
 }
