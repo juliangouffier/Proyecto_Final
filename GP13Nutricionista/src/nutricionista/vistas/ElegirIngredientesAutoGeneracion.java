@@ -4,12 +4,30 @@
  */
 package nutricionista.vistas;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
+import java.util.Random;
+import java.util.Set;
+import java.util.stream.Collectors;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+import nutricionista.accesoDatos.ComidaData;
+import nutricionista.accesoDatos.DietaData;
 import nutricionista.accesoDatos.IngredienteData;
+import nutricionista.accesoDatos.MenuData;
+import nutricionista.accesoDatos.RenglonData;
 import nutricionista.entidades.Dieta;
 import nutricionista.entidades.Ingrediente;
+import nutricionista.entidades.Menu;
+import nutricionista.entidades.Paciente;
+import nutricionista.entidades.Renglon;
 
 /**
  *
@@ -20,13 +38,23 @@ public class ElegirIngredientesAutoGeneracion extends javax.swing.JFrame {
     /**
      * Creates new form ElegirIngredientesAutoGeneracion
      */
+    List<String> dias = Arrays.asList("LUNES", "MARTES", "MIÉRCOLES", "JUEVES", "VIERNES", "SÁBADO", "DOMINGO");
     IngredienteData ingredienteData;
     Dieta dieta;
+    DietaData dietaData;
+    Paciente paciente;
+    ComidaData comidaData;
+    RenglonData renglonData;
+    MenuData menuData;
     public ElegirIngredientesAutoGeneracion(Dieta dieta) {
         initComponents();
         this.dieta = dieta;
         this.ingredienteData = new IngredienteData();
         inicializarTabla();
+        dietaData = new DietaData();
+        comidaData = new ComidaData();
+        renglonData = new RenglonData();
+        menuData = new MenuData();
     }
 
     /**
@@ -162,42 +190,206 @@ public class ElegirIngredientesAutoGeneracion extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
+        if(validoCampos()){
+            Boolean canPass = false;
+                int filasSeleccionadas = tablaIngredientes.getSelectedRowCount();
+                if (filasSeleccionadas >= 1  && filasSeleccionadas <= 3) {
+                    canPass = true;
+                } else {
+                    canPass = false;
+                    JOptionPane.showMessageDialog(this,
+                "Necesita seleccionar al menos 3 ingredientes.",
+                "Seleccion Necesaria",
+                JOptionPane.WARNING_MESSAGE);
+                }
+            if(canPass){
+               List<Ingrediente> listaIngredientesSeleccionados = new ArrayList();
+                int[] filasSeleccionadasIndexs = tablaIngredientes.getSelectedRows();
+
+                for (int fila : filasSeleccionadasIndexs) {
+                    int idIngrediente = Integer.parseInt(tablaIngredientes.getValueAt(fila, 0).toString());
+                    String nomIngrediente = tablaIngredientes.getValueAt(fila, 1).toString();
+                    Ingrediente ingrediente = new Ingrediente();
+                    ingrediente.setIdIngrediente(idIngrediente);
+                    ingrediente.setNomIngrediente(nomIngrediente);
+                    listaIngredientesSeleccionados.add(ingrediente);
+                }
+               autoGenerarDieta(dieta); 
+            }
+        }
     }//GEN-LAST:event_jButton2ActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ElegirIngredientesAutoGeneracion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ElegirIngredientesAutoGeneracion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ElegirIngredientesAutoGeneracion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ElegirIngredientesAutoGeneracion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
+    public void autoGenerarDieta(Dieta dieta){
+        Collections.shuffle(dias);
+        Random random = new Random();
+        int cantidadDias = random.nextInt(5) + 3;
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new ElegirIngredientesAutoGeneracion().setVisible(true);
+        List<String> diasAleatorios = dias.subList(0, cantidadDias);
+        List<Renglon> renglones = renglonData.traerRenglones();
+
+        List<Integer> menues = new ArrayList();
+        Double totalCaloriasMenues = 0.00;
+        for(String dia : diasAleatorios){
+            Double totalCaloriasMenu = 0.00;
+            Menu menu = new Menu();
+            List<Renglon> renglonesList = seleccionarCincoRandomsPorTipo(renglones);
+            List<Integer> renglonIds = new ArrayList();
+            switch(dia.toUpperCase()){
+                case "LUNES":
+                    menu.setDia(dia.toUpperCase());
+                    for(Renglon renglon : renglonesList){
+                        totalCaloriasMenu = totalCaloriasMenu + renglon.getSubTotalCalorias();
+                    }
+                    totalCaloriasMenues = totalCaloriasMenues + totalCaloriasMenu;
+                    menu.setCaloriasDelMenu(totalCaloriasMenu);
+                    menu = menuData.cargarMenu(menu);
+                    renglonIds = renglonesList.stream()
+                                    .map(Renglon::getNumRenglon)
+                                    .collect(Collectors.toList());
+                    renglonData.cargarMenuTieneRenglon(renglonIds,menu.getIdMenu());
+                    menues.add(menu.getIdMenu());
+                    break;
+                case "MARTES":
+                    menu.setDia(dia.toUpperCase());
+                    for(Renglon renglon : renglonesList){
+                        totalCaloriasMenu = totalCaloriasMenu + renglon.getSubTotalCalorias();
+                    }
+                    totalCaloriasMenues = totalCaloriasMenues + totalCaloriasMenu;
+                    menu.setCaloriasDelMenu(totalCaloriasMenu);
+                    menu = menuData.cargarMenu(menu);
+                    renglonIds = renglonesList.stream()
+                                    .map(Renglon::getNumRenglon)
+                                    .collect(Collectors.toList());
+                    renglonData.cargarMenuTieneRenglon(renglonIds,menu.getIdMenu());
+                    menues.add(menu.getIdMenu());
+                    break;
+                case "MIERCOLES":
+                    menu.setDia(dia.toUpperCase());
+                    for(Renglon renglon : renglonesList){
+                        totalCaloriasMenu = totalCaloriasMenu + renglon.getSubTotalCalorias();
+                    }
+                    totalCaloriasMenues = totalCaloriasMenues + totalCaloriasMenu;
+                    menu.setCaloriasDelMenu(totalCaloriasMenu);
+                    menu = menuData.cargarMenu(menu);
+                    renglonIds = renglonesList.stream()
+                                    .map(Renglon::getNumRenglon)
+                                    .collect(Collectors.toList());
+                    renglonData.cargarMenuTieneRenglon(renglonIds,menu.getIdMenu());
+                    menues.add(menu.getIdMenu());
+                    break;
+                case "JUEVES":
+                    menu.setDia(dia.toUpperCase());
+                    for(Renglon renglon : renglonesList){
+                        totalCaloriasMenu = totalCaloriasMenu + renglon.getSubTotalCalorias();
+                    }
+                    totalCaloriasMenues = totalCaloriasMenues + totalCaloriasMenu;
+                    menu.setCaloriasDelMenu(totalCaloriasMenu);
+                    menu = menuData.cargarMenu(menu);
+                    renglonIds = renglonesList.stream()
+                                    .map(Renglon::getNumRenglon)
+                                    .collect(Collectors.toList());
+                    renglonData.cargarMenuTieneRenglon(renglonIds,menu.getIdMenu());
+                    menues.add(menu.getIdMenu());
+                    break;
+                case "VIERNES":
+                    menu.setDia(dia.toUpperCase());
+                    for(Renglon renglon : renglonesList){
+                        totalCaloriasMenu = totalCaloriasMenu + renglon.getSubTotalCalorias();
+                    }
+                    totalCaloriasMenues = totalCaloriasMenues + totalCaloriasMenu;
+                    menu.setCaloriasDelMenu(totalCaloriasMenu);
+                    menu = menuData.cargarMenu(menu);
+                    renglonIds = renglonesList.stream()
+                                    .map(Renglon::getNumRenglon)
+                                    .collect(Collectors.toList());
+                    renglonData.cargarMenuTieneRenglon(renglonIds,menu.getIdMenu());
+                    menues.add(menu.getIdMenu());
+                    break;
+                case "SABADO":
+                    menu.setDia(dia.toUpperCase());
+                    for(Renglon renglon : renglonesList){
+                        totalCaloriasMenu = totalCaloriasMenu + renglon.getSubTotalCalorias();
+                    }
+                    totalCaloriasMenues = totalCaloriasMenues + totalCaloriasMenu;
+                    menu.setCaloriasDelMenu(totalCaloriasMenu);
+                    menu = menuData.cargarMenu(menu);
+                    renglonIds = renglonesList.stream()
+                                    .map(Renglon::getNumRenglon)
+                                    .collect(Collectors.toList());
+                    renglonData.cargarMenuTieneRenglon(renglonIds,menu.getIdMenu());
+                    menues.add(menu.getIdMenu());
+                    break;
+                case "DOMINGO":
+                    menu.setDia(dia.toUpperCase());
+                    for(Renglon renglon : renglonesList){
+                        totalCaloriasMenu = totalCaloriasMenu + renglon.getSubTotalCalorias();
+                    }
+                    totalCaloriasMenues = totalCaloriasMenues + totalCaloriasMenu;
+                    menu.setCaloriasDelMenu(totalCaloriasMenu);
+                    menu = menuData.cargarMenu(menu);
+                    renglonIds = renglonesList.stream()
+                                    .map(Renglon::getNumRenglon)
+                                    .collect(Collectors.toList());
+                    renglonData.cargarMenuTieneRenglon(renglonIds,menu.getIdMenu());
+                    menues.add(menu.getIdMenu());
+                    break;
             }
-        });
+        } 
+        dieta.setTotalCalorias(totalCaloriasMenues);
+        dieta = dietaData.cargarDieta(dieta);
+        dietaData.cargarDietaTieneMenues(menues, dieta.getIdDieta());
+        JOptionPane.showMessageDialog(null, "Se genero automaticamente la dieta.", "Advertencia", JOptionPane.INFORMATION_MESSAGE);
+        this.setVisible(false);
+    }
+    
+    public Boolean validoCampos(){
+        Boolean flag = true;
+        Boolean alreadyShow = false;
+        Date now = new Date();
+        if(!alreadyShow && this.dieta.getNombre().isBlank()){
+            flag = false;
+            JOptionPane.showMessageDialog(this,
+                "Porfavor pongale un nombre a la dieta.",
+                "ATENCION",
+                JOptionPane.WARNING_MESSAGE);
+            alreadyShow = true;
+        }
+        if(!alreadyShow && this.dieta.getFechaInicio() == null){
+            flag = false;
+            JOptionPane.showMessageDialog(this,
+                "Seleccione una fecha de inicio.",
+                "ATENCION",
+                JOptionPane.WARNING_MESSAGE);
+            alreadyShow = true;
+        } else {
+            if(!alreadyShow && this.dieta.getFechaInicio().after(now)){
+            JOptionPane.showMessageDialog(this,
+                "La fecha de inicio no puede ser mayor a hoy.",
+                "ATENCION",
+                JOptionPane.WARNING_MESSAGE);
+            flag = false;
+            alreadyShow = true;
+            }
+        }
+
+        if(!alreadyShow && this.dieta.getFechaFin() == null){
+            flag = false;
+            JOptionPane.showMessageDialog(this,
+                "Seleccione una fecha de inicio.",
+                "ATENCION",
+                JOptionPane.WARNING_MESSAGE);
+            alreadyShow = true;
+        } else {
+            if(!alreadyShow && this.dieta.getFechaFin().before(now)){
+            JOptionPane.showMessageDialog(this,
+                "La fecha de Fin no puede ser menor a hoy.",
+                "ATENCION",
+                JOptionPane.WARNING_MESSAGE);
+            flag = false;
+            alreadyShow = true;
+            }
+        }
+        return flag;
     }
     
     public void inicializarTabla(){
@@ -226,6 +418,7 @@ public class ElegirIngredientesAutoGeneracion extends javax.swing.JFrame {
     eliminarColumnas(tablaIngredientes);
     }
 
+    
     private void eliminarColumnas(JTable tabla) {
     if (tabla.getColumnCount() > 4) {
         tabla.getColumnModel().getColumn(0).setMinWidth(0); 
@@ -240,6 +433,39 @@ public class ElegirIngredientesAutoGeneracion extends javax.swing.JFrame {
         tabla.getColumnModel().getColumn(0).setResizable(false);
     }
 }
+    public List<Renglon> seleccionarCincoRandomsPorTipo(List<Renglon> renglones) {
+        Map<String, List<Renglon>> renglonesPorTipo = new HashMap<>();
+        
+        for (Renglon renglon : renglones) {
+            String tipoComida = renglon.getComida().getTipo();
+            renglonesPorTipo
+                .computeIfAbsent(tipoComida, k -> new ArrayList<>())
+                .add(renglon);
+        }
+
+        if (renglonesPorTipo.size() < 5) {
+            throw new IllegalArgumentException("No hay suficientes tipos de comida diferentes.");
+        }
+
+        List<Renglon> seleccionados = new ArrayList<>();
+
+        Random random = new Random();
+        Set<String> tiposSeleccionados = new HashSet<>();
+        
+        while (seleccionados.size() < 5) {
+            List<String> tipos = new ArrayList<>(renglonesPorTipo.keySet());
+            String tipoElegido = tipos.get(random.nextInt(tipos.size()));
+            
+            if (!tiposSeleccionados.contains(tipoElegido)) {
+                List<Renglon> renglonesDelTipo = renglonesPorTipo.get(tipoElegido);
+                Renglon renglonSeleccionado = renglonesDelTipo.get(random.nextInt(renglonesDelTipo.size()));
+                seleccionados.add(renglonSeleccionado);
+                tiposSeleccionados.add(tipoElegido);
+            }
+        }
+
+        return seleccionados;
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
