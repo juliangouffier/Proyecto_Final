@@ -395,4 +395,43 @@ public class ComidaData {
         }
         return comidas;
     }
+    
+    public List<Comida> listaDeComidasMenoresACantidadCalorias(Double cantidadCalorias) {
+        ArrayList<Comida> comidas = new ArrayList();
+        String sql = "SELECT * FROM `comida` WHERE calorias_por_porcion <= ?";
+        try {
+            PreparedStatement ps = conection.prepareStatement(sql);
+            ps.setDouble(1, cantidadCalorias);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Comida comida = new Comida();
+                comida.setIdComida(rs.getInt("cod_comida"));
+                comida.setNomComida(rs.getString("nombre_comida"));
+                comida.setCaloriasPor100Grm(rs.getDouble("calorias_por_porcion"));
+                comida.setDetalle(rs.getString("detalle"));
+                comida.setTipo(rs.getString("tipo_comida"));
+                String ingredientesQuery
+                        = "SELECT * FROM `comida_tiene_ingredientes` cti "
+                        + "JOIN ingredientes i on i.id_ingrediente = cti.id_ingrediente "
+                        + "WHERE cti.id_comida = ?";
+                PreparedStatement psAux = conection.prepareStatement(ingredientesQuery);
+                psAux.setInt(1, (comida.getIdComida()));
+                ResultSet resAux = psAux.executeQuery();
+
+                List<Ingrediente> ingredientesList = new ArrayList<>();
+                while (resAux.next()) {
+                    Ingrediente ingrediente = new Ingrediente();
+                    ingrediente.setIdIngrediente(resAux.getInt("id_ingrediente"));
+                    ingrediente.setNomIngrediente(resAux.getString("nombre_ingrediente"));
+                    ingredientesList.add(ingrediente);
+                }
+                comida.setIngredientes(ingredientesList);
+                comidas.add(comida);
+            }
+            ps.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla ingredientes");
+        }
+        return comidas;
+    }
 }

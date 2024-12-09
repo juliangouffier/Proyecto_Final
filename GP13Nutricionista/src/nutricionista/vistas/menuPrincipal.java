@@ -35,6 +35,7 @@ public class menuPrincipal extends javax.swing.JFrame {
         jMenuItem6 = new javax.swing.JMenuItem();
         jMenu6 = new javax.swing.JMenu();
         jMenuItem3 = new javax.swing.JMenuItem();
+        jMenuItem4 = new javax.swing.JMenuItem();
         jMenu5 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
 
@@ -99,6 +100,14 @@ public class menuPrincipal extends javax.swing.JFrame {
             }
         });
         jMenu6.add(jMenuItem3);
+
+        jMenuItem4.setText("Buscar Por Calorias");
+        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem4ActionPerformed(evt);
+            }
+        });
+        jMenu6.add(jMenuItem4);
 
         jMenuBar2.add(jMenu6);
 
@@ -192,6 +201,18 @@ public class menuPrincipal extends javax.swing.JFrame {
         jDesktopPane1.moveToFront(listaDeRenglones);
     }//GEN-LAST:event_jMenuItem6ActionPerformed
 
+    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
+        jDesktopPane1.removeAll();
+        jDesktopPane1.repaint();
+        BuscarPorCalorias buscarPorCalorias = new BuscarPorCalorias();
+        int ancho = jDesktopPane1.getWidth();
+        int alto = buscarPorCalorias.getHeight();
+        buscarPorCalorias.setSize(ancho, alto);
+        buscarPorCalorias.setVisible(true);
+        jDesktopPane1.add(buscarPorCalorias);
+        jDesktopPane1.moveToFront(buscarPorCalorias);
+    }//GEN-LAST:event_jMenuItem4ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -240,6 +261,7 @@ public class menuPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
+    private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem6;
     // End of variables declaration//GEN-END:variables
