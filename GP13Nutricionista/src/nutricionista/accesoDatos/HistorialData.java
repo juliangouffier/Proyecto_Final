@@ -13,7 +13,6 @@ import java.util.Date;
 import java.util.List;
 import javax.swing.JOptionPane;
 import nutricionista.entidades.HistorialDto;
-import nutricionista.entidades.Ingrediente;
 
 /**
  *

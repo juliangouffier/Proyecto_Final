@@ -14,15 +14,6 @@ import nutricionista.accesoDatos.DietaData;
 import nutricionista.accesoDatos.PacienteData;
 import nutricionista.entidades.Dieta;
 import nutricionista.entidades.Paciente;
-import com.itextpdf.kernel.pdf.PdfWriter;
-import com.itextpdf.kernel.pdf.PdfDocument;
-import com.itextpdf.layout.Document;
-import com.itextpdf.layout.element.Table;
-import com.itextpdf.layout.element.Cell;
-import com.itextpdf.layout.element.Paragraph;
-
-import javax.swing.*;
-import java.io.File;
 
 /**
  *

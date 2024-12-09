@@ -4,12 +4,16 @@
  */
 package nutricionista.vistas;
 
+import com.itextpdf.kernel.colors.ColorConstants;
+import com.itextpdf.kernel.geom.PageSize;
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfWriter;
 import com.itextpdf.layout.Document;
 import com.itextpdf.layout.element.Cell;
 import com.itextpdf.layout.element.Paragraph;
 import com.itextpdf.layout.element.Table;
+import com.itextpdf.layout.properties.TextAlignment;
+import com.itextpdf.layout.properties.UnitValue;
 import java.io.File;
 import java.util.List;
 import javax.swing.JFileChooser;
@@ -33,8 +37,8 @@ public class HistorialDietas extends javax.swing.JFrame {
     public HistorialDietas(String name, int pacienteId) {
         initComponents();
         this.pacienteId = pacienteId;
-        this.name = jLabel1.getText() + name;
-        jLabel1.setText(this.name);
+        this.name = name;
+        jLabel1.setText(jLabel1.getText() + name);
         initTabla();
     }
 
@@ -55,7 +59,6 @@ public class HistorialDietas extends javax.swing.JFrame {
         jLayeredPane5 = new javax.swing.JLayeredPane();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -118,28 +121,23 @@ public class HistorialDietas extends javax.swing.JFrame {
         jButton2.setText("Salir");
 
         jButton3.setText("Descargar PDF");
-
-        jButton1.setText("Modificar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                jButton3ActionPerformed(evt);
             }
         });
 
         jLayeredPane5.setLayer(jButton2, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPane5.setLayer(jButton3, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jLayeredPane5.setLayer(jButton1, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout jLayeredPane5Layout = new javax.swing.GroupLayout(jLayeredPane5);
         jLayeredPane5.setLayout(jLayeredPane5Layout);
         jLayeredPane5Layout.setHorizontalGroup(
             jLayeredPane5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jLayeredPane5Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
-                .addGap(18, 18, 18)
+                .addGap(14, 14, 14)
                 .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, 236, Short.MAX_VALUE)
-                .addGap(405, 405, 405)
+                .addGap(615, 615, 615)
                 .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, 176, Short.MAX_VALUE)
                 .addContainerGap())
         );
@@ -149,8 +147,7 @@ public class HistorialDietas extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jLayeredPane5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -176,44 +173,70 @@ public class HistorialDietas extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        JFileChooser fileChooser = new JFileChooser();
+            fileChooser.setDialogTitle("Seleccionar archivo");
+            fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
 
-    public void generoPdf(String path){
+            // Mostrar el diálogo del FileChooser
+            int resultado = fileChooser.showOpenDialog(null);
 
+            // Si se seleccionó un archivo
+            if (resultado == JFileChooser.APPROVE_OPTION) {
+                // Obtener el archivo seleccionado
+                File archivoSeleccionado = fileChooser.getSelectedFile();
+                System.out.println("Archivo seleccionado: " + archivoSeleccionado.getAbsolutePath());
+
+                List<HistorialDto> historialLista = historialData.buscarHistorialPorPaciente(pacienteId);
+                generoPdf(archivoSeleccionado.getAbsolutePath(), historialLista, name);
+            }
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    public void generoPdf(String path, List<HistorialDto> listaHistorial, String pac) {
         try {
-            // Crear el PDF
-            PdfWriter writer = new PdfWriter(path);
+            PdfWriter writer = new PdfWriter(path + "/historial_paciente-" + pac.trim() +".pdf");
             PdfDocument pdfDoc = new PdfDocument(writer);
-            Document document = new Document(pdfDoc);
+            Document document = new Document(pdfDoc, PageSize.A4);
+            document.setMargins(10, 10, 10, 10);
+            document.add(new Paragraph("Historial del Paciente")
+                    .setFontSize(14).setBold().setTextAlignment(TextAlignment.CENTER));
+            float[] columnWidths = {1, 3, 3, 2, 3, 3, 2, 2, 2, 2, 2};
+            Table table = new Table(UnitValue.createPercentArray(columnWidths)).useAllAvailableWidth();
 
-            // Crear una tabla con 3 columnas
-            float[] columnWidths = {1, 2, 2}; // Anchos relativos de las columnas
-            Table table = new Table(columnWidths);
-
-            // Encabezados de la tabla
-            table.addCell(new Cell().add(new Paragraph("ID")));
-            table.addCell(new Cell().add(new Paragraph("Nombre")));
-            table.addCell(new Cell().add(new Paragraph("Descripción")));
-
-            // Datos de ejemplo
-            for (int i = 1; i <= 5; i++) { // 5 filas de ejemplo
-                table.addCell(new Cell().add(new Paragraph(String.valueOf(i))));
-                table.addCell(new Cell().add(new Paragraph("Ingrediente " + i)));
-                table.addCell(new Cell().add(new Paragraph("Descripción del ingrediente " + i)));
+            String[] columnNames = {
+                "ID", "Nombre Dieta", "Paciente", "Alcanzó Peso Buscado", 
+                "Fecha Inicio", "Fecha Fin", "Peso Inicial", "Peso Final", 
+                "Total Calorías Dieta", "Peso Buscado", "Estado"
+            };
+            for (String columnName : columnNames) {
+                table.addHeaderCell(new Cell().add(new Paragraph(columnName))
+                        .setBackgroundColor(ColorConstants.LIGHT_GRAY)
+                        .setBold().setPadding(5));
             }
 
-            // Agregar la tabla al documento
-            document.add(table);
+            for (HistorialDto historialDto : listaHistorial) {
+                table.addCell(new Cell().add(new Paragraph(String.valueOf(historialDto.getId()))).setPadding(5));
+                table.addCell(new Cell().add(new Paragraph(historialDto.getNombreDieta())).setPadding(5));
+                table.addCell(new Cell().add(new Paragraph(historialDto.getNombrePaciente())).setPadding(5));
+                table.addCell(new Cell().add(new Paragraph(historialDto.getAlcanzoPesoBuscado() ? "Sí" : "No")).setPadding(5));
+                table.addCell(new Cell().add(new Paragraph(historialDto.getFechaInicio().toString())).setPadding(5));
+                table.addCell(new Cell().add(new Paragraph(historialDto.getFechaFin().toString())).setPadding(5));
+                table.addCell(new Cell().add(new Paragraph(String.valueOf(historialDto.getPesoInicial()))).setPadding(5));
+                table.addCell(new Cell().add(new Paragraph(historialDto.getPesoFinal() != 0.00 ? String.valueOf(historialDto.getPesoFinal()) : "-")).setPadding(5));
+                table.addCell(new Cell().add(new Paragraph(String.valueOf(historialDto.getTotalCaloriasDieta()))).setPadding(5));
+                table.addCell(new Cell().add(new Paragraph(String.valueOf(historialDto.getPesoBuscado()))).setPadding(5));
+                table.addCell(new Cell().add(new Paragraph(historialDto.getEstado())).setPadding(5));
+            }
 
-            // Cerrar el documento
+            document.add(table);
             document.close();
-            System.out.println("PDF generado exitosamente en: " + path);
+            System.out.println("PDF generado exitosamente en: " + path + "/historial_paciente.pdf");
         } catch (Exception ex) {
             System.err.println("Error al generar el PDF: " + ex.getMessage());
         }
     }
+
+
     
     public void initTabla(){
         List<HistorialDto> historial = historialData.buscarHistorialPorPaciente(this.pacienteId);
@@ -244,7 +267,6 @@ public class HistorialDietas extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable historialTabla;
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;

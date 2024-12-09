@@ -11,6 +11,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -200,6 +201,41 @@ public class PacienteData {
 
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al acceder a tabla Paciente (buscarPacientesPorNombre)");
+        }
+
+        return pacientes;
+    }
+
+    public List<Paciente> listarPacientesSinObjetivoCumplido(Date fecha) {
+
+        ArrayList<Paciente> pacientes = new ArrayList<>();
+        String mostrarTodo = "SELECT * FROM `paciente` p "
+                + "JOIN dieta d on d.id_paciente = p.id_paciente "
+                + "WHERE (d.peso_final IS NULL OR d.peso_final != d.peso_buscado) "
+                + "AND d.fecha_fin <= ?";
+
+        try {
+            PreparedStatement ps = conection.prepareStatement(mostrarTodo);
+            java.sql.Date sqlDate = new java.sql.Date(fecha.getTime());
+            ps.setDate(1, sqlDate);
+
+            ResultSet res = ps.executeQuery();
+
+            while (res.next()) {
+                Paciente paciente = new Paciente();
+                paciente.setIdPaciente(res.getInt("id_paciente"));
+                paciente.setNombreCompleto(res.getString("nombre_completo"));
+                paciente.setEdad(res.getInt("edad"));
+                paciente.setAltura(res.getDouble("altura"));
+                paciente.setPesoActual(res.getDouble("peso_actual"));
+                paciente.setPesoBuscado(res.getDouble("peso_buscado"));
+
+                pacientes.add(paciente);
+            }
+            ps.close();
+
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a tabla Paciente (listarPacientes)");
         }
 
         return pacientes;
