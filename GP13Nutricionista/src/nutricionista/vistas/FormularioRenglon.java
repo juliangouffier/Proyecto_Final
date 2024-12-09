@@ -4,32 +4,23 @@
  */
 package nutricionista.vistas;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import nutricionista.accesoDatos.ComidaData;
-import nutricionista.accesoDatos.Conexion;
 import nutricionista.accesoDatos.RenglonData;
 import nutricionista.entidades.Comida;
 import nutricionista.entidades.Renglon;
-import static nutricionista.vistas.menuPrincipal.jDesktopPane1;
 
-/**
- *
- * @author Hernan
- */
 public class FormularioRenglon extends javax.swing.JInternalFrame {
     ComidaData comidaData;
-            
+    RenglonData rd = new RenglonData();   
     /**
      * Creates new form FormularioRenglon
      */
-    public FormularioRenglon() {
+    ListaDeRenglones lista;
+    public FormularioRenglon(ListaDeRenglones lista) {
         initComponents();
+        this.lista = lista;
         comidaData = new ComidaData();
         llenarCombobox();
     }
@@ -42,12 +33,21 @@ public class FormularioRenglon extends javax.swing.JInternalFrame {
     }
     
     public void crearrenglon(){
-        Renglon renglon = new Renglon();
-        renglon.setComida((Comida) jcbComida.getSelectedItem());
-        renglon.setCantGrm(Double.parseDouble(jTcantidadgr.getText()));
-        renglon.setSubTotalCalorias(renglon.getComida().getCaloriasPor100Grm() * (renglon.getCantGrm() / 100));
-        RenglonData rd = new RenglonData();
-        rd.crearRenglon(renglon);
+        // verificar que renglon no exista actualmente
+        try{
+            Renglon renglon = new Renglon();
+            renglon.setComida((Comida) jcbComida.getSelectedItem());
+            renglon.setCantGrm(Double.parseDouble(jTcantidadgr.getText()));
+            renglon.setSubTotalCalorias(renglon.getComida().getCaloriasPor100Grm() * (renglon.getCantGrm() / 100));
+            rd.controlarRenglonYComida(renglon.getComida().getNomComida(), renglon.getCantGrm());
+            rd.crearRenglon(renglon);
+            lista.limpiarTabla();
+            lista.cargarTabla();
+            this.dispose();
+        } catch (Exception e){
+            JOptionPane.showMessageDialog(this, e.getMessage());
+        }
+        
     }
 
     /**
@@ -83,6 +83,11 @@ public class FormularioRenglon extends javax.swing.JInternalFrame {
         jbGuardar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jbGuardarMouseClicked(evt);
+            }
+        });
+        jbGuardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbGuardarActionPerformed(evt);
             }
         });
 
@@ -144,9 +149,13 @@ public class FormularioRenglon extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(this, "Se debe ingresar numeros en la cantidad de gramos.");
         } else{
             crearrenglon();
-            this.dispose();
+            
         }
     }//GEN-LAST:event_jbGuardarMouseClicked
+
+    private void jbGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbGuardarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jbGuardarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

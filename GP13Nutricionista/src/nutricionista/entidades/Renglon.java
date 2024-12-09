@@ -13,15 +13,17 @@ public class Renglon {
     private Comida comida;
     private double cantGrm;
     private double subTotalCalorias;
+    private String estado;
 
     public Renglon() {
     }
 
-    public Renglon(int numRenglon, Comida comida, double cantGrm, double subTotalCalorias) {
+    public Renglon(int numRenglon, Comida comida, double cantGrm, double subTotalCalorias, String estado) {
         this.numRenglon = numRenglon;
         this.comida = comida;
         this.cantGrm = cantGrm;
         this.subTotalCalorias = subTotalCalorias;
+        this.estado = estado;
     }
 
     public int getNumRenglon() {
@@ -59,6 +61,14 @@ public class Renglon {
     @Override
     public String toString() {
         return "Renglon{" + "numRenglon=" + numRenglon + ", comida=" + comida + ", cantGrm=" + cantGrm + ", subTotalCalorias=" + subTotalCalorias + '}';
+    }
+
+    public String getEstado() {
+        return estado;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
     }
     
 }

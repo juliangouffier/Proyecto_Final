@@ -214,133 +214,54 @@ public class ElegirIngredientesAutoGeneracion extends javax.swing.JFrame {
                     ingrediente.setNomIngrediente(nomIngrediente);
                     listaIngredientesSeleccionados.add(ingrediente);
                 }
-               autoGenerarDieta(dieta); 
+               autoGenerarDieta(dieta,listaIngredientesSeleccionados); 
             }
         }
     }//GEN-LAST:event_jButton2ActionPerformed
 
-    public void autoGenerarDieta(Dieta dieta){
-        Collections.shuffle(dias);
-        Random random = new Random();
-        int cantidadDias = random.nextInt(5) + 3;
+    public void autoGenerarDieta(Dieta dieta, List<Ingrediente> listaIngredientesSeleccionados) {
+    // Aleatorizar días y seleccionar una cantidad aleatoria (3-7 días)
+    Collections.shuffle(dias);
+    Random random = new Random();
+    int cantidadDias = random.nextInt(5) + 3;
 
-        List<String> diasAleatorios = dias.subList(0, cantidadDias);
-        List<Renglon> renglones = renglonData.traerRenglones();
+    // Obtener los días aleatorios seleccionados
+    List<String> diasAleatorios = dias.subList(0, cantidadDias);
+    List<Renglon> renglones = renglonData.traerRenglones();
 
-        List<Integer> menues = new ArrayList();
-        Double totalCaloriasMenues = 0.00;
-        for(String dia : diasAleatorios){
-            Double totalCaloriasMenu = 0.00;
-            Menu menu = new Menu();
-            List<Renglon> renglonesList = seleccionarCincoRandomsPorTipo(renglones);
-            List<Integer> renglonIds = new ArrayList();
-            switch(dia.toUpperCase()){
-                case "LUNES":
-                    menu.setDia(dia.toUpperCase());
-                    for(Renglon renglon : renglonesList){
-                        totalCaloriasMenu = totalCaloriasMenu + renglon.getSubTotalCalorias();
-                    }
-                    totalCaloriasMenues = totalCaloriasMenues + totalCaloriasMenu;
-                    menu.setCaloriasDelMenu(totalCaloriasMenu);
-                    menu = menuData.cargarMenu(menu);
-                    renglonIds = renglonesList.stream()
-                                    .map(Renglon::getNumRenglon)
-                                    .collect(Collectors.toList());
-                    renglonData.cargarMenuTieneRenglon(renglonIds,menu.getIdMenu());
-                    menues.add(menu.getIdMenu());
-                    break;
-                case "MARTES":
-                    menu.setDia(dia.toUpperCase());
-                    for(Renglon renglon : renglonesList){
-                        totalCaloriasMenu = totalCaloriasMenu + renglon.getSubTotalCalorias();
-                    }
-                    totalCaloriasMenues = totalCaloriasMenues + totalCaloriasMenu;
-                    menu.setCaloriasDelMenu(totalCaloriasMenu);
-                    menu = menuData.cargarMenu(menu);
-                    renglonIds = renglonesList.stream()
-                                    .map(Renglon::getNumRenglon)
-                                    .collect(Collectors.toList());
-                    renglonData.cargarMenuTieneRenglon(renglonIds,menu.getIdMenu());
-                    menues.add(menu.getIdMenu());
-                    break;
-                case "MIERCOLES":
-                    menu.setDia(dia.toUpperCase());
-                    for(Renglon renglon : renglonesList){
-                        totalCaloriasMenu = totalCaloriasMenu + renglon.getSubTotalCalorias();
-                    }
-                    totalCaloriasMenues = totalCaloriasMenues + totalCaloriasMenu;
-                    menu.setCaloriasDelMenu(totalCaloriasMenu);
-                    menu = menuData.cargarMenu(menu);
-                    renglonIds = renglonesList.stream()
-                                    .map(Renglon::getNumRenglon)
-                                    .collect(Collectors.toList());
-                    renglonData.cargarMenuTieneRenglon(renglonIds,menu.getIdMenu());
-                    menues.add(menu.getIdMenu());
-                    break;
-                case "JUEVES":
-                    menu.setDia(dia.toUpperCase());
-                    for(Renglon renglon : renglonesList){
-                        totalCaloriasMenu = totalCaloriasMenu + renglon.getSubTotalCalorias();
-                    }
-                    totalCaloriasMenues = totalCaloriasMenues + totalCaloriasMenu;
-                    menu.setCaloriasDelMenu(totalCaloriasMenu);
-                    menu = menuData.cargarMenu(menu);
-                    renglonIds = renglonesList.stream()
-                                    .map(Renglon::getNumRenglon)
-                                    .collect(Collectors.toList());
-                    renglonData.cargarMenuTieneRenglon(renglonIds,menu.getIdMenu());
-                    menues.add(menu.getIdMenu());
-                    break;
-                case "VIERNES":
-                    menu.setDia(dia.toUpperCase());
-                    for(Renglon renglon : renglonesList){
-                        totalCaloriasMenu = totalCaloriasMenu + renglon.getSubTotalCalorias();
-                    }
-                    totalCaloriasMenues = totalCaloriasMenues + totalCaloriasMenu;
-                    menu.setCaloriasDelMenu(totalCaloriasMenu);
-                    menu = menuData.cargarMenu(menu);
-                    renglonIds = renglonesList.stream()
-                                    .map(Renglon::getNumRenglon)
-                                    .collect(Collectors.toList());
-                    renglonData.cargarMenuTieneRenglon(renglonIds,menu.getIdMenu());
-                    menues.add(menu.getIdMenu());
-                    break;
-                case "SABADO":
-                    menu.setDia(dia.toUpperCase());
-                    for(Renglon renglon : renglonesList){
-                        totalCaloriasMenu = totalCaloriasMenu + renglon.getSubTotalCalorias();
-                    }
-                    totalCaloriasMenues = totalCaloriasMenues + totalCaloriasMenu;
-                    menu.setCaloriasDelMenu(totalCaloriasMenu);
-                    menu = menuData.cargarMenu(menu);
-                    renglonIds = renglonesList.stream()
-                                    .map(Renglon::getNumRenglon)
-                                    .collect(Collectors.toList());
-                    renglonData.cargarMenuTieneRenglon(renglonIds,menu.getIdMenu());
-                    menues.add(menu.getIdMenu());
-                    break;
-                case "DOMINGO":
-                    menu.setDia(dia.toUpperCase());
-                    for(Renglon renglon : renglonesList){
-                        totalCaloriasMenu = totalCaloriasMenu + renglon.getSubTotalCalorias();
-                    }
-                    totalCaloriasMenues = totalCaloriasMenues + totalCaloriasMenu;
-                    menu.setCaloriasDelMenu(totalCaloriasMenu);
-                    menu = menuData.cargarMenu(menu);
-                    renglonIds = renglonesList.stream()
-                                    .map(Renglon::getNumRenglon)
-                                    .collect(Collectors.toList());
-                    renglonData.cargarMenuTieneRenglon(renglonIds,menu.getIdMenu());
-                    menues.add(menu.getIdMenu());
-                    break;
-            }
-        } 
-        dieta.setTotalCalorias(totalCaloriasMenues);
-        dieta = dietaData.cargarDieta(dieta);
-        dietaData.cargarDietaTieneMenues(menues, dieta.getIdDieta());
-        JOptionPane.showMessageDialog(null, "Se genero automaticamente la dieta.", "Advertencia", JOptionPane.INFORMATION_MESSAGE);
-        this.setVisible(false);
+    List<Integer> menues = new ArrayList<>();
+    Double totalCaloriasMenues = 0.00;
+
+    for (String dia : diasAleatorios) {
+        Menu menu = new Menu();
+        menu.setDia(dia.toUpperCase());
+
+        // Generar los renglones del menú asegurando variedad de tipos e ingredientes
+        List<Renglon> renglonesMenu = seleccionarRenglonesPorTipoEIngrediente(renglones,listaIngredientesSeleccionados);
+        Double caloriasMenu = calcularCaloriasTotales(renglonesMenu);
+        totalCaloriasMenues += caloriasMenu;
+
+        // Configurar el menú y persistir
+        menu.setCaloriasDelMenu(caloriasMenu);
+        menu = menuData.cargarMenu(menu);
+
+        // Relacionar renglones con el menú
+        List<Integer> renglonIds = renglonesMenu.stream()
+                .map(Renglon::getNumRenglon)
+                .collect(Collectors.toList());
+        renglonData.cargarMenuTieneRenglon(renglonIds, menu.getIdMenu());
+        menues.add(menu.getIdMenu());
     }
+
+    // Persistir la dieta y relacionar menús
+    dieta.setTotalCalorias(totalCaloriasMenues);
+    dieta = dietaData.cargarDieta(dieta);
+    dietaData.cargarDietaTieneMenues(menues, dieta.getIdDieta());
+
+    JOptionPane.showMessageDialog(null, "Se generó automáticamente la dieta.", "Información", JOptionPane.INFORMATION_MESSAGE);
+    this.setVisible(false);
+}
+
     
     public Boolean validoCampos(){
         Boolean flag = true;
@@ -433,39 +354,64 @@ public class ElegirIngredientesAutoGeneracion extends javax.swing.JFrame {
         tabla.getColumnModel().getColumn(0).setResizable(false);
     }
 }
-    public List<Renglon> seleccionarCincoRandomsPorTipo(List<Renglon> renglones) {
-        Map<String, List<Renglon>> renglonesPorTipo = new HashMap<>();
-        
-        for (Renglon renglon : renglones) {
-            String tipoComida = renglon.getComida().getTipo();
-            renglonesPorTipo
-                .computeIfAbsent(tipoComida, k -> new ArrayList<>())
-                .add(renglon);
-        }
+    public List<Renglon> seleccionarRenglonesPorTipoEIngrediente(List<Renglon> renglones, List<Ingrediente> listaIngredientesSeleccionados) {
+    // Agrupa los renglones por tipo
+    Map<String, List<Renglon>> renglonesPorTipo = renglones.stream()
+            .collect(Collectors.groupingBy(r -> r.getComida().getTipo()));
 
-        if (renglonesPorTipo.size() < 5) {
-            throw new IllegalArgumentException("No hay suficientes tipos de comida diferentes.");
-        }
+    if (renglonesPorTipo.size() < 5) {
+        throw new IllegalArgumentException("No hay suficientes tipos de comida diferentes.");
+    }
 
-        List<Renglon> seleccionados = new ArrayList<>();
+    Random random = new Random();
+    List<Renglon> seleccionados = new ArrayList<>();
+    List<String> tipos = new ArrayList<>(renglonesPorTipo.keySet());
+    Collections.shuffle(tipos);
 
-        Random random = new Random();
-        Set<String> tiposSeleccionados = new HashSet<>();
-        
-        while (seleccionados.size() < 5) {
-            List<String> tipos = new ArrayList<>(renglonesPorTipo.keySet());
-            String tipoElegido = tipos.get(random.nextInt(tipos.size()));
-            
-            if (!tiposSeleccionados.contains(tipoElegido)) {
-                List<Renglon> renglonesDelTipo = renglonesPorTipo.get(tipoElegido);
-                Renglon renglonSeleccionado = renglonesDelTipo.get(random.nextInt(renglonesDelTipo.size()));
-                seleccionados.add(renglonSeleccionado);
-                tiposSeleccionados.add(tipoElegido);
+    for (String tipo : tipos.subList(0, 5)) {
+        // Seleccionar un renglon único para este tipo asegurando variedad de ingredientes
+        List<Renglon> renglonesDelTipo = renglonesPorTipo.get(tipo);
+        Collections.shuffle(renglonesDelTipo);
+
+        for (Renglon renglon : renglonesDelTipo) {
+            // Filtrar los renglones que contengan ingredientes seleccionados
+            boolean contieneIngredienteSeleccionado = renglon.getComida().getIngredientes().stream()
+                    .anyMatch(ingrediente -> listaIngredientesSeleccionados.stream()
+                            .anyMatch(selected -> selected.getIdIngrediente() == ingrediente.getIdIngrediente()));
+
+            if (contieneIngredienteSeleccionado) {
+                // Verificar que el ingrediente no se repita en los renglones seleccionados
+                boolean ingredienteUnico = seleccionados.stream()
+                        .noneMatch(r -> r.getComida().getIngredientes().stream()
+                                .anyMatch(ingrediente -> listaIngredientesSeleccionados.stream()
+                                        .anyMatch(selected -> selected.getIdIngrediente() == ingrediente.getIdIngrediente())));
+                if (ingredienteUnico) {
+                    seleccionados.add(renglon);
+                    break;
+                }
             }
         }
-
-        return seleccionados;
     }
+
+    if (seleccionados.size() < 5) {
+        JOptionPane.showMessageDialog(this,
+                "No fue posible encontrar 5 renglones con ingredientes únicos.",
+                "Faltan Renglones",
+                JOptionPane.WARNING_MESSAGE);
+        throw new IllegalStateException("No fue posible encontrar 5 renglones con ingredientes únicos.");
+    }
+
+    return seleccionados;
+    }
+
+    
+    private Double calcularCaloriasTotales(List<Renglon> renglones) {
+    return renglones.stream()
+            .mapToDouble(Renglon::getSubTotalCalorias)
+            .sum();
+}
+
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;

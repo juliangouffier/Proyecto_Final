@@ -40,7 +40,6 @@ public class ListaDeComidas extends javax.swing.JInternalFrame {
         modelo = new DefaultTableModel();
         comidaData = new ComidaData();
         ingredienteData = new IngredienteData();
-        listaComidas = comidaData.listaDeComidas();
         cabeceradeTabla();
         cargarTabla();
     }
@@ -149,7 +148,7 @@ public class ListaDeComidas extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jbAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbAgregarActionPerformed
-        FormularioComida formularioComida = new FormularioComida(comida);
+        FormularioComida formularioComida = new FormularioComida(comida,this);
         menuPrincipal.jDesktopPane1.add(formularioComida);
         formularioComida.moveToFront();
         formularioComida.setVisible(true);
@@ -167,7 +166,7 @@ public class ListaDeComidas extends javax.swing.JInternalFrame {
             String detalle = jtComidas.getValueAt(filaElegida, 4).toString();
             List<Ingrediente> ingredientes = ingredienteData.ingredientesDeUnaComida(id);
             comida2 = new Comida (id,nombre,calorias,tipo,detalle,ingredientes);
-            FormularioComida formularioComida = new FormularioComida(comida2);
+            FormularioComida formularioComida = new FormularioComida(comida2,this);
             menuPrincipal.jDesktopPane1.add(formularioComida);
             formularioComida.moveToFront();
             formularioComida.setVisible(true);
@@ -210,9 +209,17 @@ public class ListaDeComidas extends javax.swing.JInternalFrame {
         jtComidas.setModel(modelo);
     }
 
-    private void cargarTabla() {
+    public void cargarTabla() {
+        listaComidas = comidaData.listaDeComidas();
         for (Comida c : listaComidas) {
             modelo.addRow(new Object[]{c.getIdComida(), c.getNomComida(), c.getTipo(), c.getCaloriasPor100Grm(), c.getDetalle(), c.getIngredientes()});
+        }
+    }
+    
+    public void limpiarTabla() {
+        int indice = modelo.getRowCount() - 1;
+        for (int i = indice; i >= 0; i--) {
+            modelo.removeRow(i);
         }
     }
     

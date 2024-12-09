@@ -6,9 +6,12 @@ package nutricionista.vistas;
 
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import nutricionista.accesoDatos.RenglonData;
+import nutricionista.entidades.Ingrediente;
 import nutricionista.entidades.Renglon;
 
 /**
@@ -26,7 +29,6 @@ public class ListaDeRenglones extends javax.swing.JInternalFrame {
         initComponents();
         modelo = new DefaultTableModel();
         renglonData = new RenglonData();
-        listaRenglones = renglonData.traerRenglones();
         cabeceradeTabla();
         cargarTabla();
     }
@@ -45,6 +47,8 @@ public class ListaDeRenglones extends javax.swing.JInternalFrame {
         jtRenglon = new javax.swing.JTable();
         jbSalir = new javax.swing.JButton();
         jbNuevo = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
 
         setPreferredSize(new java.awt.Dimension(621, 438));
 
@@ -79,25 +83,46 @@ public class ListaDeRenglones extends javax.swing.JInternalFrame {
             }
         });
 
+        jButton1.setText("Modificar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        jButton2.setText("Eliminar");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(36, 36, 36)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 826, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(ListaDeIngredientes, javax.swing.GroupLayout.DEFAULT_SIZE, 886, Short.MAX_VALUE)
+                    .addComponent(ListaDeIngredientes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jbNuevo)
-                        .addGap(367, 367, 367)
-                        .addComponent(jbSalir)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jbNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton1)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton2)
+                        .addGap(252, 252, 252)
+                        .addComponent(jbSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addGap(14, 14, 14)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 826, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(14, Short.MAX_VALUE))
         );
+
+        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jButton1, jButton2, jbNuevo, jbSalir});
+
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
@@ -105,10 +130,12 @@ public class ListaDeRenglones extends javax.swing.JInternalFrame {
                 .addComponent(ListaDeIngredientes)
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 112, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jbSalir)
-                    .addComponent(jbNuevo))
+                    .addComponent(jbNuevo)
+                    .addComponent(jButton1)
+                    .addComponent(jButton2))
                 .addContainerGap())
         );
 
@@ -116,7 +143,7 @@ public class ListaDeRenglones extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jbNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbNuevoActionPerformed
-        FormularioRenglon formularioRenglon = new FormularioRenglon();
+        FormularioRenglon formularioRenglon = new FormularioRenglon(this);
         menuPrincipal.jDesktopPane1.add(formularioRenglon);
         formularioRenglon.moveToFront();
         formularioRenglon.setVisible(true);
@@ -126,6 +153,68 @@ public class ListaDeRenglones extends javax.swing.JInternalFrame {
     private void jbSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbSalirActionPerformed
         this.dispose();
     }//GEN-LAST:event_jbSalirActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        int filaElegida = jtRenglon.getSelectedRow();
+        if (filaElegida != -1) {
+            Object[] opciones = {"Sí", "No"};
+            int confirmacion = JOptionPane.showOptionDialog(
+                this,
+                "¿Desea eliminar el renglon seleccionado?",
+                "Confirmación de eliminación",
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.QUESTION_MESSAGE,
+                null,
+                opciones, 
+                opciones[0] 
+            );
+
+            if (confirmacion == JOptionPane.YES_OPTION) {
+                try {
+                    int idRenglon = Integer.parseInt(jtRenglon.getValueAt(filaElegida, 0).toString());
+                    renglonData.bajaRenglon(idRenglon);
+                    this.limpiarTabla();
+                    this.cargarTabla(); 
+                } catch (NumberFormatException | NullPointerException ex) {
+                    JOptionPane.showMessageDialog(
+                        this,
+                        "Error al procesar la información del ingrediente: " + ex.getMessage(),
+                        "Error",
+                        JOptionPane.ERROR_MESSAGE
+                    );
+                }
+            }
+        } else {
+            JOptionPane.showMessageDialog(
+                this,
+                "Debe seleccionar un renglon para eliminar.",
+                "Advertencia",
+                JOptionPane.WARNING_MESSAGE
+            );
+        }
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        int filaElegida = jtRenglon.getSelectedRow();
+        if (filaElegida != -1) {
+            int idRenglon = Integer.parseInt(jtRenglon.getValueAt(filaElegida, 0).toString());
+            String comida = String.valueOf(jtRenglon.getValueAt(filaElegida, 1).toString());
+            Double cantidadGramos = Double.parseDouble(jtRenglon.getValueAt(filaElegida, 2).toString());
+            ModificarRenglon jframe = new ModificarRenglon(this, idRenglon, comida, cantidadGramos);
+            jframe.setSize(423, 325);
+            jframe.setLocationRelativeTo(null);
+            jframe.setVisible(true);
+            jframe.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        } else {
+            JOptionPane.showMessageDialog(
+                this,
+                "Debe seleccionar un renglon para modificar.",
+                "Advertencia",
+                JOptionPane.WARNING_MESSAGE
+            );
+        }
+
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     private void cabeceradeTabla() {
         ArrayList<Object> cabecera = new ArrayList<>();
@@ -139,14 +228,24 @@ public class ListaDeRenglones extends javax.swing.JInternalFrame {
         jtRenglon.setModel(modelo);
     }
 
-    private void cargarTabla() {
+    public void cargarTabla() {
+        listaRenglones = renglonData.traerRenglones();
         for (Renglon i : listaRenglones) {
             modelo.addRow(new Object[]{i.getNumRenglon(), i.getComida(), i.getCantGrm(), i.getSubTotalCalorias()});
         }
     }
     
+    public void limpiarTabla() {
+        int indice = modelo.getRowCount() - 1;
+        for (int i = indice; i >= 0; i--) {
+            modelo.removeRow(i);
+        }
+    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel ListaDeIngredientes;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton jbNuevo;
     private javax.swing.JButton jbSalir;
