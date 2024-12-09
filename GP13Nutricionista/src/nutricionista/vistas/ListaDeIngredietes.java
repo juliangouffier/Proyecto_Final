@@ -175,9 +175,9 @@ public class ListaDeIngredietes extends javax.swing.JInternalFrame {
                 "Confirmación de eliminación",
                 JOptionPane.YES_NO_OPTION,
                 JOptionPane.QUESTION_MESSAGE,
-                null, // Icono personalizado (null para el predeterminado)
-                opciones, // Botones personalizados
-                opciones[0] // Botón predeterminado
+                null,
+                opciones,
+                opciones[0] 
             );
 
             if (confirmacion == JOptionPane.YES_OPTION) {
@@ -186,11 +186,11 @@ public class ListaDeIngredietes extends javax.swing.JInternalFrame {
                     String nombreIngrediente = jtIngredientes.getValueAt(filaElegida, 1).toString();
                     Ingrediente ingrediente = new Ingrediente(idIngrediente, nombreIngrediente);
 
-                    ingredienteData.eliminarIngrediente(ingrediente); // Método para eliminar el ingrediente de la BD
+                    ingredienteData.eliminarIngrediente(ingrediente);
 
-                    ingrediente = null; // Limpiamos la referencia
-                    this.limpioTabla(); // Limpia la tabla actual
-                    this.cargarTabla(); // Recarga la tabla actualizada
+                    ingrediente = null; 
+                    this.limpioTabla();
+                    this.cargarTabla();
                 } catch (NumberFormatException | NullPointerException ex) {
                     JOptionPane.showMessageDialog(
                         this,

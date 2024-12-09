@@ -252,8 +252,6 @@ public class RenglonData {
             if (rs.next()) {
                 throw new Exception("Ya existe el renglon con los mismos datos ingresados.");
             }
-
-            // Cerrar ResultSet y PreparedStatement
             rs.close();
             ps.close();
         } catch (SQLException e) {
@@ -277,33 +275,21 @@ public class RenglonData {
         }
      }
      
-     /*public Boolean renglonEstaAsociadoAMenu(int idRenglon){
-         try {
-            String sql = "SELECT * FROM menu_tiene_renglon mtr "
-                    + "JOIN renglon r on r.nro_renglon = mtr.id_renglon "
-                    + "JOIN dieta_tiene_menu dtm on dtm.id_menu = mtr.id_menu "
-                    + "JOIN dieta d on d.id_dieta = dtm.id_dieta"
-                    + "WHERE r.nro_renglon= ? AND d = ? AND mtr.estado = 1";
-            PreparedStatement ps = conection.prepareStatement(sql);
-            ps.setInt(1, menuId);
-            ps.setInt(2, renglonActual);
-            ps.executeUpdate();
-            
+     public void modificarRenglon(int idRenglon, Double cantidadGramos, Double calculoTotalCalorias) {
+        String modificar = "UPDATE `renglon` SET `cantidad_gramos`= ?, sub_total_calorias=? WHERE `nro_renglon`= ?";
             try {
-                String sqlInsert = "INSERT INTO menu_tiene_renglon (id_menu, id_renglon, estado) VALUES (?, ?, ?)";
-                PreparedStatement ps1 = conection.prepareStatement(sqlInsert);
-                ps1.setInt(1, menuId);
-                ps1.setInt(2, renglonFinal);
-                ps1.setInt(3, 1);
-                ps1.executeUpdate();
-            } catch (SQLException eq){
-                eq.printStackTrace();
-                System.out.println("Fallo el insert del neuvo renglon.");
+                PreparedStatement ps = conection.prepareStatement(modificar);
+                ps.setDouble(1, cantidadGramos);
+                ps.setDouble(2, calculoTotalCalorias);
+                ps.setInt(3, idRenglon);
+                int update = ps.executeUpdate();
+                if (update == 1) {
+                    JOptionPane.showMessageDialog(null, "Renglon modificado con exito");
+                }
+                ps.close();
+            } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(null, "Error al acceder a tabla Renglon (modificarRenglon)");
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
-            System.out.println("Fallo el update");
-        }
-     }*/
+    }
 
 }

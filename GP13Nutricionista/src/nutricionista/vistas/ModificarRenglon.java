@@ -4,6 +4,10 @@
  */
 package nutricionista.vistas;
 
+import javax.swing.JOptionPane;
+import nutricionista.accesoDatos.RenglonData;
+import nutricionista.entidades.Comida;
+
 /**
  *
  * @author gouff
@@ -13,16 +17,18 @@ public class ModificarRenglon extends javax.swing.JFrame {
     /**
      * Creates new form ModificarRenglon
      */
+    private static final double EPSILON = 0.000001; 
+    RenglonData rd = new RenglonData();
     ListaDeRenglones lista;
     int idRenglon;
-    String comida; Double cantidadGramos;
-    public ModificarRenglon(ListaDeRenglones lista, int idRenglon, String comida, Double cantidadGramos) {
+    Comida comida; Double cantidadGramos;
+    public ModificarRenglon(ListaDeRenglones lista, int idRenglon, Comida comida, Double cantidadGramos) {
         initComponents();
         this.idRenglon = idRenglon;
         this.comida = comida;
         this.cantidadGramos = cantidadGramos;
         this.lista = lista;
-        jTextField1.setText(comida);
+        jTextField1.setText(comida.getNomComida());
         jTextField2.setText(String.valueOf(cantidadGramos));
     }
 
@@ -61,6 +67,11 @@ public class ModificarRenglon extends javax.swing.JFrame {
         });
 
         jButton1.setText("Guardar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jButton2.setText("Salir");
 
@@ -128,6 +139,40 @@ public class ModificarRenglon extends javax.swing.JFrame {
                 evt.consume();
             }
     }//GEN-LAST:event_jTextField2KeyTyped
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        if(!this.jTextField2.getText().isBlank()){
+            Double cantidad = Double.parseDouble(jTextField2.getText());
+            if(Math.abs(cantidad - this.cantidadGramos) > EPSILON){
+                try {
+                    rd.controlarRenglonYComida(this.comida.getNomComida(), cantidad);
+                    Double calculoTotal = this.comida.getCaloriasPor100Grm() * (cantidad / 100);
+                    rd.modificarRenglon(idRenglon, cantidad,calculoTotal);
+                    lista.limpiarTabla();
+                    lista.cargarTabla();
+                this.setVisible(false);
+                } catch(Exception e) {
+                    e.printStackTrace();
+                    JOptionPane.showMessageDialog(
+                this,
+                e.getMessage(),
+                "Advertencia",
+                JOptionPane.WARNING_MESSAGE
+            );
+                }
+                this.setVisible(false);
+            } else {
+                this.setVisible(false);
+            }
+        } else {
+            JOptionPane.showMessageDialog(
+                this,
+                "Debe ingresar una cantidad",
+                "Advertencia",
+                JOptionPane.WARNING_MESSAGE
+            );
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     
 

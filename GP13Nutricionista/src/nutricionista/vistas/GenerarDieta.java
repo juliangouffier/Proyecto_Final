@@ -535,7 +535,8 @@ public class GenerarDieta extends javax.swing.JFrame {
             dieta.setFechaInicio(fechaInicio.getDate());
             dieta.setFechaFin(fechaFin.getDate());
             dieta.setPesoInicial(paciente.getPesoActual());
-            ElegirIngredientesAutoGeneracion jframe = new ElegirIngredientesAutoGeneracion(dieta);
+            dieta.setPesoBuscado(paciente.getPesoBuscado());
+            ElegirIngredientesAutoGeneracion jframe = new ElegirIngredientesAutoGeneracion(dieta, this);
             jframe.setSize(422, 333);
             jframe.setLocationRelativeTo(null);
             jframe.setVisible(true);

@@ -46,9 +46,11 @@ public class ElegirIngredientesAutoGeneracion extends javax.swing.JFrame {
     ComidaData comidaData;
     RenglonData renglonData;
     MenuData menuData;
-    public ElegirIngredientesAutoGeneracion(Dieta dieta) {
+    GenerarDieta gen;
+    public ElegirIngredientesAutoGeneracion(Dieta dieta, GenerarDieta generarDieta) {
         initComponents();
         this.dieta = dieta;
+        this.gen = generarDieta;
         this.ingredienteData = new IngredienteData();
         inicializarTabla();
         dietaData = new DietaData();
@@ -198,7 +200,7 @@ public class ElegirIngredientesAutoGeneracion extends javax.swing.JFrame {
                 } else {
                     canPass = false;
                     JOptionPane.showMessageDialog(this,
-                "Necesita seleccionar al menos 3 ingredientes.",
+                "Necesita seleccionar como maximo 3 ingredientes.",
                 "Seleccion Necesaria",
                 JOptionPane.WARNING_MESSAGE);
                 }
@@ -215,17 +217,16 @@ public class ElegirIngredientesAutoGeneracion extends javax.swing.JFrame {
                     listaIngredientesSeleccionados.add(ingrediente);
                 }
                autoGenerarDieta(dieta,listaIngredientesSeleccionados); 
+               gen.setVisible(false);
             }
         }
     }//GEN-LAST:event_jButton2ActionPerformed
 
     public void autoGenerarDieta(Dieta dieta, List<Ingrediente> listaIngredientesSeleccionados) {
-    // Aleatorizar días y seleccionar una cantidad aleatoria (3-7 días)
     Collections.shuffle(dias);
     Random random = new Random();
     int cantidadDias = random.nextInt(5) + 3;
 
-    // Obtener los días aleatorios seleccionados
     List<String> diasAleatorios = dias.subList(0, cantidadDias);
     List<Renglon> renglones = renglonData.traerRenglones();
 
@@ -235,25 +236,19 @@ public class ElegirIngredientesAutoGeneracion extends javax.swing.JFrame {
     for (String dia : diasAleatorios) {
         Menu menu = new Menu();
         menu.setDia(dia.toUpperCase());
-
-        // Generar los renglones del menú asegurando variedad de tipos e ingredientes
         List<Renglon> renglonesMenu = seleccionarRenglonesPorTipoEIngrediente(renglones,listaIngredientesSeleccionados);
         Double caloriasMenu = calcularCaloriasTotales(renglonesMenu);
         totalCaloriasMenues += caloriasMenu;
 
-        // Configurar el menú y persistir
         menu.setCaloriasDelMenu(caloriasMenu);
         menu = menuData.cargarMenu(menu);
 
-        // Relacionar renglones con el menú
         List<Integer> renglonIds = renglonesMenu.stream()
                 .map(Renglon::getNumRenglon)
                 .collect(Collectors.toList());
         renglonData.cargarMenuTieneRenglon(renglonIds, menu.getIdMenu());
         menues.add(menu.getIdMenu());
     }
-
-    // Persistir la dieta y relacionar menús
     dieta.setTotalCalorias(totalCaloriasMenues);
     dieta = dietaData.cargarDieta(dieta);
     dietaData.cargarDietaTieneMenues(menues, dieta.getIdDieta());
@@ -355,7 +350,6 @@ public class ElegirIngredientesAutoGeneracion extends javax.swing.JFrame {
     }
 }
     public List<Renglon> seleccionarRenglonesPorTipoEIngrediente(List<Renglon> renglones, List<Ingrediente> listaIngredientesSeleccionados) {
-    // Agrupa los renglones por tipo
     Map<String, List<Renglon>> renglonesPorTipo = renglones.stream()
             .collect(Collectors.groupingBy(r -> r.getComida().getTipo()));
 
@@ -369,23 +363,16 @@ public class ElegirIngredientesAutoGeneracion extends javax.swing.JFrame {
     Collections.shuffle(tipos);
 
     for (String tipo : tipos.subList(0, 5)) {
-        // Seleccionar un renglon único para este tipo asegurando variedad de ingredientes
         List<Renglon> renglonesDelTipo = renglonesPorTipo.get(tipo);
         Collections.shuffle(renglonesDelTipo);
 
         for (Renglon renglon : renglonesDelTipo) {
-            // Filtrar los renglones que contengan ingredientes seleccionados
             boolean contieneIngredienteSeleccionado = renglon.getComida().getIngredientes().stream()
                     .anyMatch(ingrediente -> listaIngredientesSeleccionados.stream()
-                            .anyMatch(selected -> selected.getIdIngrediente() == ingrediente.getIdIngrediente()));
+                            .anyMatch(selected -> selected.getNomIngrediente().equalsIgnoreCase(ingrediente.getNomIngrediente())));
 
             if (contieneIngredienteSeleccionado) {
-                // Verificar que el ingrediente no se repita en los renglones seleccionados
-                boolean ingredienteUnico = seleccionados.stream()
-                        .noneMatch(r -> r.getComida().getIngredientes().stream()
-                                .anyMatch(ingrediente -> listaIngredientesSeleccionados.stream()
-                                        .anyMatch(selected -> selected.getIdIngrediente() == ingrediente.getIdIngrediente())));
-                if (ingredienteUnico) {
+                if (true) {
                     seleccionados.add(renglon);
                     break;
                 }

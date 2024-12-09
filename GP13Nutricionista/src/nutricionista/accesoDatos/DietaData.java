@@ -28,7 +28,7 @@ public class DietaData {
     }
     
     public void modificarDieta(Dieta dieta){
-        String modificar = "UPDATE `dieta` SET `nombre`=?, `fecha_inicio`=?, `fecha_fin`=?, `id_paciente`=?, `peso_inicial`=?, `peso_final`=?, `total_calorias`=? WHERE `id_dieta`=?";
+        String modificar = "UPDATE `dieta` SET `nombre`=?, `fecha_inicio`=?, `fecha_fin`=?, `id_paciente`=?, `peso_inicial`=?, `peso_final`=?, `total_calorias`=?, `peso_buscado` = ? WHERE `id_dieta`=?";
         
         try {
             PreparedStatement ps= conection.prepareStatement(modificar);
@@ -48,7 +48,8 @@ public class DietaData {
             } else {
                 ps.setNull(7, java.sql.Types.DOUBLE);
             }
-            ps.setInt(8,dieta.getIdDieta());
+            ps.setDouble(8,dieta.getPesoBuscado());
+            ps.setInt(9,dieta.getIdDieta());
             int filas_actualiz=ps.executeUpdate();
             
             if(filas_actualiz == 1){
@@ -131,6 +132,7 @@ public class DietaData {
                 dieta.setPaciente(paciente);
                 dieta.setPesoInicial(rs.getDouble("peso_inicial"));
                 dieta.setTotalCalorias(rs.getDouble("total_calorias"));
+                dieta.setPesoBuscado(rs.getDouble("peso_buscado"));
             }
             ps.close();
             return dieta;

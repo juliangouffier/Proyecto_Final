@@ -64,17 +64,41 @@ public class CrearPaciente extends javax.swing.JFrame {
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel3.setText("Edad:");
 
+        edadText.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                edadTextKeyTyped(evt);
+            }
+        });
+
         jLabel4.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel4.setText("Altura:");
+
+        alturaText.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                alturaTextKeyTyped(evt);
+            }
+        });
 
         jLabel5.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel5.setText("Peso actual:");
 
+        pesoActualText.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                pesoActualTextKeyTyped(evt);
+            }
+        });
+
         jLabel6.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel6.setText("Peso buscado:");
+
+        pesoBuscadoText.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                pesoBuscadoTextKeyTyped(evt);
+            }
+        });
 
         jbGuardar.setText("Guardar");
         jbGuardar.addActionListener(new java.awt.event.ActionListener() {
@@ -210,6 +234,46 @@ public class CrearPaciente extends javax.swing.JFrame {
         // TODO add your handling code here:
         this.setVisible(false);
     }//GEN-LAST:event_jbCancelarActionPerformed
+
+    private void edadTextKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_edadTextKeyTyped
+        char c = evt.getKeyChar();
+        String text = edadText.getText();
+        if (!Character.isDigit(c) && c != '.') {
+            evt.consume(); 
+        } else if (c == '.' && text.contains(".")) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_edadTextKeyTyped
+
+    private void alturaTextKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_alturaTextKeyTyped
+        char c = evt.getKeyChar();
+        String text = alturaText.getText();
+        if (!Character.isDigit(c) && c != '.') {
+            evt.consume(); 
+        } else if (c == '.' && text.contains(".")) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_alturaTextKeyTyped
+
+    private void pesoActualTextKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_pesoActualTextKeyTyped
+        char c = evt.getKeyChar();
+        String text = pesoActualText.getText();
+        if (!Character.isDigit(c) && c != '.') {
+            evt.consume(); 
+        } else if (c == '.' && text.contains(".")) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_pesoActualTextKeyTyped
+
+    private void pesoBuscadoTextKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_pesoBuscadoTextKeyTyped
+        char c = evt.getKeyChar();
+        String text = pesoBuscadoText.getText();
+        if (!Character.isDigit(c) && c != '.') {
+            evt.consume(); 
+        } else if (c == '.' && text.contains(".")) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_pesoBuscadoTextKeyTyped
 
     private boolean validarCampos(){
         boolean flagError = false;

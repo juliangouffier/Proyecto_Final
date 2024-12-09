@@ -144,10 +144,8 @@ public class menuPrincipal extends javax.swing.JFrame {
         jDesktopPane1.repaint();
 
         FormularioPaciente vistaPac = new FormularioPaciente();
-
-        // Ajusta el ancho y centra el formulario
         int ancho = jDesktopPane1.getWidth();
-        int alto = vistaPac.getHeight();  // Mantén la altura del formulario o ajusta según necesites
+        int alto = vistaPac.getHeight();  
 
         vistaPac.setSize(ancho, alto);
 

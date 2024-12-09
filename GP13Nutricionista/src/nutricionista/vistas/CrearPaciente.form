@@ -145,6 +145,9 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="edadText">
+          <Events>
+            <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="edadTextKeyTyped"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel4">
           <Properties>
@@ -156,6 +159,9 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="alturaText">
+          <Events>
+            <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="alturaTextKeyTyped"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel5">
           <Properties>
@@ -167,6 +173,9 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="pesoActualText">
+          <Events>
+            <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="pesoActualTextKeyTyped"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel6">
           <Properties>
@@ -178,6 +187,9 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="pesoBuscadoText">
+          <Events>
+            <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="pesoBuscadoTextKeyTyped"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="jbGuardar">
           <Properties>

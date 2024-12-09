@@ -338,6 +338,7 @@ public class FormularioComida extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jbQuitarActionPerformed
 
     private void jbGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbGuardarActionPerformed
+        // TODO valido que no exista ya la comida con ese tipo y cantidad gramos
         boolean flagError = false;
         String nombreComida = jtfNombreComida.getText();
         String tipo = (String) jcbTipo.getSelectedItem();

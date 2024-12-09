@@ -7,6 +7,7 @@ package nutricionista.vistas;
 import java.util.Date;
 import javax.swing.JOptionPane;
 import nutricionista.accesoDatos.DietaData;
+import nutricionista.accesoDatos.PacienteData;
 import nutricionista.entidades.Dieta;
 
 /**
@@ -21,8 +22,11 @@ public class FinalizarDieta extends javax.swing.JFrame {
     Dieta dieta;
     DietaData dietaData;
     VerDieta verDieta;
-    public FinalizarDieta(Dieta dieta,VerDieta verDieta) {
+    PacienteData pacData = new PacienteData();
+    FormularioPaciente forPac;
+    public FinalizarDieta(Dieta dieta,VerDieta verDieta,FormularioPaciente forPac) {
         initComponents();
+        this.forPac = forPac;
         this.verDieta = verDieta;
         this.dietaData = new DietaData();
         this.dieta = dieta;
@@ -173,6 +177,9 @@ public class FinalizarDieta extends javax.swing.JFrame {
             dieta.setFechaFin(new Date());
             dieta.setPesoFinal(Double.valueOf(pesoFinal.getText()));
             dietaData.modificarDieta(dieta);
+            // modifico el peso del paciente
+            pacData.actualizarPesoAct(dieta.getPesoFinal(), dieta.getPaciente().getIdPaciente());
+            forPac.actualizarListado();
             JOptionPane.showMessageDialog(null, "Dieta Finalizada con exito.", "Completado", JOptionPane.INFORMATION_MESSAGE);
             this.setVisible(false);
             this.verDieta.setVisible(false);

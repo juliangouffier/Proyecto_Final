@@ -319,7 +319,7 @@ public class FormularioPaciente extends javax.swing.JInternalFrame {
             // valido que posea una dieta 
             Dieta dieta = dietaData.pacientePoseeDieta((int) tablaPacientes.getValueAt(filaSeleccionada, 0));
             if (dieta != null) {
-                VerDieta jframe = new VerDieta(dieta);
+                VerDieta jframe = new VerDieta(dieta,this);
                 jframe.setSize(1200, 957);
                 jframe.setLocationRelativeTo(null);
                 jframe.setVisible(true);
@@ -327,15 +327,6 @@ public class FormularioPaciente extends javax.swing.JInternalFrame {
             } else {
                 JOptionPane.showMessageDialog(null, "El paciente seleccionado no posee una dieta activa.", "Advertencia", JOptionPane.WARNING_MESSAGE);
             }
-            System.out.println("DIETA " + dieta);
-            /*Paciente paciente = new Paciente(
-            (int) tablaPacientes.getValueAt(filaSeleccionada, 0),    
-            (String) tablaPacientes.getValueAt(filaSeleccionada, 1),
-            (int) tablaPacientes.getValueAt(filaSeleccionada, 2),
-            (double) tablaPacientes.getValueAt(filaSeleccionada, 3),
-            (double) tablaPacientes.getValueAt(filaSeleccionada, 4),
-            (double) tablaPacientes.getValueAt(filaSeleccionada, 5));*/
-
         } else {
             JOptionPane.showMessageDialog(null, "No hay ninguna fila seleccionada, seleccione un paciente para modificar.", "Advertencia", JOptionPane.WARNING_MESSAGE);
         }
@@ -375,7 +366,7 @@ public class FormularioPaciente extends javax.swing.JInternalFrame {
         modelo.addRow(fila);
     }
 
-    public void actualizarListado(Paciente paciente) {
+    public void actualizarListado() {
         List<Paciente> pacientesList = pacienteData.listarPacientes();
         pacientes = pacientesList;
         DefaultTableModel model = (DefaultTableModel) tablaPacientes.getModel();

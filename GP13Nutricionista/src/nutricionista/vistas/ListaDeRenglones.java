@@ -11,6 +11,7 @@ import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import nutricionista.accesoDatos.RenglonData;
+import nutricionista.entidades.Comida;
 import nutricionista.entidades.Ingrediente;
 import nutricionista.entidades.Renglon;
 
@@ -198,7 +199,7 @@ public class ListaDeRenglones extends javax.swing.JInternalFrame {
         int filaElegida = jtRenglon.getSelectedRow();
         if (filaElegida != -1) {
             int idRenglon = Integer.parseInt(jtRenglon.getValueAt(filaElegida, 0).toString());
-            String comida = String.valueOf(jtRenglon.getValueAt(filaElegida, 1).toString());
+            Comida comida = (Comida) jtRenglon.getValueAt(filaElegida, 1);
             Double cantidadGramos = Double.parseDouble(jtRenglon.getValueAt(filaElegida, 2).toString());
             ModificarRenglon jframe = new ModificarRenglon(this, idRenglon, comida, cantidadGramos);
             jframe.setSize(423, 325);

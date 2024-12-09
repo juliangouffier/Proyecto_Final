@@ -233,7 +233,7 @@ public class ModificarPaciente extends javax.swing.JFrame {
                 pacienteData.modificarPaciente(paciente);
             } catch (Exception ex) {
             }
-            this.form.actualizarListado(paciente);
+            this.form.actualizarListado();
             nombreText.setText("");
             alturaText.setText("");
             edadText.setText("");
